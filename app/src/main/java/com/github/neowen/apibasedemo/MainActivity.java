@@ -2,6 +2,7 @@ package com.github.neowen.apibasedemo;
 
 import com.github.neowen.apibasedemo.design.DesignListActivity;
 import com.github.neowen.apibasedemo.support.SupportListA;
+import com.github.neowen.apibasedemo.view.ViewListActivity;
 
 public class MainActivity extends ApiItemListActivity {
 
@@ -12,6 +13,9 @@ public class MainActivity extends ApiItemListActivity {
         mApiItems.add(apiItem);
 
         apiItem = new ApiItem("Design", DesignListActivity.class);
+        mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("View", ViewListActivity.class);
         mApiItems.add(apiItem);
     }
 
