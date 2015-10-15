@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".support.SupportListA" />
         <activity android:name=".support.ViewDragHelperA" />
 
     </application>
