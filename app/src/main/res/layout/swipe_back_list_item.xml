@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.github.neowen.apibasedemo.design.SwipeBackLayout
+        android:id="@+id/swipe_back_group"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/md_green_400"
+            android:gravity="center_vertical|left"
+            android:text="I am google!"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_bg"
+            android:gravity="center_vertical|left"
+            android:text="swipe back"
+            android:textSize="22sp" />
+
+    </com.github.neowen.apibasedemo.design.SwipeBackLayout>
+</FrameLayout>

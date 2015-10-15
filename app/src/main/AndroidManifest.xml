@@ -19,6 +19,8 @@
 
         <activity android:name=".support.SupportListA" />
         <activity android:name=".support.ViewDragHelperA" />
+        <activity android:name=".design.DesignListActivity" />
+        <activity android:name=".design.SwipeBackActivity" />
 
     </application>
 

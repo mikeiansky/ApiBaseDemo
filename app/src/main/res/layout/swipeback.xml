@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.github.neowen.apibasedemo.design.SwipeBackLayout
+        android:id="@+id/swipeback"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="20dp"
+        android:background="@color/md_yellow_400">
+
+        <TextView
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/md_green_400"
+            android:gravity="center_vertical|left"
+            android:text="I am google!"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_bg"
+            android:gravity="center_vertical|left"
+            android:text="swipe back"
+            android:textSize="22sp" />
+
+    </com.github.neowen.apibasedemo.design.SwipeBackLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/md_grey_200" />
+
+    <ListView
+        android:id="@+id/swipelayout_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
