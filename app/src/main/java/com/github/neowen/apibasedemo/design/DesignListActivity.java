@@ -12,7 +12,7 @@ public class DesignListActivity extends ApiItemListActivity {
     protected void addApiItemData() {
         super.addApiItemData();
 
-        ApiItem apiItem = new ApiItem("swipeBack", SwipeBackActivity.class);
+        ApiItem apiItem = new ApiItem("SwipeBack", SwipeBackActivity.class);
         mApiItems.add(apiItem);
     }
 }
