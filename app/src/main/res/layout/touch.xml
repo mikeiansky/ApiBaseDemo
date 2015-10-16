@@ -7,6 +7,25 @@
     <com.github.neowen.apibasedemo.view.TouchLayout
         android:layout_width="300dp"
         android:layout_height="100dp"
-        android:background="@color/md_amber_100" />
+        android:background="@color/md_amber_100">
+
+        <ImageView
+            android:id="@+id/touch_child"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:background="@color/md_pink_300" />
+
+    </com.github.neowen.apibasedemo.view.TouchLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/md_grey_100" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
 
 import com.github.neowen.apibasedemo.common.DebugUtils;
@@ -17,6 +18,9 @@ import com.github.neowen.apibasedemo.common.DebugUtils;
 public class TouchLayout extends FrameLayout {
 
     public static final String TAG = TouchLayout.class.getSimpleName();
+
+    float mTouchSlop;
+    float mLastTouchX;
 
     public TouchLayout(Context context) {
         super(context);
@@ -40,20 +44,36 @@ public class TouchLayout extends FrameLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (DebugUtils.debug) {
-                    Log.d(TAG, "onTouch --> action : " + event.getAction());
+        ViewConfiguration vc = ViewConfiguration.get(context);
+        mTouchSlop = vc.getScaledTouchSlop();
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
+        if (DebugUtils.debug) {
+            Log.d(TAG, "onInterceptTouchEvent action : " + action);
+        }
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                mLastTouchX = ev.getX();
+                onTouchEvent(ev);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float cx = ev.getX();
+                if (Math.abs(cx - mLastTouchX) > mTouchSlop) {
+                    return true;
                 }
-                return false;
-            }
-        });
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+
+        return false;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-//        boolean result = super.onTouchEvent(event);
         int action = event.getAction();
         if (DebugUtils.debug) {
             Log.d(TAG, "onTouchEvent action : " + action);
