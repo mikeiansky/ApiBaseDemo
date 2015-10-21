@@ -18,6 +18,9 @@ public class AnimationListActivity extends ApiItemListActivity {
         super.addApiItemData();
         ApiItem apiItem = new ApiItem("ViewPropertyAnimator", ViewPropertyAnimatorActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("DrawableAnimation", DrawableAnimationActivity.class);
+        mApiItems.add(apiItem);
     }
 
 }
