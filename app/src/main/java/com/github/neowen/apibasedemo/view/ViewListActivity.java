@@ -24,10 +24,14 @@ public class ViewListActivity extends ApiItemListActivity {
     @Override
     protected void addApiItemData() {
         super.addApiItemData();
+
         ApiItem apiItem = new ApiItem("Touch", TouchActivity.class);
         mApiItems.add(apiItem);
 
         apiItem = new ApiItem("ListView Animation(Base)", ListViewAnimationActivity.class);
+        mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Empty ListView", EmptyListViewActivity.class);
         mApiItems.add(apiItem);
     }
 
