@@ -3,6 +3,7 @@ package com.github.neowen.apibasedemo;
 import com.github.neowen.apibasedemo.animation.AnimationListActivity;
 import com.github.neowen.apibasedemo.design.DesignListActivity;
 import com.github.neowen.apibasedemo.media.MediaListActivity;
+import com.github.neowen.apibasedemo.performance.PerformanceListActivity;
 import com.github.neowen.apibasedemo.support.SupportListA;
 import com.github.neowen.apibasedemo.view.ViewListActivity;
 
@@ -25,6 +26,9 @@ public class MainActivity extends ApiItemListActivity {
         mApiItems.add(apiItem);
 
         apiItem = new ApiItem("Media", MediaListActivity.class);
+        mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Performance", PerformanceListActivity.class);
         mApiItems.add(apiItem);
     }
 
