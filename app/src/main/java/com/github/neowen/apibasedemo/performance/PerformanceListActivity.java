@@ -14,5 +14,8 @@ public class PerformanceListActivity extends ApiItemListActivity {
         ApiItem apiItem = new ApiItem("Memory", MemoryActivity.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("Message", MessageActivity.class);
+        mApiItems.add(apiItem);
+
     }
 }

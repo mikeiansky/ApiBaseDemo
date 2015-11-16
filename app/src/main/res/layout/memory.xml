@@ -7,42 +7,57 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/show_memory"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="memory" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/add_bitmap"
+            <Button
+                android:id="@+id/show_memory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="memory" />
+
+            <Button
+                android:id="@+id/add_bitmap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="add" />
+
+            <Button
+                android:id="@+id/show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="show" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="add" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/show"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="show" />
+            <Button
+                android:id="@+id/recycle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="recycle" />
 
-        <Button
-            android:id="@+id/recycle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="recycle" />
+            <Button
+                android:id="@+id/recycle_last"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="recycle last" />
 
-        <Button
-            android:id="@+id/recycle_last"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="recycle last" />
+            <Button
+                android:id="@+id/load_thread"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="load thread" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
