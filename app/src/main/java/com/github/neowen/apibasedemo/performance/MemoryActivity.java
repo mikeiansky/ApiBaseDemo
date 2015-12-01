@@ -71,6 +71,13 @@ public class MemoryActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {

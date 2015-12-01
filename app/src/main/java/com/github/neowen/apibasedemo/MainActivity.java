@@ -1,6 +1,10 @@
 package com.github.neowen.apibasedemo;
 
+import android.util.Log;
+import android.util.SparseArray;
+
 import com.github.neowen.apibasedemo.animation.AnimationListActivity;
+import com.github.neowen.apibasedemo.common.DebugUtils;
 import com.github.neowen.apibasedemo.design.DesignListActivity;
 import com.github.neowen.apibasedemo.media.MediaListActivity;
 import com.github.neowen.apibasedemo.performance.PerformanceListActivity;
@@ -32,4 +36,19 @@ public class MainActivity extends ApiItemListActivity {
         mApiItems.add(apiItem);
     }
 
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if(DebugUtils.debug){
+            Log.d(TAG, "onTrimMemory --> : " +level);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(DebugUtils.debug){
+            Log.d(TAG, "onDestroy -->");
+        }
+    }
 }

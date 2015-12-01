@@ -17,5 +17,8 @@ public class PerformanceListActivity extends ApiItemListActivity {
         apiItem = new ApiItem("Message", MessageActivity.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("MemoryLeak", MemoryLeakActivity.class);
+        mApiItems.add(apiItem);
+
     }
 }

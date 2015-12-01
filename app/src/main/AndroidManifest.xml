@@ -37,6 +37,7 @@
         <activity android:name=".performance.PerformanceListActivity"/>
         <activity android:name=".performance.MemoryActivity"/>
         <activity android:name=".performance.MessageActivity"/>
+        <activity android:name=".performance.MemoryLeakActivity"/>
 
     </application>
 
