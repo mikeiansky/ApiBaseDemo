@@ -1,6 +1,5 @@
 package com.github.neowen.apibasedemo.view;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +25,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
     public static final String TAG = RecyclerViewActivity.class.getSimpleName();
 
-    ArrayList<Item> mData;
+    ArrayList<ListItem> mData;
     MyAdapter mMyAdapter;
 
     @Bind(R.id.recyclerview)
@@ -50,26 +49,13 @@ public class RecyclerViewActivity extends AppCompatActivity {
     private void initData() {
         mData = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            Item item = new Item(i % 3);
+            ListItem item = new ListItem((int) ((Math.random() * 3000) % 3));
             item.mTitle = "position : " + i;
             mData.add(item);
+
         }
     }
 
-    class Item {
-
-        public static final int RED = 0;
-        public static final int GREEN = 1;
-        public static final int BLUE = 2;
-
-        public int mViewType;
-        public String mTitle;
-
-        public Item(int viewType) {
-            mViewType = viewType;
-        }
-
-    }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -80,13 +66,13 @@ public class RecyclerViewActivity extends AppCompatActivity {
         public MyViewHolder(View itemView, int viewType) {
             super(itemView);
             switch (viewType) {
-                case Item.RED:
+                case ListItem.RED:
                     findRedView();
                     break;
-                case Item.GREEN:
+                case ListItem.GREEN:
                     findGreenView();
                     break;
-                case Item.BLUE:
+                case ListItem.BLUE:
                     findBlueView();
                     break;
             }
@@ -113,7 +99,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 //                Log.d(TAG, "getItemViewType position : " + position);
 //            }
             if (mData == null) {
-                return Item.RED;
+                return ListItem.RED;
             }
             return mData.get(position).mViewType;
         }
@@ -126,15 +112,15 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
             View view = null;
             switch (viewType) {
-                case Item.RED:
+                case ListItem.RED:
                     view = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.recyclerview_item_red, parent, false);
                     break;
-                case Item.GREEN:
+                case ListItem.GREEN:
                     view = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.recyclerview_item_green, parent, false);
                     break;
-                case Item.BLUE:
+                case ListItem.BLUE:
                     view = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.recyclerview_item_blue, parent, false);
                     break;
@@ -150,13 +136,13 @@ public class RecyclerViewActivity extends AppCompatActivity {
 //            }
             int viewType = getItemViewType(position);
             switch (viewType) {
-                case Item.RED:
+                case ListItem.RED:
                     bindRedViewHolder(holder, position);
                     break;
-                case Item.GREEN:
+                case ListItem.GREEN:
                     bindGreenViewHolder(holder, position);
                     break;
-                case Item.BLUE:
+                case ListItem.BLUE:
                     bindBlueViewHolder(holder, position);
                     break;
             }

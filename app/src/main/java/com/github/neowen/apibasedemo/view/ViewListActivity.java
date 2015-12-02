@@ -36,6 +36,9 @@ public class ViewListActivity extends ApiItemListActivity {
 
         apiItem = new ApiItem("RecyclerView", RecyclerViewActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Multiple ViewType ListView", MultipleViewTypeListViewActivity.class);
+        mApiItems.add(apiItem);
     }
 
 }
