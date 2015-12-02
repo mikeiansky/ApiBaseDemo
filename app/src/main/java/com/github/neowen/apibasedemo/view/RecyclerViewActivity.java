@@ -2,8 +2,10 @@ package com.github.neowen.apibasedemo.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +44,12 @@ public class RecyclerViewActivity extends AppCompatActivity {
         if (DebugUtils.debug) {
             Log.d(TAG, "onCreate MyAdapter count : " + mMyAdapter.getItemCount());
         }
-        mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerview.setLayoutManager(new GridLayoutManager(this, 2));
+//        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        mRecyclerview.setLayoutManager(layoutManager);
         mRecyclerview.setAdapter(mMyAdapter);
     }
 
