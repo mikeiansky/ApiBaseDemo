@@ -38,6 +38,7 @@
         <activity android:name=".performance.MemoryActivity"/>
         <activity android:name=".performance.MessageActivity"/>
         <activity android:name=".performance.MemoryLeakActivity"/>
+        <activity android:name=".view.RecyclerViewActivity"/>
 
     </application>
 

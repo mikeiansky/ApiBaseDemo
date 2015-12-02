@@ -33,6 +33,9 @@ public class ViewListActivity extends ApiItemListActivity {
 
         apiItem = new ApiItem("Empty ListView", EmptyListViewActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("RecyclerView", RecyclerViewActivity.class);
+        mApiItems.add(apiItem);
     }
 
 }
