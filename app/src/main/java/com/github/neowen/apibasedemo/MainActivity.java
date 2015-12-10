@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import com.github.neowen.apibasedemo.animation.AnimationListActivity;
 import com.github.neowen.apibasedemo.common.DebugUtils;
 import com.github.neowen.apibasedemo.design.DesignListActivity;
+import com.github.neowen.apibasedemo.drawable.DrawableListActivity;
 import com.github.neowen.apibasedemo.media.MediaListActivity;
 import com.github.neowen.apibasedemo.performance.PerformanceListActivity;
 import com.github.neowen.apibasedemo.support.SupportListA;
@@ -33,6 +34,9 @@ public class MainActivity extends ApiItemListActivity {
         mApiItems.add(apiItem);
 
         apiItem = new ApiItem("Performance", PerformanceListActivity.class);
+        mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Drawable", DrawableListActivity.class);
         mApiItems.add(apiItem);
     }
 

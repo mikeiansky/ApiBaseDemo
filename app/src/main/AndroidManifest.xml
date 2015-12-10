@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.neowen.apibasedemo">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -27,19 +27,21 @@
         <activity android:name=".view.TouchActivity" />
         <activity android:name=".view.ViewListActivity" />
         <activity android:name=".design.CustomDialogActivity" />
-        <activity android:name=".view.ListViewAnimationActivity"/>
-        <activity android:name=".animation.AnimationListActivity"/>
-        <activity android:name=".animation.ViewPropertyAnimatorActivity"/>
-        <activity android:name=".media.MediaListActivity"/>
-        <activity android:name=".media.MediaDatabaseActivity"/>
-        <activity android:name=".animation.DrawableAnimationActivity"/>
-        <activity android:name=".view.EmptyListViewActivity"/>
-        <activity android:name=".performance.PerformanceListActivity"/>
-        <activity android:name=".performance.MemoryActivity"/>
-        <activity android:name=".performance.MessageActivity"/>
-        <activity android:name=".performance.MemoryLeakActivity"/>
-        <activity android:name=".view.RecyclerViewActivity"/>
-        <activity android:name=".view.MultipleViewTypeListViewActivity"/>
+        <activity android:name=".view.ListViewAnimationActivity" />
+        <activity android:name=".animation.AnimationListActivity" />
+        <activity android:name=".animation.ViewPropertyAnimatorActivity" />
+        <activity android:name=".media.MediaListActivity" />
+        <activity android:name=".media.MediaDatabaseActivity" />
+        <activity android:name=".animation.DrawableAnimationActivity" />
+        <activity android:name=".view.EmptyListViewActivity" />
+        <activity android:name=".performance.PerformanceListActivity" />
+        <activity android:name=".performance.MemoryActivity" />
+        <activity android:name=".performance.MessageActivity" />
+        <activity android:name=".performance.MemoryLeakActivity" />
+        <activity android:name=".view.RecyclerViewActivity" />
+        <activity android:name=".view.MultipleViewTypeListViewActivity" />
+        <activity android:name=".drawable.VectorDrawableActivity" />
+        <activity android:name=".drawable.DrawableListActivity" />
 
     </application>
 
