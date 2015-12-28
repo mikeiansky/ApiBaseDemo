@@ -1,5 +1,7 @@
 package com.github.neowen.apibasedemo.drawable;
 
+import android.graphics.NinePatch;
+import android.graphics.drawable.NinePatchDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,7 @@ public class VectorDrawableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vectordrawable);
 
+//        NinePatchDrawable npd = new NinePatchDrawable();
         VectorDrawable vd = null;
 
     }
