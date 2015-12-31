@@ -13,6 +13,8 @@ public class SdkListActivity extends ApiItemListActivity {
 
         ApiItem apiItem = new ApiItem("QQ Sdk", QQSdkActivity.class);
         mApiItems.add(apiItem);
-        
+
+        apiItem = new ApiItem("Weibo Sdk", WeiboSdkActivity.class);
+        mApiItems.add(apiItem);
     }
 }
