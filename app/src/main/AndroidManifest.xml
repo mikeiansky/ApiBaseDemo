@@ -5,11 +5,35 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+        <!-- qq platform start -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1105067532" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- qq platform end -->
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -42,6 +66,9 @@
         <activity android:name=".view.MultipleViewTypeListViewActivity" />
         <activity android:name=".drawable.VectorDrawableActivity" />
         <activity android:name=".drawable.DrawableListActivity" />
+        <activity android:name=".sdk.SdkListActivity"/>
+        <activity android:name=".sdk.QQSdkActivity"/>
+
 
     </application>
 

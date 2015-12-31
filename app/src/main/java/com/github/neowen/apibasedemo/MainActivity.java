@@ -9,6 +9,7 @@ import com.github.neowen.apibasedemo.design.DesignListActivity;
 import com.github.neowen.apibasedemo.drawable.DrawableListActivity;
 import com.github.neowen.apibasedemo.media.MediaListActivity;
 import com.github.neowen.apibasedemo.performance.PerformanceListActivity;
+import com.github.neowen.apibasedemo.sdk.SdkListActivity;
 import com.github.neowen.apibasedemo.support.SupportListA;
 import com.github.neowen.apibasedemo.view.ViewListActivity;
 
@@ -38,20 +39,23 @@ public class MainActivity extends ApiItemListActivity {
 
         apiItem = new ApiItem("Drawable", DrawableListActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Third Platform Sdk", SdkListActivity.class);
+        mApiItems.add(apiItem);
     }
 
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
-        if(DebugUtils.debug){
-            Log.d(TAG, "onTrimMemory --> : " +level);
+        if (DebugUtils.debug) {
+            Log.d(TAG, "onTrimMemory --> : " + level);
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(DebugUtils.debug){
+        if (DebugUtils.debug) {
             Log.d(TAG, "onDestroy -->");
         }
     }
