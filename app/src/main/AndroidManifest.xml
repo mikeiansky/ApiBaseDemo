@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +22,7 @@
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <!-- weibo sdk platform end-->
 
         <!-- qq platform start -->
@@ -79,6 +80,9 @@
         <activity android:name=".sdk.SdkListActivity" />
         <activity android:name=".sdk.QQSdkActivity" />
         <activity android:name=".sdk.WeiboSdkActivity" />
+        <activity
+            android:name=".sdk.WechatSdkActivity"
+            android:exported="true" />
 
 
     </application>

@@ -16,5 +16,8 @@ public class SdkListActivity extends ApiItemListActivity {
 
         apiItem = new ApiItem("Weibo Sdk", WeiboSdkActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Wechat Sdk", WechatSdkActivity.class);
+        mApiItems.add(apiItem);
     }
 }
