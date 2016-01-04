@@ -5,6 +5,7 @@ import android.util.SparseArray;
 
 import com.github.neowen.apibasedemo.animation.AnimationListActivity;
 import com.github.neowen.apibasedemo.common.DebugUtils;
+import com.github.neowen.apibasedemo.csdn.CsdnListActivity;
 import com.github.neowen.apibasedemo.design.DesignListActivity;
 import com.github.neowen.apibasedemo.drawable.DrawableListActivity;
 import com.github.neowen.apibasedemo.media.MediaListActivity;
@@ -41,6 +42,9 @@ public class MainActivity extends ApiItemListActivity {
         mApiItems.add(apiItem);
 
         apiItem = new ApiItem("Third Platform Sdk", SdkListActivity.class);
+        mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Csdn Blog Demos", CsdnListActivity.class);
         mApiItems.add(apiItem);
     }
 

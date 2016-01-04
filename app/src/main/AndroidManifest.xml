@@ -83,6 +83,8 @@
         <activity
             android:name=".sdk.WechatSdkActivity"
             android:exported="true" />
+        <activity android:name=".csdn.CsdnListActivity"/>
+        <activity android:name=".csdn.circle_media.CircleNoBlackVideoActivity"/>
 
 
     </application>

@@ -3,4 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- csdn-->
+    <string name="circle_no_black_video">循环播放不黑屏播放器</string>
+
 </resources>
