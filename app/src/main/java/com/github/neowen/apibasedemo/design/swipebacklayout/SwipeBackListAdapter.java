@@ -1,7 +1,6 @@
-package com.github.neowen.apibasedemo.design;
+package com.github.neowen.apibasedemo.design.swipebacklayout;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 

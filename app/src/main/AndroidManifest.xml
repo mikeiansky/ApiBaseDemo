@@ -58,10 +58,10 @@
         <activity android:name=".support.SupportListA" />
         <activity android:name=".support.ViewDragHelperA" />
         <activity android:name=".design.DesignListActivity" />
-        <activity android:name=".design.SwipeBackActivity" />
+        <activity android:name=".design.swipebacklayout.SwipeBackActivity" />
         <activity android:name=".view.TouchActivity" />
         <activity android:name=".view.ViewListActivity" />
-        <activity android:name=".design.CustomDialogActivity" />
+        <activity android:name=".design.customdialog.CustomDialogActivity" />
         <activity android:name=".view.ListViewAnimationActivity" />
         <activity android:name=".animation.AnimationListActivity" />
         <activity android:name=".animation.ViewPropertyAnimatorActivity" />
@@ -85,6 +85,7 @@
             android:exported="true" />
         <activity android:name=".csdn.CsdnListActivity"/>
         <activity android:name=".csdn.circle_media.CircleNoBlackVideoActivity"/>
+        <activity android:name=".design.onceloadpager.OnceLoadPagerActivity"/>
 
 
     </application>

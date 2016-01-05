@@ -1,4 +1,4 @@
-package com.github.neowen.apibasedemo.design;
+package com.github.neowen.apibasedemo.design.customdialog;
 
 import android.app.Dialog;
 import android.os.Bundle;

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.github.neowen.apibasedemo.design.SwipeBackLayout
+    <com.github.neowen.apibasedemo.design.swipebacklayout.SwipeBackLayout
         android:id="@+id/swipe_back_group"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -27,5 +27,5 @@
             android:text="swipe back"
             android:textSize="22sp" />
 
-    </com.github.neowen.apibasedemo.design.SwipeBackLayout>
+    </com.github.neowen.apibasedemo.design.swipebacklayout.SwipeBackLayout>
 </FrameLayout>

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.github.neowen.apibasedemo.design.SwipeBackLayout
+    <com.github.neowen.apibasedemo.design.swipebacklayout.SwipeBackLayout
         android:id="@+id/swipeback"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -29,7 +29,7 @@
             android:text="swipe back"
             android:textSize="22sp" />
 
-    </com.github.neowen.apibasedemo.design.SwipeBackLayout>
+    </com.github.neowen.apibasedemo.design.swipebacklayout.SwipeBackLayout>
 
     <ImageView
         android:layout_width="match_parent"

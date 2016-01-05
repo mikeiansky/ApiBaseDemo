@@ -1,4 +1,4 @@
-package com.github.neowen.apibasedemo.design;
+package com.github.neowen.apibasedemo.design.swipebacklayout;
 
 import android.annotation.TargetApi;
 import android.content.Context;
