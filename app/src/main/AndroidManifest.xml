@@ -86,6 +86,7 @@
         <activity android:name=".csdn.CsdnListActivity"/>
         <activity android:name=".csdn.circle_media.CircleNoBlackVideoActivity"/>
         <activity android:name=".design.onceloadpager.OnceLoadPagerActivity"/>
+        <activity android:name=".design.multitypelistview.MultiTypeListViewActivity"/>
 
 
     </application>
