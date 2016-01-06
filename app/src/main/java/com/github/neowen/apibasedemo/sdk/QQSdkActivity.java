@@ -9,6 +9,8 @@ import android.widget.Button;
 
 import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.common.DebugUtils;
+import com.tencent.connect.UserInfo;
+import com.tencent.open.SocialConstants;
 import com.tencent.open.utils.HttpUtils;
 import com.tencent.tauth.IRequestListener;
 import com.tencent.tauth.IUiListener;
@@ -71,10 +73,11 @@ public class QQSdkActivity extends AppCompatActivity implements View.OnClickList
 ////            doComplete(response);
 //        }
 
-        protected void doComplete(JSONObject values) {
+        protected void doComplete(final JSONObject values) {
             if (DebugUtils.debug) {
                 Log.d(TAG, "doComplete values : " + values);
             }
+
         }
 
         @Override

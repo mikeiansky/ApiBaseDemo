@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.github.neowen.apibasedemo.R;
@@ -23,9 +24,12 @@ public class MultiTypeListViewActivity extends AppCompatActivity {
     static final String TAG = MultiTypeListViewActivity.class.getSimpleName();
 
     ArrayList<Item> mItems;
+    MyAdapter mMyAdapter;
 
     @Bind(R.id.list_view)
     ListView mListView;
+    @Bind(R.id.refresh)
+    Button mRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,15 @@ public class MultiTypeListViewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initDatas();
+        mMyAdapter = new MyAdapter();
+        mListView.setAdapter(mMyAdapter);
 
-        mListView.setAdapter(new MyAdapter());
+        mRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMyAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
 

@@ -1,6 +1,7 @@
 package com.github.neowen.apibasedemo.design.multitypelistview;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.github.neowen.apibasedemo.R;
  */
 public class ListItemViewHolder extends TypeViewHolder<ListItem> {
 
+    public static final String TAG = ListItemViewHolder.class.getSimpleName();
+
     public ListItemViewHolder(Context context, ViewGroup parent, Item item) {
         super(context, parent, item);
     }
@@ -28,6 +31,7 @@ public class ListItemViewHolder extends TypeViewHolder<ListItem> {
 
     @Override
     protected void updateData() {
+        Log.d(TAG, "updateData removeAllViews and create new views.");
         LinearLayout linearLayout = (LinearLayout) mRootView.findViewById(R.id.root);
         linearLayout.removeAllViews();
         int size = mItem.mList.size();
