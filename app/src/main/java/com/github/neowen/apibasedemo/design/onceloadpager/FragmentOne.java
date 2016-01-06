@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 public class FragmentOne extends Fragment {
 
     private static final String TAG = FragmentOne.class.getSimpleName();
-
+    int mIndex;
     View mRootView;
     String mUrl;
 
@@ -40,16 +40,12 @@ public class FragmentOne extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (mRootView != null) {
-//            Log.d(TAG, this + " mRootView before bind ----> " + mCount);
             ButterKnife.bind(this, mRootView);
-//            Log.d(TAG, this + " mRootView after bind ----> " + mCount);
-
             return mRootView;
         }
         mRootView = inflater.inflate(R.layout.count_fragment, container, false);
         ButterKnife.bind(this, mRootView);
-//        Log.d(TAG, this + " mRootView----> " + mCount);
-
+        mCount.setText("" + mIndex);
         Picasso.with(getActivity())
                 .load(mUrl)
                 .fit()
@@ -57,8 +53,6 @@ public class FragmentOne extends Fragment {
                 .into(mImage);
 
         mCount.setOnClickListener(new View.OnClickListener() {
-
-            int mIndex;
 
 
             @Override
