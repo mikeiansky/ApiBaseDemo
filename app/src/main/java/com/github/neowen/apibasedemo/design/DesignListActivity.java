@@ -3,6 +3,7 @@ package com.github.neowen.apibasedemo.design;
 import com.github.neowen.apibasedemo.ApiItem;
 import com.github.neowen.apibasedemo.ApiItemListActivity;
 import com.github.neowen.apibasedemo.design.customdialog.CustomDialogActivity;
+import com.github.neowen.apibasedemo.design.emptyview.DialogFragmentEmptyActivity;
 import com.github.neowen.apibasedemo.design.emptyview.EmptyViewActivity;
 import com.github.neowen.apibasedemo.design.multitypelistview.MultiTypeListViewActivity;
 import com.github.neowen.apibasedemo.design.onceloadpager.OnceLoadPagerActivity;
@@ -30,6 +31,9 @@ public class DesignListActivity extends ApiItemListActivity {
         mApiItems.add(apiItem);
 
         apiItem = new ApiItem("Empty View", EmptyViewActivity.class);
+        mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Dialog Empty View", DialogFragmentEmptyActivity.class);
         mApiItems.add(apiItem);
     }
 }
