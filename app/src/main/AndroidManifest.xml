@@ -89,7 +89,7 @@
         <activity android:name=".design.multitypelistview.MultiTypeListViewActivity" />
         <activity android:name=".attr.AttrActivity" />
         <activity android:name=".attr.AttrListActivity" />
-
+        <activity android:name=".design.emptyview.EmptyViewActivity" />
 
     </application>
 
