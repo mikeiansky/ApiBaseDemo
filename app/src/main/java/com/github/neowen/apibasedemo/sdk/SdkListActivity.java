@@ -19,5 +19,8 @@ public class SdkListActivity extends ApiItemListActivity {
 
         apiItem = new ApiItem("Wechat Sdk", WechatSdkActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Volley Sdk", VolleySdkActivity.class);
+        mApiItems.add(apiItem);
     }
 }

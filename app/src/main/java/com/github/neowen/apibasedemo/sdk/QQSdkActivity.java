@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.common.DebugUtils;
+import com.sina.weibo.sdk.api.share.Base;
 import com.tencent.connect.UserInfo;
 import com.tencent.open.SocialConstants;
 import com.tencent.open.utils.HttpUtils;
@@ -31,7 +33,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Winson on 2015/12/31.
  */
-public class QQSdkActivity extends AppCompatActivity implements View.OnClickListener {
+public class QQSdkActivity extends BaseActivity implements View.OnClickListener {
 
     public static final String TAG = QQSdkActivity.class.getSimpleName();
 

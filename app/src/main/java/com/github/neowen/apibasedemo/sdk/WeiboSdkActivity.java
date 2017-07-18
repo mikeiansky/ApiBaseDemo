@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Winson on 2015/12/31.
  */
-public class WeiboSdkActivity extends AppCompatActivity implements View.OnClickListener {
+public class WeiboSdkActivity extends BaseActivity implements View.OnClickListener {
 
     public static final String TAG = WeiboSdkActivity.class.getSimpleName();
 

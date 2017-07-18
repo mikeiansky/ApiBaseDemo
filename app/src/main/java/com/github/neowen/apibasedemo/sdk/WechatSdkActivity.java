@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Winson on 2015/12/31.
  */
-public class WechatSdkActivity extends AppCompatActivity implements View.OnClickListener, IWXAPIEventHandler {
+public class WechatSdkActivity extends BaseActivity implements View.OnClickListener, IWXAPIEventHandler {
 
     public static final String TAG = WechatSdkActivity.class.getSimpleName();
 
