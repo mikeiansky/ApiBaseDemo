@@ -79,7 +79,7 @@ public class TouchActivity extends AppCompatActivity {
         }
 
         @Override
-        public void convert(ViewHolder viewHolder, String obj) {
+        public void convert(ViewHolder viewHolder, String obj, int position) {
             TextView title = (TextView) viewHolder.findViewById(R.id.title);
             title.setText(obj);
             title.setOnTouchListener(new View.OnTouchListener() {

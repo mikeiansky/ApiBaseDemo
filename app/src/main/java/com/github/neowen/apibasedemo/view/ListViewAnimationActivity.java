@@ -56,7 +56,7 @@ public class ListViewAnimationActivity extends AppCompatActivity {
         }
 
         @Override
-        public void convert(ViewHolder viewHolder, String obj) {
+        public void convert(ViewHolder viewHolder, String obj, int position) {
             MyViewHolder mh = new MyViewHolder(viewHolder.getConvertView());
 
             mh.mTitle.setText(obj);

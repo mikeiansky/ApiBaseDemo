@@ -59,7 +59,7 @@ public class EmptyListViewActivity extends AppCompatActivity {
         }
 
         @Override
-        public void convert(ViewHolder viewHolder, String obj) {
+        public void convert(ViewHolder viewHolder, String obj , int position) {
 
         }
     }

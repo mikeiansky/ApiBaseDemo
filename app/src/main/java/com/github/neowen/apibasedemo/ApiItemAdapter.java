@@ -18,7 +18,7 @@ public class ApiItemAdapter extends CommonAdapter<ApiItem> {
     }
 
     @Override
-    public void convert(ViewHolder viewHolder, ApiItem obj) {
+    public void convert(ViewHolder viewHolder, ApiItem obj, int position) {
         ((TextView) viewHolder.findViewById(R.id.title)).setText(obj.mTitle);
     }
 }

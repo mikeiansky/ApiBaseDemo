@@ -18,8 +18,13 @@ public class SwipeBackLayout extends FrameLayout {
 
     public static final String TAG = SwipeBackLayout.class.getSimpleName();
 
+    public interface OnOpenListener {
+        void opened(boolean opened);
+    }
+
     private View mDragLeft, mDragTop, mDragRight, mDragBottom, mDragContent;
     private ViewDragHelper mViewDragHelper;
+    private OnOpenListener mOnOpenListener;
 
     private float mLastTouchX;
     private float mPagingTouchSlop;
@@ -44,6 +49,10 @@ public class SwipeBackLayout extends FrameLayout {
     public SwipeBackLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    public void setOnOpenListener(OnOpenListener onOpenListener) {
+        this.mOnOpenListener = onOpenListener;
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -149,15 +158,15 @@ public class SwipeBackLayout extends FrameLayout {
                 return;
             }
             if (xvel <= -500) {
-                open(true);
+                open(true, true);
             } else if (xvel > 500) {
-                close(true);
+                close(true, true);
             } else {
                 int left = mDragContent.getLeft();
                 if (Math.abs(left) < mDragRight.getWidth() / 2f) {
-                    close(true);
+                    close(true, true);
                 } else {
-                    open(true);
+                    open(true, true);
                 }
             }
         }
@@ -170,12 +179,19 @@ public class SwipeBackLayout extends FrameLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        close(false);
+        close(false, false);
     }
 
     public void close(boolean animation) {
+        close(animation, false);
+    }
+
+    private void close(boolean animation, boolean record) {
         if (!isSwipeEnable()) {
             return;
+        }
+        if (mOnOpenListener != null && record) {
+            mOnOpenListener.opened(false);
         }
         if (!animation) {
             int dl = getWidth() - mDragRight.getLeft();
@@ -188,8 +204,15 @@ public class SwipeBackLayout extends FrameLayout {
     }
 
     public void open(boolean animation) {
+        open(animation, false);
+    }
+
+    private void open(boolean animation, boolean record) {
         if (!isSwipeEnable()) {
             return;
+        }
+        if (mOnOpenListener != null && record) {
+            mOnOpenListener.opened(true);
         }
         if (!animation) {
             int dl = getWidth() - mDragRight.getLeft() - mDragRight.getWidth();

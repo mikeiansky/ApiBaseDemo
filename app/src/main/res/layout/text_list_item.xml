@@ -8,5 +8,4 @@
     android:paddingBottom="15dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="15dp"
-    android:text="hello"
-    android:textSize="18sp" />
+    android:text="hello"/>

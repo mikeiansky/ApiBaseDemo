@@ -19,7 +19,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     public CommonAdapter(Context context, int layout, List<T> datas) {
         this.context = context;
         this.datas = datas;
-        this.layout = layout ;
+        this.layout = layout;
     }
 
     @Override
@@ -45,11 +45,11 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder viewHolder = ViewHolder.getViewHolder(layout,view,viewGroup);
-        convert(viewHolder,getItem(i));
-        return viewHolder.getConvertView() ;
+        ViewHolder viewHolder = ViewHolder.getViewHolder(layout, view, viewGroup);
+        convert(viewHolder, getItem(i), i);
+        return viewHolder.getConvertView();
     }
 
-    public abstract void convert(ViewHolder viewHolder,T obj);
+    public abstract void convert(ViewHolder viewHolder, T obj, int position);
 
 }
