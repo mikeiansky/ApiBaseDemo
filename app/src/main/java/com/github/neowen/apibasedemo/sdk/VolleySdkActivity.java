@@ -45,6 +45,7 @@ public class VolleySdkActivity extends BaseActivity {
                     }
                 });
                 rq.add(q);
+//                rq.start();
             }
         });
     }
