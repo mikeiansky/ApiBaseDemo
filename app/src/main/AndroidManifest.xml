@@ -91,7 +91,8 @@
         <activity android:name=".attr.AttrListActivity" />
         <activity android:name=".design.emptyview.EmptyViewActivity" />
         <activity android:name=".design.emptyview.DialogFragmentEmptyActivity" />
-        <activity android:name=".sdk.VolleySdkActivity"/>
+        <activity android:name=".sdk.VolleySdkActivity" />
+        <activity android:name=".csdn.PluginDemoActivity" />
 
     </application>
 

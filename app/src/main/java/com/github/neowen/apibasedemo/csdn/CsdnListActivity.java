@@ -17,5 +17,7 @@ public class CsdnListActivity extends ApiItemListActivity {
         ApiItem apiItem = new ApiItem(getString(R.string.circle_no_black_video), CircleNoBlackVideoActivity.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("Plugin Apk", PluginDemoActivity.class);
+        mApiItems.add(apiItem);
     }
 }
