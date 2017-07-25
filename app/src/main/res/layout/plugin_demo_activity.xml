@@ -10,4 +10,9 @@
         android:layout_height="wrap_content"
         android:text="load apk" />
 
+    <ImageView
+        android:id="@+id/map"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
 </LinearLayout>
