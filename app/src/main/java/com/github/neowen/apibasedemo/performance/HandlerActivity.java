@@ -26,13 +26,26 @@ public class HandlerActivity extends BaseActivity implements View.OnClickListene
     private Handler handler;
     private Looper mLooper;
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void receiver(Object object){
-        Log.d(TAG, "get event bus message!");
+    public static class API {
+
+    }
+
+    public static class BPI {
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void receiverNull(){
+    public void test(API api, BPI bpi) {
+        Log.d(TAG, "get event bus message at test method.");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiver(API api) {
+        Log.d(TAG, "get event bus message at receiver method.");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiverNull() {
         Log.d(TAG, "get event bus with null params");
     }
 
@@ -79,7 +92,7 @@ public class HandlerActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void shutEventBus() {
-        EventBus.getDefault().post(new Object());
+        EventBus.getDefault().post(new API());
     }
 
     private void stopLooper() {

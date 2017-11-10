@@ -94,6 +94,7 @@
         <activity android:name=".sdk.VolleySdkActivity" />
         <activity android:name=".csdn.PluginDemoActivity" />
         <activity android:name=".performance.HandlerActivity" />
+        <activity android:name=".support.MyWebViewActivity"/>
 
     </application>
 
