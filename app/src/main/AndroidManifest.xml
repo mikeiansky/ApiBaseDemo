@@ -105,6 +105,9 @@
         <activity
             android:name=".view.PBActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.MeasureViewActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

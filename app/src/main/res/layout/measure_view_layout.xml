@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.github.neowen.apibasedemo.view.MeasureViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <com.github.neowen.apibasedemo.view.MeasureView
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </com.github.neowen.apibasedemo.view.MeasureView>
+    </com.github.neowen.apibasedemo.view.MeasureViewGroup>
+
+    </FrameLayout>
+
+
+    <com.github.neowen.apibasedemo.view.map.HVScaleScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/rl_map"
+            android:background="#000000"
+            android:layout_width="720dp"
+            android:layout_height="720dp">
+
+            <com.github.neowen.apibasedemo.view.map.ChinaMapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="360dp"/>
+        </FrameLayout>
+
+    </com.github.neowen.apibasedemo.view.map.HVScaleScrollView>
+
+
+</LinearLayout>

@@ -43,6 +43,8 @@ public class ViewListActivity extends ApiItemListActivity {
         apiItem = new ApiItem("Progress Bar Activity", PBActivity.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("MeasureView Activity", MeasureViewActivity.class);
+        mApiItems.add(apiItem);
     }
 
 }

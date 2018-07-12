@@ -7,12 +7,10 @@ import android.view.ViewGroup;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.github.neowen.apibasedemo.R;
-import com.github.neowen.apibasedemo.common.MeasureView;
+import com.github.neowen.apibasedemo.view.MeasureViewGroup;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -65,7 +63,7 @@ public class EmptyViewActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void show(ViewGroup viewGroup) {
-        mLoadingView = new MeasureView(this);
+        mLoadingView = new MeasureViewGroup(this);
         mLoadingView.setBackgroundColor(getResources().getColor(R.color.md_amber_400));
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 //        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 500);
