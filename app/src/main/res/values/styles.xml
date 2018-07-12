@@ -11,6 +11,7 @@
         <!-- Customize your theme here. -->
         <item name="my_size">30sp</item>
         <item name="android:textSize">?attr/my_size</item>
+        <!--<item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.AppButon</item>-->
     </style>
 
     <style name="MyStyle">
@@ -21,6 +22,11 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:background">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.AppCompat.Button.Borderless.AppButon">
+        <!--<item name="android:background">@drawable/app_btn</item>-->
+        <!--<item name="android:textColor">#ffffff</item>-->
     </style>
 
 </resources>

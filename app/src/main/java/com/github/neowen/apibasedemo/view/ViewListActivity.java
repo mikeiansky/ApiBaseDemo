@@ -39,6 +39,10 @@ public class ViewListActivity extends ApiItemListActivity {
 
         apiItem = new ApiItem("Multiple ViewType ListView", MultipleViewTypeListViewActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Progress Bar Activity", PBActivity.class);
+        mApiItems.add(apiItem);
+
     }
 
 }

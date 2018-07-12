@@ -5,15 +5,21 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/show_dialog"
+        android:id="@+id/print"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="show dialog" />
+        android:text="Print" />
 
     <Button
-        android:id="@+id/show_custom"
+        android:id="@+id/change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="show custom" />
+        android:text="change" />
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </LinearLayout>
