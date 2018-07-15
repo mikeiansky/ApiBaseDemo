@@ -1,6 +1,8 @@
 package com.github.neowen.apibasedemo.view.map;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -14,6 +16,8 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.github.neowen.apibasedemo.R;
 
 /**
  * 说明：中国地图
@@ -46,7 +50,12 @@ public class ChinaMapView extends View {
     private int mapColor = -1;
     private long startOnTouchTime = 0;
     GestureDetector gestureDetector;
-    
+    private Bitmap localBitmap;
+    private Paint localPaint;
+    private Area localArea;
+    private RectF localRectF;
+    private float localPaddingLeft, localPaddingTop, localLength;
+
     private static String[] provinceNames = new String[]{
             "北京",
             "天津",
@@ -216,7 +225,6 @@ public class ChinaMapView extends View {
 
     }
 
-  
 
     public void setPaintColor(Area pArea, int color, boolean isFull) {
         Paint p = xPaints[pArea.value];
@@ -281,7 +289,6 @@ public class ChinaMapView extends View {
     }
 
 
- 
     public ChinaMapView(Context context) {
         super(context);
         initPaths();
@@ -300,9 +307,12 @@ public class ChinaMapView extends View {
     /**
      * 调整清晰度，竖直越大，地图越清晰，一般2.5倍即可，改成其他值之后，需要在drawOneArea方法中调整文字的大小和位置
      */
- 
+
 
     private void initPaths() {
+
+        localBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.location);
+
         try {
             SvgPathToAndroidPath lParser = new SvgPathToAndroidPath();
             lParser.setScale(svgPathScale);
@@ -318,6 +328,8 @@ public class ChinaMapView extends View {
     }
 
     private void initPaints() {
+        localPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
         for (int i = 0; i < xPaints.length; i++) {
             Paint xPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             xPaint.setColor(DEFAULT_COLOR);
@@ -431,6 +443,7 @@ public class ChinaMapView extends View {
         canvas.translate(translateX + padding, translateY + padding);
         drawBaseMap(canvas);
         drawSelectedMap(canvas);
+        drawLocal(canvas);
     }
 
 
@@ -492,19 +505,21 @@ public class ChinaMapView extends View {
         }
 
         if (Area.GuangDong == Area.valueOf(index)) {
+            paddingTop += 10;
             paddingTop -= 20;
         }
 
         if (Area.ShaanXi == Area.valueOf(index)) {
-            paddingTop += 38;
+            paddingTop += 38 + 30;
         }
         if (Area.ShanXi == Area.valueOf(index)) {
+            paddingTop += 20;
             paddingLeft -= 20;
         }
 
         if (Area.HeiLongJiang == Area.valueOf(index)) {
             paddingLeft -= 25;
-            paddingTop += 30;
+            paddingTop += 30 + 30;
         }
 
         if (Area.HeBei == Area.valueOf(index)) {
@@ -525,7 +540,7 @@ public class ChinaMapView extends View {
 
         if (Area.NingXia == Area.valueOf(index)) {
             paddingLeft -= 15;
-            paddingTop += 10;
+            paddingTop += 10 + 15;
             textPaint.setTextSize(21);
         }
 
@@ -536,17 +551,83 @@ public class ChinaMapView extends View {
         }
 
         if (Area.JiangXi == Area.valueOf(index)) {
+            paddingTop += 20;
             paddingLeft -= 25;
         }
 
         if (Area.AnHui == Area.valueOf(index)) {
-            paddingLeft -= 25;
+            paddingLeft -= 15;
+            paddingTop += 25;
         }
         if (Area.YunNan == Area.valueOf(index)) {
+            paddingTop += 40;
             paddingLeft -= 25;
         }
+        if (Area.GuangXi == Area.valueOf(index)) {
+            paddingTop += 30;
+        }
+        if (Area.HuNan == Area.valueOf(index)) {
+            paddingTop += 20;
+        }
+        if (Area.HuBei == Area.valueOf(index)) {
+            paddingTop += 20;
+        }
+        if (Area.GuiZhou == Area.valueOf(index)) {
+            paddingTop += 20;
+        }
+        if (Area.FuJian == Area.valueOf(index)) {
+            paddingTop += 20;
+            paddingLeft -= 20;
+        }
+        if (Area.ZheJiang == Area.valueOf(index)) {
+            paddingTop += 20;
+            paddingLeft -= 20;
+        }
+        if (Area.HeNan == Area.valueOf(index)) {
+            paddingTop += 20;
+            paddingLeft -= 20;
+        }
+        if (Area.JiLin == Area.valueOf(index)) {
+            paddingTop += 20;
+        }
+        if (Area.HaiNan == Area.valueOf(index)) {
+            paddingTop += 20;
+        }
 
-        pCanvas.drawText(provinceNames[index], testRect.left + testRect.width() / 2 - padding + paddingLeft, testRect.top + testRect.height() / 2 + paddingTop, textPaint);
+        if (localArea == Area.valueOf(index)) {
+            localRectF = testRect;
+            localPaddingLeft = paddingLeft;
+            localPaddingTop = paddingTop;
+            localLength = textPaint.measureText(provinceNames[index]);
+            pCanvas.drawText(provinceNames[index], testRect.left + testRect.width() / 2 - padding + paddingLeft, testRect.top + testRect.height() / 2 + paddingTop, textPaint);
+
+        } else {
+            pCanvas.drawText(provinceNames[index], testRect.left + testRect.width() / 2 - padding + paddingLeft, testRect.top + testRect.height() / 2 + paddingTop, textPaint);
+        }
+
+    }
+
+    private void drawLocal(Canvas canvas) {
+        if (localRectF != null) {
+            int bw = localBitmap.getWidth();
+            int bh = localBitmap.getHeight();
+            int pt = 30;
+            if (localArea == Area.BeiJing
+                    || localArea == Area.TianJin
+                    || localArea == Area.ShangHai) {
+                pt = 0;
+            }
+            float ts = localRectF.left + localRectF.width() / 2 - padding + localPaddingLeft + localLength / 2f - bw / 2f;
+            float tt = localRectF.top + localRectF.height() / 2 + localPaddingTop - bh - pt;
+//            localPaint.setColor(Color.parseColor("#30ff0000"));
+//            canvas.drawRect(localRectF, localPaint);
+            canvas.drawBitmap(localBitmap, ts, tt, localPaint);
+        }
+
+    }
+
+    public void setLocalArea(Area area) {
+        this.localArea = area;
     }
 
     private void drawSelectedMap(Canvas pCanvas) {

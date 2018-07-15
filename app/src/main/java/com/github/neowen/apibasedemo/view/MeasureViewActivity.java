@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
+import com.github.neowen.apibasedemo.view.map.ChinaMapView;
 import com.github.neowen.apibasedemo.view.map.HVScaleScrollView;
 import com.github.neowen.apibasedemo.view.map.ScreenUtils;
 
@@ -20,27 +22,20 @@ public class MeasureViewActivity extends BaseActivity {
 
     public static final String TAG = MeasureViewActivity.class.getSimpleName();
     float scale;
-    float mapWidth = 1450;
-    float mapHeight = 1200;
-    int screenWidth;
     FrameLayout rlMap;
     TextView tvData ;
     HVScaleScrollView scaleScrollView;
+    ChinaMapView chinaMapView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.measure_view_layout);
 
+        chinaMapView = (ChinaMapView) findViewById(R.id.mapView);
+        chinaMapView.setLocalArea(ChinaMapView.Area.HuNan);
         rlMap = (FrameLayout) findViewById(R.id.rl_map);
         scaleScrollView = (HVScaleScrollView) findViewById(R.id.scrollView);
-        scaleScrollView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                scaleAndScroll();
-            }
-        },500);
-        screenWidth = ScreenUtils.getScreenWidth(this);
-        scale = screenWidth / mapWidth;
         findViewById(R.id.info).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,9 +43,22 @@ public class MeasureViewActivity extends BaseActivity {
                 Log.d(TAG, "scroll width : " + scaleScrollView.getWidth()+" , height : " + scaleScrollView.getHeight());
             }
         });
+
+        scaleScrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                scaleAndScroll();
+            }
+        });
     }
 
     private void scaleAndScroll() {
+        if(rlMap.getWidth()<=0){
+            return;
+        }
+        int pw = scaleScrollView.getWidth();
+        int ph = scaleScrollView.getHeight();
+        scale = (float) pw / rlMap.getWidth();
         rlMap.setScaleX(scale);
         rlMap.setScaleY(scale);
         scaleScrollView.setMinScale(scale);
