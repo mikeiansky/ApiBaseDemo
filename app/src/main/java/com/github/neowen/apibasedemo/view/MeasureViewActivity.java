@@ -32,6 +32,7 @@ public class MeasureViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.measure_view_layout);
 
+
         chinaMapView = (ChinaMapView) findViewById(R.id.mapView);
         chinaMapView.setLocalArea(ChinaMapView.Area.HuNan);
         rlMap = (FrameLayout) findViewById(R.id.rl_map);
