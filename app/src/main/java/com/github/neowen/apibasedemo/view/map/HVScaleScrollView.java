@@ -5,6 +5,7 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.FocusFinder;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -31,7 +32,7 @@ public class HVScaleScrollView extends FrameLayout {
 
 
     private long mLastScroll;
-
+    private int ox, oy;
     private final Rect mTempRect = new Rect();
     private Scroller mScroller;
 
@@ -106,6 +107,11 @@ public class HVScaleScrollView extends FrameLayout {
     float scaleBegin;
     float scaleX;
     float scaleDuration;
+    float minScale;
+
+    public void setMinScale(float minScale) {
+        this.minScale = minScale;
+    }
 
     public HVScaleScrollView(Context context) {
         this(context, null);
@@ -130,13 +136,17 @@ public class HVScaleScrollView extends FrameLayout {
             //缩放比例
             float scale = detector.getScaleFactor() + scaleDuration;
 //            Log.e(TAG, "onScale: " + scale);
-            if (scale < 0.4f)
-                scale = 0.4f;
+            if (scale < minScale)
+                scale = minScale;
             else if (scale > 2.0f)
                 scale = 2.0f;
 
             getChildAt(0).setScaleX(scale);
             getChildAt(0).setScaleY(scale);
+
+//            setScaleX(scale);
+//            setScaleY(scale);
+
             return false;
         }
 
@@ -431,16 +441,17 @@ public class HVScaleScrollView extends FrameLayout {
     }
 
     private boolean inChild(int x, int y) {
-        if (getChildCount() > 0) {
-            final int scrollX = getScrollX();
-            final int scrollY = getScrollY();
-            final View child = getChildAt(0);
-            return !(y < child.getTop() - scrollY
-                    || y >= child.getBottom() - scrollY
-                    || x < child.getLeft() - scrollX
-                    || x >= child.getRight() - scrollX);
-        }
-        return false;
+//        if (getChildCount() > 0) {
+//            final int scrollX = getScrollX();
+//            final int scrollY = getScrollY();
+//            final View child = getChildAt(0);
+//            return !(y < child.getTop() - scrollY
+//                    || y >= child.getBottom() - scrollY
+//                    || x < child.getLeft() - scrollX
+//                    || x >= child.getRight() - scrollX);
+//        }
+//        return false;
+        return true;
     }
 
     @Override
@@ -617,7 +628,7 @@ public class HVScaleScrollView extends FrameLayout {
 
                         if (getChildCount() > 0) {
                             if (Math.abs(initialVelocitx) > initialVelocitx || Math.abs(initialVelocity) > mMinimumVelocity) {
-                                fling(-initialVelocitx, -initialVelocity);
+//                                fling(-initialVelocitx, -initialVelocity);
                             }
 
                         }
@@ -1196,6 +1207,13 @@ public class HVScaleScrollView extends FrameLayout {
         smoothScrollBy(x - getScrollX(), y - getScrollY());
     }
 
+    public final void scrollToSave(int x, int y) {
+        super.scrollTo(x, y);
+        this.ox = x;
+        this.oy = y;
+        Log.d(TAG, "save ox : " + ox + " , oy : " + y);
+    }
+
     /**
      * <p>The scroll range of a scroll view is the overall height of all of its
      * children.</p>
@@ -1620,15 +1638,30 @@ public class HVScaleScrollView extends FrameLayout {
      */
     @Override
     public void scrollTo(int x, int y) {
-        // we rely on the fact the View.scrollBy calls scrollTo.     
+        // we rely on the fact the View.scrollBy calls scrollTo.
         if (getChildCount() > 0) {
             View child = getChildAt(0);
-            x = clamp(x, getWidth() - getPaddingRight() - getPaddingLeft(), child.getWidth());
-            y = clamp(y, getHeight() - getPaddingBottom() - getPaddingTop(), child.getHeight());
+//            x = clamp(x, getWidth() - getPaddingRight() - getPaddingLeft(), child.getWidth());
+            x = mclamp(x, getWidth() - getPaddingRight() - getPaddingLeft(), child.getWidth(), child.getScaleX(), ox);
+//            y = clamp(y, getHeight() - getPaddingBottom() - getPaddingTop(), child.getHeight());
+            y = mclamp(y, getHeight() - getPaddingBottom() - getPaddingTop(), child.getHeight(), child.getScaleY(), oy);
             if (x != getScrollX() || y != getScrollY()) {
                 super.scrollTo(x, y);
             }
         }
+    }
+
+    private int mclamp(int n, int my, int child, float scale, int ov) {
+        int region = (int) ((scale - minScale) * child / 2);
+        int rr = Math.abs(ov - n);
+        if (rr > region) {
+            if (n < ov) {
+                return ov - region;
+            } else {
+                return ov + region;
+            }
+        }
+        return n;
     }
 
     private int clamp(int n, int my, int child) {

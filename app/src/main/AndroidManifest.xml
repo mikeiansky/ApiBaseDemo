@@ -81,6 +81,7 @@
         <activity android:name=".sdk.SdkListActivity" />
         <activity android:name=".sdk.QQSdkActivity" />
         <activity android:name=".sdk.WeiboSdkActivity" />
+        <activity android:name=".view.MyScrollerActivity" />
         <activity
             android:name=".sdk.WechatSdkActivity"
             android:exported="true" />
