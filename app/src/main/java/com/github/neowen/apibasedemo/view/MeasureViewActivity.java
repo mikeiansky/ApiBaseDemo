@@ -35,6 +35,7 @@ public class MeasureViewActivity extends BaseActivity {
 
         chinaMapView = (ChinaMapView) findViewById(R.id.mapView);
         chinaMapView.setLocalArea(ChinaMapView.Area.HuNan);
+        chinaMapView.setPaintColor(ChinaMapView.Area.XinJiang, 0xff00ff, true);
         rlMap = (FrameLayout) findViewById(R.id.rl_map);
         scaleScrollView = (HVScaleScrollView) findViewById(R.id.scrollView);
         findViewById(R.id.info).setOnClickListener(new View.OnClickListener() {
