@@ -5,13 +5,27 @@
     android:orientation="vertical">
 
     <com.github.neowen.apibasedemo.view.SortGridLayout
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
+        android:id="@+id/sort_grid_layout"
         android:layout_width="320dp"
         android:layout_height="320dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
         android:background="#f0ccf0">
 
 
     </com.github.neowen.apibasedemo.view.SortGridLayout>
+
+
+    <Button
+        android:id="@+id/page_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="page up" />
+
+    <Button
+        android:id="@+id/page_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="page down" />
 
 </LinearLayout>

@@ -6,6 +6,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,9 +27,12 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
     private int leftUnit, topUnit;
     private List<String> datas;
     private OnItemClickListener onItemClickListener;
+    private int pageSize;
+    private int page;
+    private int oldHeight = -1;
 
     public interface OnItemClickListener {
-        void onItemClick();
+        void onItemClick(int position, String item);
     }
 
     public SortGridLayout(Context context) {
@@ -53,7 +58,6 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         topUnit = (int) (context.getResources().getDisplayMetrics().density * 50);
-
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -62,22 +66,52 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
 
     public void setData(List<String> datas) {
         this.datas = datas;
+        page = 0;
+        refreshData();
+    }
+
+    private void refreshData() {
+        if (datas == null || !haveChild) {
+            return;
+        }
+        int startPosition = page * pageSize;
+        int endPosition = pageSize * (page + 1);
+        if (endPosition > datas.size()) {
+            endPosition = datas.size();
+        }
+        int count = endPosition - startPosition;
+        int cs = getChildCount();
+        for (int i = 0; i < cs; i++) {
+            if (i >= count) {
+                ((TextView) getChildAt(i)).setText("");
+            } else {
+                ((TextView) getChildAt(i)).setText(datas.get(startPosition + i));
+            }
+        }
+
     }
 
     private void checkChild(int height) {
         if (!haveChild) {
-
             int count = (height / topUnit) * 2;
+
+            removeAllViews();
+            pageSize = count;
+
             for (int i = 0; i < count; i++) {
                 TextView textView = new TextView(getContext());
+                textView.setSingleLine();
+                textView.setGravity(Gravity.CENTER_VERTICAL);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
                 textView.setBackgroundColor((int) (Math.random() * Integer.MAX_VALUE));
-                textView.setText("Hello Wrold : " + i);
                 textView.setOnClickListener(this);
                 textView.setTag(i);
                 addView(textView);
             }
 
             haveChild = true;
+
+            refreshData();
         }
     }
 
@@ -85,8 +119,10 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        checkChild(MeasureSpec.getSize(heightMeasureSpec));
         leftUnit = MeasureSpec.getSize(widthMeasureSpec) / 2;
+
+        checkChild(MeasureSpec.getSize(heightMeasureSpec));
+
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
@@ -112,11 +148,48 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        int position = (int) v.getTag();
-        Toast.makeText(getContext(), "click : " + position, Toast.LENGTH_SHORT).show();
-        if (onItemClickListener != null) {
-            onItemClickListener.onItemClick();
+        if (datas == null || pageSize <= 0) {
+            return;
         }
+        int size = datas.size();
+        if (size <= 0) {
+            return;
+        }
+
+        int position = (int) v.getTag();
+        int realPosition = page * pageSize + position;
+        if (realPosition >= size) {
+            return;
+        }
+        if (onItemClickListener != null) {
+            onItemClickListener.onItemClick(position, "Hello " + realPosition);
+        }
+    }
+
+    public void pageUp() {
+        page = page - 1;
+        if (page < 0) {
+            page = 0;
+            return;
+        }
+        refreshData();
+    }
+
+    public void pageDown() {
+        int cp = page + 1;
+        if (pageSize <= 0) {
+            page = 0;
+            return;
+        }
+        if (datas == null) {
+            return;
+        }
+        int size = datas.size();
+        if (size <= pageSize || ((cp + 1) * pageSize - pageSize) >= size) {
+            return;
+        }
+        page = cp;
+        refreshData();
     }
 
 }
