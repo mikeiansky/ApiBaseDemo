@@ -30,6 +30,8 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
     private int pageSize;
     private int page;
     private int oldHeight = -1;
+    private boolean atFirst = true;
+    private boolean atLast = false;
 
     public interface OnItemClickListener {
         void onItemClick(int position, String item);
@@ -92,11 +94,14 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
     }
 
     private void checkChild(int height) {
-        if (!haveChild) {
+        if (!haveChild || oldHeight != height) {
+            oldHeight = height;
+
             int count = (height / topUnit) * 2;
 
             removeAllViews();
             pageSize = count;
+            page = 0;
 
             for (int i = 0; i < count; i++) {
                 TextView textView = new TextView(getContext());
@@ -164,6 +169,18 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
         if (onItemClickListener != null) {
             onItemClickListener.onItemClick(position, "Hello " + realPosition);
         }
+    }
+
+    public boolean isAtFirst() {
+        return page == 0;
+    }
+
+    public boolean isAtLast() {
+        if (datas == null) {
+            return true;
+        }
+        int size = datas.size();
+        return pageSize * (page + 1) >= size;
     }
 
     public void pageUp() {
