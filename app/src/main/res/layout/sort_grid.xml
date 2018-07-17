@@ -20,12 +20,29 @@
         android:id="@+id/page_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="page up" />
 
     <Button
         android:id="@+id/page_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="page down" />
+
+    <Button
+        android:id="@+id/update_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:text="update data" />
+
+    <Button
+        android:id="@+id/show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="show_hidden" />
 
 </LinearLayout>
