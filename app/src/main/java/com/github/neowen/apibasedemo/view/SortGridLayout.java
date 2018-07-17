@@ -73,14 +73,19 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
     }
 
     private void refreshData() {
-        if (datas == null || !haveChild) {
+        if (!haveChild) {
             return;
         }
-        int startPosition = page * pageSize;
         int endPosition = pageSize * (page + 1);
-        if (endPosition > datas.size()) {
+        int startPosition = page * pageSize;
+
+        if (datas == null) {
+            startPosition = 0;
+            endPosition = 0;
+        } else if (endPosition > datas.size()) {
             endPosition = datas.size();
         }
+
         int count = endPosition - startPosition;
         int cs = getChildCount();
         for (int i = 0; i < cs; i++) {
