@@ -34,6 +34,9 @@ public class ViewListActivity extends ApiItemListActivity {
         apiItem = new ApiItem("My Scroller View", MyScrollerActivity.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("Sort Grid", SortGridActivity.class);
+        mApiItems.add(apiItem);
+
         apiItem = new ApiItem("Empty ListView", EmptyListViewActivity.class);
         mApiItems.add(apiItem);
 
