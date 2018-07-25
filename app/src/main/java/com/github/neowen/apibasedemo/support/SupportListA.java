@@ -21,5 +21,8 @@ public class SupportListA extends ApiItemListActivity {
         apiItem = new ApiItem("Printer", PrinterActivity.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("Upgrade", UpgradeActivity.class);
+        mApiItems.add(apiItem);
+
     }
 }
