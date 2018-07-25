@@ -128,21 +128,26 @@ public class HVScaleScrollView extends FrameLayout {
     }
 
     public class ScaleGestureListener implements ScaleGestureDetector.OnScaleGestureListener {
+        float startScale = 1f;
 
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             // TODO Auto-generated method stub
-
+            Log.d(TAG, "ScaleGestureListener ---> " + detector.getScaleFactor());
             //缩放比例
-            float scale = detector.getScaleFactor() + scaleDuration;
-//            Log.e(TAG, "onScale: " + scale);
+            float offset = detector.getScaleFactor() - 1;
+            if (offset < 0) {
+                offset *= 2.5f;
+            }
+            float scale = startScale + offset * 2f;
+//            Log.e(TAG, "ScaleGestureListener -->startScale: " + startScale +" , scale : " + scale +" , offset : " + offset);
             if (scale < minScale)
                 scale = minScale;
-            else if (scale > 2.0f)
-                scale = 2.0f;
-
+            else if (scale > 3.0f)
+                scale = 3.0f;
             getChildAt(0).setScaleX(scale);
             getChildAt(0).setScaleY(scale);
+//            Log.d(TAG, "ScaleGestureListener --> setScale : " + scale + " , getScale : " + getChildAt(0).getScaleX());
 
 //            setScaleX(scale);
 //            setScaleY(scale);
@@ -152,6 +157,8 @@ public class HVScaleScrollView extends FrameLayout {
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
+            startScale = getChildAt(0).getScaleX();
+//            Log.e(TAG, "ScaleGestureListener -->startScale  -----> " + startScale);
             scaleX = getChildAt(0).getScaleX();
             scaleBegin = detector.getScaleFactor();
             scaleDuration = scaleX - scaleBegin;
