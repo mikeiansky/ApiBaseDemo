@@ -89,10 +89,8 @@ public class ChinaMapView extends View {
             "宁夏",
             "新疆维吾尔族自治区",
             "澳门",
-//            "香港",
-//            "台湾"
-            "",
-            ""
+            "香港",
+            "台湾"
     };
     private static String[] svgPaths = new String[]{
             /**0  北京  */"M421.139,189.75L420.782,186.894L419.95,184.989L425.045,182.863L425.426,181.18L424.23699999999997,176.413H422.56899999999996L415.90299999999996,172.964L412.21299999999997,176.654C412.21299999999997,176.654,411.08799999999997,183.239,411.381,181.534C411.66999999999996,179.82999999999998,407.688,185.822,407.688,185.822L407.094,190.108L407.926,192.371L412.807,191.537L416.5,192.608L418.284,190.941L421.139,189.75Z",
@@ -464,9 +462,9 @@ public class ChinaMapView extends View {
 
             pCanvas.drawPath(xPaths[i], xPaints[i]);
             pCanvas.drawPath(xPaths[i], xPaintsBorder);
-            if (Area.XiangGang == Area.valueOf(i) || Area.AoMen == Area.valueOf(i)) {
-                continue;
-            }
+//            if (Area.XiangGang == Area.valueOf(i) || Area.AoMen == Area.valueOf(i)) {
+//                continue;
+//            }
 
 
             drawOneArea(pCanvas, textPaint, i);
@@ -592,6 +590,13 @@ public class ChinaMapView extends View {
         }
         if (Area.HaiNan == Area.valueOf(index)) {
             paddingTop += 20;
+        }
+        if (Area.AoMen == Area.valueOf(index)) {
+            paddingTop += 20;
+            paddingLeft -= 20;
+        }
+        if (Area.XiangGang == Area.valueOf(index)) {
+
         }
 
         if (localArea == Area.valueOf(index)) {
