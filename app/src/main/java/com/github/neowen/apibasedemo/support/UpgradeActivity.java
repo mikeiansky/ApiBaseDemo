@@ -1,11 +1,14 @@
 package com.github.neowen.apibasedemo.support;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -81,7 +84,23 @@ public class UpgradeActivity extends BaseActivity {
             }
         });
 
+        findViewById(R.id.install).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                install();
+            }
+        });
 
+
+    }
+
+    private void install() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(
+                Uri.fromFile(new File(DOWNLOAD_FILE_NAME)),
+                "application/vnd.android.package-archive"
+        );
+        startActivity(intent);
     }
 
     private void upgrade() {
@@ -109,7 +128,6 @@ public class UpgradeActivity extends BaseActivity {
 
     private void downloadFile() {
         DownloadUtils.downloadFile(DOWNLOAD_URL, DOWNLOAD_FILE_NAME, upgradeListener);
-
     }
 
 }
