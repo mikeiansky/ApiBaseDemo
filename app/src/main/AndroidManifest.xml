@@ -99,6 +99,7 @@
         <activity android:name=".support.MyWebViewActivity" />
         <activity android:name=".view.SortGridActivity" />
         <activity android:name=".support.UpgradeActivity" />
+        <activity android:name=".drawable.CustomDrawableActivity" />
         <activity
             android:name=".support.PrinterActivity"
             android:screenOrientation="portrait" />

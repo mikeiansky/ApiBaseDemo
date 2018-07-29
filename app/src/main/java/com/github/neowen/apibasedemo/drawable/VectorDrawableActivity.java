@@ -23,6 +23,7 @@ public class VectorDrawableActivity extends AppCompatActivity {
 //        NinePatchDrawable npd = new NinePatchDrawable();
         VectorDrawable vd = null;
 
+
     }
 
 }
