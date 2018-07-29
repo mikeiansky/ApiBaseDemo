@@ -5,15 +5,38 @@
     android:orientation="vertical">
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="20dp" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/custom_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginLeft="20dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="347dp"
+            android:layout_height="567dp"
+            android:id="@+id/load"
+            />
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/imglive"
+            android:layout_width="347dp"
+            android:layout_height="567dp"
+            android:layout_marginLeft="60dp"
+            android:focusable="true"
+            android:clickable="true"
+            android:src="@drawable/d_live_s" />
+    </LinearLayout>
+
 
 </LinearLayout>
