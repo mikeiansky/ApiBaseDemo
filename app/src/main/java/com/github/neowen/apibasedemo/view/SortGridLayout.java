@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -24,7 +25,7 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
 
     private boolean haveChild;
 
-    private int leftUnit, topUnit;
+    private int leftUnit, topUnit, paddingRight;
     private List<String> datas;
     private OnItemClickListener onItemClickListener;
     private int pageSize;
@@ -60,6 +61,7 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         topUnit = (int) (context.getResources().getDisplayMetrics().density * 50);
+        paddingRight = (int) (context.getResources().getDisplayMetrics().density * 30);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -92,7 +94,11 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
             if (i >= count) {
                 ((TextView) getChildAt(i)).setText("");
             } else {
-                ((TextView) getChildAt(i)).setText(datas.get(startPosition + i));
+                if (i == 9) {
+                    ((TextView) getChildAt(i)).setText("ABCDEFGHIJKLMNOPQRSTUVWXYZHELL");
+                } else {
+                    ((TextView) getChildAt(i)).setText(datas.get(startPosition + i));
+                }
             }
         }
 
@@ -115,7 +121,9 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
                 textView.setBackgroundColor((int) (Math.random() * Integer.MAX_VALUE));
                 textView.setOnClickListener(this);
+                textView.setEllipsize(TextUtils.TruncateAt.END);
                 textView.setTag(i);
+                textView.setPadding(0, 0, paddingRight, 0);
                 addView(textView);
             }
 
@@ -136,7 +144,9 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
-            int ws = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec) / 2, MeasureSpec.EXACTLY);
+            int hw = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec) / 2, MeasureSpec.EXACTLY);
+            int ws = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec) / 2, MeasureSpec.UNSPECIFIED);
+//            child.
             int hs = MeasureSpec.makeMeasureSpec(topUnit, MeasureSpec.EXACTLY);
             child.measure(ws, hs);
         }
@@ -145,13 +155,19 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int count = getChildCount();
+        int maxWidth = (r - l) / 2;
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
 
             int left = (i % 2) * leftUnit;
             int top = (i / 2) * topUnit;
 
-            child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
+            int width = child.getMeasuredWidth();
+            if (width > maxWidth) {
+                width = maxWidth;
+            }
+
+            child.layout(left, top, left + width, top + child.getMeasuredHeight());
         }
 
     }

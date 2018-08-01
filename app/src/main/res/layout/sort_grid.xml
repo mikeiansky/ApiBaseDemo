@@ -6,9 +6,8 @@
 
     <com.github.neowen.apibasedemo.view.SortGridLayout
         android:id="@+id/sort_grid_layout"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         android:background="#f0ccf0">
 
