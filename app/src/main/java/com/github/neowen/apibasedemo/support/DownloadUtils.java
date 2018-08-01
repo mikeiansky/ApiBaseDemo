@@ -50,7 +50,7 @@ public class DownloadUtils {
                     float total = urlConnection.getHeaderFieldInt("Content-Length", -1);
                     byte[] buf = new byte[1024];
                     int length = 0;
-                    int downloadLength = 0;
+                    long downloadLength = 0;
                     while ((length = in.read(buf)) != -1) {
                         out.write(buf, 0, length);
                         out.flush();

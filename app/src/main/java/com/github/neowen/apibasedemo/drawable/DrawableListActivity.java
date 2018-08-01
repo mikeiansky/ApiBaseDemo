@@ -10,7 +10,12 @@ public class DrawableListActivity extends ApiItemListActivity {
 
     @Override
     protected void addApiItemData() {
-        ApiItem apiItem = new ApiItem("VectorDrawable",VectorDrawableActivity.class);
+
+        ApiItem apiItem = new ApiItem("Vector Drawable", VectorDrawableActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Custom Drawable", CustomDrawableActivity.class);
+        mApiItems.add(apiItem);
+
     }
 }
