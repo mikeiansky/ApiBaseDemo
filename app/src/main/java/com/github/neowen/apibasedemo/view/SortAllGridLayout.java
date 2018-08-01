@@ -1,27 +1,24 @@
 package com.github.neowen.apibasedemo.view;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 /**
  * Created by Winson on 2018/7/17.
  */
-public class SortGridLayout extends ViewGroup implements View.OnClickListener {
+public class SortAllGridLayout extends ViewGroup implements View.OnClickListener {
 
-    public static final String TAG = SortGridLayout.class.getSimpleName();
+    public static final String TAG = SortAllGridLayout.class.getSimpleName();
 
     private boolean haveChild;
 
@@ -33,29 +30,28 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
     private int oldHeight = -1;
     private boolean atFirst = true;
     private boolean atLast = false;
-    private int childSize;
 
     public interface OnItemClickListener {
         void onItemClick(int position, String item);
     }
 
-    public SortGridLayout(Context context) {
+    public SortAllGridLayout(Context context) {
         super(context);
         init(context, null, 0, 0);
     }
 
-    public SortGridLayout(Context context, AttributeSet attrs) {
+    public SortAllGridLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0, 0);
     }
 
-    public SortGridLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SortAllGridLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr, 0);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public SortGridLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SortAllGridLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -72,8 +68,7 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
     public void setData(List<String> datas) {
         this.datas = datas;
         page = 0;
-//        refreshData();
-        requestLayout();
+        refreshData();
     }
 
     private void refreshData() {
@@ -137,50 +132,21 @@ public class SortGridLayout extends ViewGroup implements View.OnClickListener {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         leftUnit = MeasureSpec.getSize(widthMeasureSpec) / 2;
 
-//        checkChild(MeasureSpec.getSize(heightMeasureSpec));
+        checkChild(MeasureSpec.getSize(heightMeasureSpec));
 
         int count = getChildCount();
-        int size = datas == null ? 0 : datas.size();
-        if (count != size) {
-            removeAllViews();
-            if (datas != null) {
-                for (int i = 0; i < size; i++) {
-                    TextView textView = new TextView(getContext());
-                    textView.setSingleLine();
-                    textView.setGravity(Gravity.CENTER_VERTICAL);
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-                    textView.setBackgroundColor((int) (Math.random() * Integer.MAX_VALUE));
-                    textView.setOnClickListener(this);
-                    textView.setEllipsize(TextUtils.TruncateAt.END);
-                    textView.setPadding(0, 0, paddingRight, 0);
-                    addView(textView);
-                }
-
-            }
-        }
-
-
-        count = getChildCount();
-        int high = 0;
-        if (count != 0) {
-            high = topUnit * ((count / 2) + (count % 2));
-        }
         for (int i = 0; i < count; i++) {
-            TextView child = (TextView) getChildAt(i);
+            View child = getChildAt(i);
             int hw = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec) / 2, MeasureSpec.EXACTLY);
-            int ws = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec) / 2, MeasureSpec.EXACTLY);
+            int ws = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec) / 2, MeasureSpec.UNSPECIFIED);
+//            child.
             int hs = MeasureSpec.makeMeasureSpec(topUnit, MeasureSpec.EXACTLY);
             child.measure(ws, hs);
-            child.setText(datas.get(i));
-            child.setTag(datas.get(i));
         }
-
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(high, MeasureSpec.EXACTLY));
-
-
     }
 
     @Override

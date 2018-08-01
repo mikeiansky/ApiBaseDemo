@@ -59,14 +59,15 @@ public class SortGridActivity extends BaseActivity {
         findViewById(R.id.page_up).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sortGridLayout.pageUp();
+//                sortGridLayout.pageUp();
+                sortGridLayout.requestLayout();
             }
         });
 
         findViewById(R.id.page_down).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sortGridLayout.pageDown();
+//                sortGridLayout.pageDown();
             }
         });
 
@@ -85,16 +86,7 @@ public class SortGridActivity extends BaseActivity {
                         , "xiang 9"
                         , "xiang 10"
                         , "xiang 11"
-                        , "xiang 12"
-                        , "xiang 13"
-                        , "xiang 14"
-                        , "xiang 15"
-                        , "xiang 16"
-                        , "xiang 17"
-                        , "xiang 18"
-                        , "xiang 19"
-                        , "xiang 20"
-                        , "xiang 21"));
+                        , "xiang 12"));
             }
         });
 

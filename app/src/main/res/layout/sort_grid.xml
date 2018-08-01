@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <com.github.neowen.apibasedemo.view.SortGridLayout
         android:id="@+id/sort_grid_layout"
         android:layout_width="match_parent"
@@ -34,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:text="update data" />
 
     <Button
@@ -43,5 +53,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="show_hidden" />
-
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
