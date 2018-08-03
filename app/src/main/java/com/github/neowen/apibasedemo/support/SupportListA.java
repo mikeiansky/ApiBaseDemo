@@ -24,5 +24,8 @@ public class SupportListA extends ApiItemListActivity {
         apiItem = new ApiItem("Upgrade", UpgradeActivity.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("Crash Log", CrashLogActivity.class);
+        mApiItems.add(apiItem);
+
     }
 }
