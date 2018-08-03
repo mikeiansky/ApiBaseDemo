@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
@@ -28,7 +29,7 @@ public class MyScrollerActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 myScrollerView.change();
-                Log.d("Tag", "change width : " + test.getWidth() +" , height : " + test.getHeight());
+                Log.d("Tag", "change width : " + test.getWidth() + " , height : " + test.getHeight());
             }
         });
 
@@ -41,6 +42,9 @@ public class MyScrollerActivity extends BaseActivity {
                 test.setScaleY(0.5f);
             }
         });
+
+        ((TextView) findViewById(R.id.my_text_view)).setText("Hello World!");
+        ((TextView) findViewById(R.id.my_text_view)).getPaint().measureText("");
 
     }
 }
