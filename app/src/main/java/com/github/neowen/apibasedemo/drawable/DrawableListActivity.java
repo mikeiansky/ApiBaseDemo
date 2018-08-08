@@ -17,5 +17,7 @@ public class DrawableListActivity extends ApiItemListActivity {
         apiItem = new ApiItem("Custom Drawable", CustomDrawableActivity.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("Shadow Drawable", ShadowActivity.class);
+        mApiItems.add(apiItem);
     }
 }

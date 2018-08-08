@@ -101,6 +101,7 @@
         <activity android:name=".support.UpgradeActivity" />
         <activity android:name=".drawable.CustomDrawableActivity" />
         <activity android:name=".support.CrashLogActivity" />
+        <activity android:name=".drawable.ShadowActivity" />
         <activity
             android:name=".support.PrinterActivity"
             android:screenOrientation="portrait" />

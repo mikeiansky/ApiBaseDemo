@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/custom_image"
+    <com.github.neowen.apibasedemo.drawable.MyShadowView
+        android:id="@+id/my_shadow_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"/>
 
 
 </LinearLayout>

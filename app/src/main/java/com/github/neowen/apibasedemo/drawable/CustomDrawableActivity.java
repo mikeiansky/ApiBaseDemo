@@ -26,8 +26,7 @@ public class CustomDrawableActivity extends BaseActivity {
 
     public static final String TAG = CustomDrawableActivity.class.getSimpleName();
 
-    ImageView image,customImage,loadImage;
-    Drawable customDrawable;
+    ImageView customImage;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -35,19 +34,10 @@ public class CustomDrawableActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_drawable_layout);
 
-        image = (ImageView) findViewById(R.id.image);
         customImage = (ImageView) findViewById(R.id.custom_image);
-        loadImage = (ImageView) findViewById(R.id.load);
-        image.setBackground(getResources().getDrawable(R.drawable.btn));
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
 
-        customImage.setBackground(createMyDrawable());
+        customImage.setBackground(getResources().getDrawable(R.drawable.my_layer));
         customImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,24 +45,11 @@ public class CustomDrawableActivity extends BaseActivity {
             }
         });
 
-//        loadImage.setImageBitmap(BitmapFactory.decodeFile(
-//                Environment.getExternalStorageDirectory().getPath()+ File.separator+"live_s.png"
-//        ));
-
-        loadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "cache dir : " + getCacheDir().getPath());
-
-            }
-        });
-        loadImage.setBackground(createMyDrawable());
-
     }
 
-    private Drawable createMyDrawable(){
-        Drawable selectDrawable = new BitmapDrawable(getResources(), Environment.getExternalStorageDirectory().getPath()+ File.separator+"live_b.png");
-        Drawable normalDrawable = new BitmapDrawable(getResources(), Environment.getExternalStorageDirectory().getPath()+ File.separator+"live_s.png");
+    private Drawable createMyDrawable() {
+        Drawable selectDrawable = new BitmapDrawable(getResources(), Environment.getExternalStorageDirectory().getPath() + File.separator + "live_b.png");
+        Drawable normalDrawable = new BitmapDrawable(getResources(), Environment.getExternalStorageDirectory().getPath() + File.separator + "live_s.png");
         StateListDrawable sld = new StateListDrawable();
         sld.addState(new int[]{android.R.attr.state_focused}, selectDrawable);
         sld.addState(new int[]{android.R.attr.state_pressed}, selectDrawable);
