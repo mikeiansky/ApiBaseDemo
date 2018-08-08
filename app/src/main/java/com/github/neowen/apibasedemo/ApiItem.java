@@ -13,5 +13,6 @@ public class ApiItem {
     public ApiItem(String mTitle, Class<? extends Activity> mClazz) {
         this.mTitle = mTitle;
         this.mClazz = mClazz;
+
     }
 }
