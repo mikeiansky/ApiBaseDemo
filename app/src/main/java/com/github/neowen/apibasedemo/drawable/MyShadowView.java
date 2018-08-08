@@ -89,6 +89,11 @@ public class MyShadowView extends View {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
 
+        Paint boardPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        boardPaint.setStyle(Paint.Style.STROKE);
+        boardPaint.setColor(Color.YELLOW);
+        boardPaint.setStrokeWidth(roundRadius);
+
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         Rect r1 = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
         RectF rf = new RectF(r1);
@@ -96,6 +101,7 @@ public class MyShadowView extends View {
         canvas.drawRoundRect(rf, roundRadius, roundRadius, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, r1, rf, paint);
+//        canvas.drawRoundRect(rf, roundRadius, roundRadius, boardPaint);
 
         return output;
     }
