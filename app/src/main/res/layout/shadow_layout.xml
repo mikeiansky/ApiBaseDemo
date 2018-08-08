@@ -4,12 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.github.neowen.apibasedemo.drawable.MyShadowView
-        android:id="@+id/my_shadow_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="#10000000"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp">
+
+        <com.github.neowen.apibasedemo.drawable.MyShadowView
+            android:id="@+id/my_shadow_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"/>
+
+    </FrameLayout>
+
 
 
 </LinearLayout>
