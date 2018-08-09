@@ -16,9 +16,65 @@ import com.amap.api.location.AMapLocationListener;
 import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LocationActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = LocationActivity.class.getSimpleName();
+
+    public static Map<String, String> provinceMap = new HashMap<>();
+
+    static {
+        provinceMap.clear();
+        provinceMap.put("北京", "110000000000");
+        provinceMap.put("天津", "120000000000");
+        provinceMap.put("河北", "130000000000");
+        provinceMap.put("山西", "140000000000");
+        provinceMap.put("内蒙", "150000000000");
+        provinceMap.put("辽宁", "210000000000");
+        provinceMap.put("吉林", "220000000000");
+        provinceMap.put("黑龙", "230000000000");
+        provinceMap.put("上海", "310000000000");
+        provinceMap.put("江苏", "320000000000");
+        provinceMap.put("浙江", "330000000000");
+        provinceMap.put("安徽", "340000000000");
+        provinceMap.put("福建", "350000000000");
+        provinceMap.put("江西", "360000000000");
+        provinceMap.put("山东", "370000000000");
+        provinceMap.put("河南", "410000000000");
+        provinceMap.put("湖北", "420000000000");
+        provinceMap.put("湖南", "430000000000");
+        provinceMap.put("广东", "440000000000");
+        provinceMap.put("广西", "450000000000");
+        provinceMap.put("海南", "460000000000");
+        provinceMap.put("重庆", "500000000000");
+        provinceMap.put("四川", "510000000000");
+        provinceMap.put("贵州", "520000000000");
+        provinceMap.put("云南", "530000000000");
+        provinceMap.put("西藏", "540000000000");
+        provinceMap.put("陕西", "610000000000");
+        provinceMap.put("甘肃", "620000000000");
+        provinceMap.put("青海", "630000000000");
+        provinceMap.put("宁夏", "640000000000");
+        provinceMap.put("新疆", "650000000000");
+        provinceMap.put("香港", "810000000000");
+        provinceMap.put("澳门", "820000000000");
+    }
+
+    public static String getProvinceIdByName(String provinceName) {
+
+        if (provinceName != null) {
+
+            if (provinceName.length() >= 2) {
+                String shortName = provinceName.substring(0, 2);
+                return provinceMap.get(shortName);
+            }
+
+        }
+
+        return null;
+    }
 
     TextView result;
 
@@ -61,9 +117,8 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
-                Log.d(TAG, "getLocationFunc2 ---> " + aMapLocation.getProvince());
-                result.setText(aMapLocation.toString());
-                aMapLocation.getAdCode();
+                Log.d(TAG, "getLocationFunc2 ---> " + aMapLocation);
+                result.setText(getProvinceIdByName(aMapLocation.getProvince()));
             }
         });
 
