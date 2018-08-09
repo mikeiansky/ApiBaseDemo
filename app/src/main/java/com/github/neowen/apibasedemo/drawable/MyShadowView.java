@@ -74,7 +74,8 @@ public class MyShadowView extends View {
         normalPadding = (int) (dpi * 40);
 
         specialPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        specialPaint.setColor(Color.YELLOW);
+        specialPaint.setStyle(Paint.Style.FILL);
+        specialPaint.setColor(Color.BLACK);
         specialPaint.setShadowLayer(radius, 0, 0, Color.YELLOW);
 
         normalPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -176,11 +177,11 @@ public class MyShadowView extends View {
         if (special) {
             canvas.drawRoundRect(selectRect, radius, radius, specialPaint);
             if (selectBitmap != null) {
-                canvas.drawBitmap(selectBitmap, selectMatrix, normalPaint);
+//                canvas.drawBitmap(selectBitmap, selectMatrix, normalPaint);
             }
         } else {
             if (normalBitmap != null) {
-                canvas.drawBitmap(normalBitmap, normalMatrix, normalPaint);
+//                canvas.drawBitmap(normalBitmap, normalMatrix, normalPaint);
             }
         }
 
