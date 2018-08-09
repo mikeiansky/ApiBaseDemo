@@ -26,8 +26,7 @@ public class ShadowActivity extends BaseActivity {
         setContentView(R.layout.shadow_layout);
 
         MyShadowView myShadowView = (MyShadowView) findViewById(R.id.my_shadow_view);
-        ShadowDrawable sd = new ShadowDrawable(myShadowView);
-        myShadowView.setBackground(sd);
+
         myShadowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

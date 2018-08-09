@@ -63,6 +63,9 @@ public class MyShadowView extends View {
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);  // 关闭硬件加速
 
+        ShadowDrawable sd = new ShadowDrawable(this);
+        setBackgroundDrawable(sd);
+
         float dpi = getResources().getDisplayMetrics().density;
         radius = (int) (dpi * 20);
         border = (int) (dpi * 10);
