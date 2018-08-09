@@ -1,5 +1,7 @@
 package com.github.neowen.apibasedemo.drawable;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +34,8 @@ public class ShadowActivity extends BaseActivity {
 
             }
         });
+        myShadowView.setSelectBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.car));
+        myShadowView.setNormalBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.car));
 
     }
 
