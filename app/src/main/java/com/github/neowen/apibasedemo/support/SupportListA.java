@@ -27,5 +27,7 @@ public class SupportListA extends ApiItemListActivity {
         apiItem = new ApiItem("Crash Log", CrashLogActivity.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("Location", LocationActivity.class);
+        mApiItems.add(apiItem);
     }
 }
