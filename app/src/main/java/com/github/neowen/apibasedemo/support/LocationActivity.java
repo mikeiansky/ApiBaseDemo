@@ -1,6 +1,9 @@
 package com.github.neowen.apibasedemo.support;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -87,6 +90,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
 
         findViewById(R.id.fun1).setOnClickListener(this);
         findViewById(R.id.func2).setOnClickListener(this);
+        findViewById(R.id.get_metadata).setOnClickListener(this);
     }
 
     @Override
@@ -99,7 +103,25 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
             case R.id.func2:
                 getLocationFunc2();
                 break;
+            case R.id.get_metadata:
+                getMetaData();
+                break;
         }
+    }
+
+    private void getMetaData() {
+
+        try {
+            ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+
+            String msg=appInfo.metaData.getString("winson");
+
+            result.setText(msg);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void getLocaltionFunc1() {

@@ -11,11 +11,20 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [
+                    winson: "Hello ZWX!"
+            ]
+        }
+        debug {
+            manifestPlaceholders = [
+                    winson: "${AMAP_KEY}"
+            ]
         }
     }
     sourceSets {
@@ -23,6 +32,12 @@ android {
             jni.srcDirs = []
             jniLibs.srcDirs = ['libs']
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
@@ -42,3 +57,5 @@ dependencies {
     compile 'com.github.winsonzhou:ad-ui:0.2.1'
 
 }
+
+
