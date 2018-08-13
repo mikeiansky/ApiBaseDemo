@@ -8,12 +8,21 @@
         android:id="@+id/show_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="show dialog" />
 
     <Button
         android:id="@+id/show_custom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="show custom" />
+
+    <Button
+        android:id="@+id/show_style_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="show style dialog" />
 
 </LinearLayout>

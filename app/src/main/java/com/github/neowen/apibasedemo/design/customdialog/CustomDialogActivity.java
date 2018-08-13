@@ -66,6 +66,30 @@ public class CustomDialogActivity extends AppCompatActivity {
 
             }
         });
+
+        findViewById(R.id.show_style_dialog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), 0);
+                builder.setTitle("Default Style");
+                builder.setMessage("Message");
+                builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setPositiveButton("confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                                arg0.dismiss();
+                            }
+                        });
+                builder.create().show();
+            }
+        });
     }
 
 }
