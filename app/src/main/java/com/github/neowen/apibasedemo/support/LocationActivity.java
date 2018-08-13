@@ -140,7 +140,8 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
                 Log.d(TAG, "getLocationFunc2 ---> " + aMapLocation);
-                result.setText(getProvinceIdByName(aMapLocation.getProvince()));
+//                result.setText(getProvinceIdByName(aMapLocation.getProvince()));
+                result.setText(aMapLocation.getProvince());
             }
         });
 

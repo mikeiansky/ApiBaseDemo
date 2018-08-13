@@ -38,6 +38,7 @@ public class MyShadowView extends View {
     private Bitmap selectBitmap;
     private Bitmap normalBitmap;
     BitmapShader bitmapShader;
+    int resizeWidth;
 
     public MyShadowView(@NonNull Context context) {
         super(context);
@@ -134,11 +135,17 @@ public class MyShadowView extends View {
         invalidate();
     }
 
+    private void resize(int width){
+
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
+
+        resize(width);
 
         // update normal layout
         normalRect.left = normalPadding;
@@ -167,6 +174,7 @@ public class MyShadowView extends View {
         }
 
 
+
     }
 
     @Override
@@ -177,11 +185,11 @@ public class MyShadowView extends View {
         if (special) {
             canvas.drawRoundRect(selectRect, radius, radius, specialPaint);
             if (selectBitmap != null) {
-//                canvas.drawBitmap(selectBitmap, selectMatrix, normalPaint);
+                canvas.drawBitmap(selectBitmap, selectMatrix, normalPaint);
             }
         } else {
             if (normalBitmap != null) {
-//                canvas.drawBitmap(normalBitmap, normalMatrix, normalPaint);
+                canvas.drawBitmap(normalBitmap, normalMatrix, normalPaint);
             }
         }
 
