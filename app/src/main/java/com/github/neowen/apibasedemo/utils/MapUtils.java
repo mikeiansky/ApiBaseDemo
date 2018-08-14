@@ -17,10 +17,15 @@ public class MapUtils {
 
     Context context;
     private String provinceId;
+    private String province;
 
     public MapUtils(Context context) {
         this.context = context;
         getLocation();
+    }
+
+    public String getProvince(){
+        return province;
     }
 
     public static Map<String, String> provinceMap = new HashMap<>();
@@ -88,6 +93,7 @@ public class MapUtils {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
                 if (aMapLocation != null) {
+                    province = aMapLocation.getProvince();
                     provinceId = getProvinceIdByName(aMapLocation.getProvince());
                     Log.d(TAG, "location province : " + aMapLocation.getProvince());
                 }

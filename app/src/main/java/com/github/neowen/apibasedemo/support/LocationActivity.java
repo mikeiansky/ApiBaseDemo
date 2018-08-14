@@ -16,6 +16,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.github.neowen.apibasedemo.ApiDemoApplication;
 import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
 
@@ -125,11 +126,15 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void getLocaltionFunc1() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if (location != null) {
-            Log.d(TAG, "get location x : " + location.getLongitude() + " , y : " + location.getLatitude());
-        }
+//        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//        if (location != null) {
+//            Log.d(TAG, "get location x : " + location.getLongitude() + " , y : " + location.getLatitude());
+//        }
+
+        String province = ((ApiDemoApplication)getApplication()).getProvince();
+        result.setText("localtion province : " + province);
+
     }
 
     private void getLocationFunc2() {

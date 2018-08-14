@@ -10,11 +10,17 @@ import com.github.neowen.apibasedemo.utils.MapUtils;
  */
 public class ApiDemoApplication extends Application {
 
+    MapUtils mapUtils;
+
     @Override
     public void onCreate() {
         super.onCreate();
         CrashHandler c = new CrashHandler(this);
-        MapUtils mapUtils = new MapUtils(this);
+        mapUtils = new MapUtils(this);
+    }
+
+    public String getProvince(){
+        return mapUtils.getProvince();
     }
 
 }
