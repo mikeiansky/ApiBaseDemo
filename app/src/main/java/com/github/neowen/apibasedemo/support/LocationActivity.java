@@ -1,16 +1,22 @@
 package com.github.neowen.apibasedemo.support;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -23,10 +29,12 @@ import com.github.neowen.apibasedemo.R;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.tencent.open.utils.ThreadManager.init;
+
 public class LocationActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = LocationActivity.class.getSimpleName();
-
+    private static final int BAIDU_READ_PHONE_STATE = 100;
     public static Map<String, String> provinceMap = new HashMap<>();
 
     static {
@@ -92,6 +100,40 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.fun1).setOnClickListener(this);
         findViewById(R.id.func2).setOnClickListener(this);
         findViewById(R.id.get_metadata).setOnClickListener(this);
+
+
+        //判断是否为android6.0系统版本，如果是，需要动态添加权限
+//        if (Build.VERSION.SDK_INT>=23){
+
+    }
+
+    public void checkCamera() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            //申请权限，REQUEST_TAKE_PHOTO_PERMISSION是自定义的常量
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                    BAIDU_READ_PHONE_STATE);
+            Toast.makeText(this, "request", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, "have", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    public void showContacts() {
+//        Build.VERSION_CODES.M
+        if (PermissionChecker.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || PermissionChecker.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || PermissionChecker.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "没有权限,请手动开启定位权限", Toast.LENGTH_SHORT).show();
+            // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, BAIDU_READ_PHONE_STATE);
+        }else {
+            Toast.makeText(getApplicationContext(), "have opened", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -111,16 +153,17 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void getMetaData() {
-
-        try {
-            ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-
-            String msg=appInfo.metaData.getString("winson");
-
-            result.setText(msg);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        showContacts();
+        checkCamera();
+//        try {
+//            ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+//
+//            String msg=appInfo.metaData.getString("winson");
+//
+//            result.setText(msg);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
 
     }
@@ -132,7 +175,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
 //            Log.d(TAG, "get location x : " + location.getLongitude() + " , y : " + location.getLatitude());
 //        }
 
-        String province = ((ApiDemoApplication)getApplication()).getProvince();
+        String province = ((ApiDemoApplication) getApplication()).getProvince();
         result.setText("localtion province : " + province);
 
     }
