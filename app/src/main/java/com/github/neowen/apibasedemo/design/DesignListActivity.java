@@ -38,5 +38,8 @@ public class DesignListActivity extends ApiItemListActivity {
 
         apiItem = new ApiItem("Custom Notification", NotificationActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Wave View", WaveViewActivity.class);
+        mApiItems.add(apiItem);
     }
 }

@@ -87,6 +87,7 @@
 
         <activity android:name=".support.SupportListA" />
         <activity android:name=".design.NotificationActivity" />
+        <activity android:name=".design.WaveViewActivity" />
         <activity android:name=".support.ViewDragHelperA" />
         <activity android:name=".design.DesignListActivity" />
         <activity android:name=".design.swipebacklayout.SwipeBackActivity" />
