@@ -35,5 +35,8 @@ public class DesignListActivity extends ApiItemListActivity {
 
         apiItem = new ApiItem("Dialog Empty View", DialogFragmentEmptyActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Custom Notification", NotificationActivity.class);
+        mApiItems.add(apiItem);
     }
 }
