@@ -147,7 +147,9 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
                 getLocationFunc2();
                 break;
             case R.id.get_metadata:
-                getMetaData();
+//                getMetaData();
+                mLocationClient.stopLocation();
+                mLocationClient.startLocation();
                 break;
         }
     }
@@ -216,6 +218,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
 
         //设置定位间隔,单位毫秒,默认为2000ms，最低1000ms。
         mLocationOption.setInterval(1000 * 60 * 60);
+//        mLocationOption.setInterval(2000);
 
         //设置是否返回地址信息（默认返回地址信息）
         mLocationOption.setNeedAddress(true);
@@ -227,6 +230,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
         mLocationClient.startLocation();
+
     }
 
     //声明AMapLocationClient类对象

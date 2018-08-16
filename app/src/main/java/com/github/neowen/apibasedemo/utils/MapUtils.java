@@ -24,7 +24,7 @@ public class MapUtils {
         getLocation();
     }
 
-    public String getProvince(){
+    public String getProvince() {
         return province;
     }
 
@@ -79,6 +79,13 @@ public class MapUtils {
         }
 
         return null;
+    }
+
+    public void refresh() {
+        if (mLocationClient != null) {
+            mLocationClient.stopLocation();
+            mLocationClient.startLocation();
+        }
     }
 
     public String getLocalProvinceId() {
