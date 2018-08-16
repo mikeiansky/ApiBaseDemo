@@ -21,9 +21,10 @@ public class MyWaveView extends View {
     Paint backPaint;
     float shift;
     float rate = 1.3f;
-    float rangeRate = 1f;
-    float section = 3f;
+    float rangeRate = 0.5f;
+    float section;
     float sw;
+    float wave;
 
     public MyWaveView(Context context) {
         super(context);
@@ -47,8 +48,10 @@ public class MyWaveView extends View {
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 
+        sw = getResources().getDisplayMetrics().density * 137f;
+
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.parseColor("#ffffff"));
+        paint.setColor(Color.parseColor("#bfffffff"));
         path = new Path();
 
         backPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -72,6 +75,11 @@ public class MyWaveView extends View {
         invalidate();
     }
 
+    public void setWave(float wave) {
+        this.wave = wave;
+        invalidate();
+    }
+
     public float getSectionWidth() {
         return sw;
     }
@@ -80,14 +88,15 @@ public class MyWaveView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
-        sw = 1f * width / section;
+//        sw = 1f * width / section;
+        section = Math.round(width / sw) + 3;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        drawBackWave(canvas);
+//        drawBackWave(canvas);
         drawFrontWave(canvas);
     }
 
@@ -95,10 +104,12 @@ public class MyWaveView extends View {
 
 
         float level = getHeight() / 2f;
-        float range = (getHeight() / 2f) * rangeRate;
 
-        float realSection = section + 2f;
-        float sectionWidth = getWidth() / section;
+
+        float range = (getHeight() / 2f) * rangeRate * wave;
+
+        float realSection = section;
+        float sectionWidth = sw;
 
         float tx = 0 - shift - 2f * sectionWidth / 3f;
 
@@ -120,6 +131,7 @@ public class MyWaveView extends View {
         backPath.lineTo(getWidth() + sectionWidth, getHeight());
         backPath.lineTo(startX, getHeight());
         backPath.lineTo(startX, startY);
+        backPath.close();
 
         canvas.drawPath(backPath, backPaint);
 
@@ -129,11 +141,14 @@ public class MyWaveView extends View {
     private void drawFrontWave(Canvas canvas) {
         float tx = 0 - shift;
 
-        float level = getHeight() / 2f;
-        float range = (getHeight() / 2f) * rangeRate;
+        float level = getHeight() * 3 / 5f;
 
-        float realSection = section + 2f;
-        float sectionWidth = getWidth() / section;
+
+        float range = (getHeight() / 2f) * rangeRate * wave;
+
+
+        float realSection = section;
+        float sectionWidth = sw;
         float rtx = tx % (2f * sectionWidth);
 
         float startX = 0 + rtx;
