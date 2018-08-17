@@ -141,7 +141,8 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
         int id = v.getId();
         switch (id) {
             case R.id.fun1:
-                getLocaltionFunc1();
+//                getLocaltionFunc1();
+                result.setText("");
                 break;
             case R.id.func2:
                 getLocationFunc2();
@@ -213,6 +214,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
             mLocationClient.startLocation();
         }
 
+        option.setLocationCacheEnable(false);
         //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
 

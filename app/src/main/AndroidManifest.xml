@@ -45,7 +45,7 @@
         android:label="@string/app_name"
         android:theme="@style/MyAppTheme">
 
-        <service android:name="com.amap.api.location.APSService"></service>
+        <service android:name="com.amap.api.location.APSService"/>
 
         <!-- weibo sdk platform start -->
         <activity

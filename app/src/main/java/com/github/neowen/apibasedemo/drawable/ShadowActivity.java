@@ -46,6 +46,12 @@ public class ShadowActivity extends BaseActivity {
         myShadowView.setSelectBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.car));
         myShadowView.setNormalBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.car));
         getImage();
+
+        View test = findViewById(R.id.test);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            test.setElevation(300f);
+        }
     }
 
     private void getImage() {

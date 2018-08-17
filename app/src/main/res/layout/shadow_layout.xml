@@ -2,15 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     android:orientation="vertical">
 
     <FrameLayout
-        android:visibility="gone"
+        android:clipChildren="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.github.neowen.apibasedemo.drawable.MyView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="50dp" />
+
+    </FrameLayout>
+
+    <FrameLayout
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:background="#10000000">
+        android:background="#10000000"
+        android:visibility="gone">
 
         <com.github.neowen.apibasedemo.drawable.MyShadowView
             android:id="@+id/my_shadow_view"
@@ -21,11 +34,19 @@
 
 
     <com.github.neowen.apibasedemo.view.MyImageView
-        android:layout_marginLeft="20dp"
         android:id="@+id/round_image"
-        android:layout_marginTop="200dp"
         android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="200dp" />
+
+    <ImageView
+        android:id="@+id/test"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#ff00ff" />
 
 
 </LinearLayout>
