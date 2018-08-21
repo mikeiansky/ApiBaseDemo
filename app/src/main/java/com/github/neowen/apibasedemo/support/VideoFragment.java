@@ -68,10 +68,10 @@ public class VideoFragment extends Fragment {
                             public void onPrepared(MediaPlayer arg0) {
                                 mNextMediaPlayer.start();
                                 Log.d(TAG, "media play real duration : " + mNextMediaPlayer.getDuration());
+                                mHandler.postDelayed(mPlayRun, mNextMediaPlayer.getDuration());
                             }
                         });
                         mNextMediaPlayer.prepareAsync();
-                        duration = mNextMediaPlayer.getDuration();
                     } else {
                         String path = paths[mIndex % paths.length];
                         mIndex++;
@@ -82,16 +82,15 @@ public class VideoFragment extends Fragment {
                             public void onPrepared(MediaPlayer arg0) {
                                 mNextMediaPlayer.start();
                                 Log.d(TAG, "media play duration : " + mNextMediaPlayer.getDuration());
+                                mHandler.postDelayed(mPlayRun, mNextMediaPlayer.getDuration());
                             }
                         });
                         mNextMediaPlayer.prepareAsync();
-                        duration = mNextMediaPlayer.getDuration();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Log.d(TAG, "media play duration : " + duration);
-                mHandler.postDelayed(mPlayRun, 10000);
+//                Log.d(TAG, "media play duration : " + duration);
             }
 
         };
