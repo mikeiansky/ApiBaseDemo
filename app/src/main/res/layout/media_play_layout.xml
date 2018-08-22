@@ -18,10 +18,11 @@
         android:text="play"
         />
 
-    <VideoView
+    <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:id="@+id/video_view"
+        android:scaleType="fitXY"
         />
 
     <FrameLayout

@@ -1,11 +1,13 @@
 package com.github.neowen.apibasedemo.support;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -21,17 +23,18 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
 
     public static final String TAG = MediaPlayActivity.class.getSimpleName();
 
-    VideoView videoView;
+    ImageView videoView;
     String path = Environment.getExternalStorageDirectory().getPath()+"/testmp4.mp4";
     String path2 = "file:///android_asset/testmp4.mp4";
     String newPath = null;
+    VideoFragment videoFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.media_play_layout);
 
-        videoView = (VideoView) findViewById(R.id.video_view);
+        videoView = (ImageView) findViewById(R.id.video_view);
 //        videoView.setVideoURI(Uri.parse("file:///android_asset/testmp4.mp4"));
 //        videoView.setVideoURI(Uri.parse(path));
 //        videoView.start();
@@ -39,9 +42,11 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.copy).setOnClickListener(this);
         findViewById(R.id.play).setOnClickListener(this);
 
+        videoFragment = new VideoFragment();
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.video_content, new VideoFragment())
+                .replace(R.id.video_content, videoFragment)
                 .commit();
 
     }
@@ -51,9 +56,9 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(videoView!=null){
-            videoView.pause();
-        }
+//        if(videoView!=null){
+//            videoView.pause();
+//        }
     }
 
     @Override
@@ -61,8 +66,6 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
         int id = v.getId();
         switch (id){
             case R.id.play:
-                videoView.setVideoURI(Uri.parse(newPath));
-                videoView.start();
                 break;
             case R.id.copy:
                 copy();

@@ -20,9 +20,9 @@ public class VideoFragment extends Fragment {
 
     public static final String TAG = VideoFragment.class.getSimpleName();
 
-    SurfaceView mVideoSurface, mNextSurface;
+    SurfaceView frontSurface, backgroundSurface;
     FrameLayout mFrame;
-    MediaPlayer mCurrentMediaPlayer, mNextMediaPlayer;
+    MediaPlayer frontMediaPlayer, backgroundMediaPlayer;
     Handler mHandler;
     int mIndex = 0;
     String path1 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/testmp4.mp4";
@@ -42,60 +42,67 @@ public class VideoFragment extends Fragment {
 
             @Override
             public void run() {
-                mCurrentMediaPlayer.pause();
-                mNextMediaPlayer.pause();
-                mNextMediaPlayer.reset();
-                int duration = 0;
+                frontMediaPlayer.pause();
+                frontMediaPlayer.reset();
+                backgroundMediaPlayer.pause();
+                backgroundMediaPlayer.reset();
+                backgroundMediaPlayer.setVolume(0,0);
+
                 try {
-                    if (mIndex == 0) {
-                        String path = paths[mIndex % paths.length];
-                        mIndex++;
-                        mCurrentMediaPlayer.setDataSource(getActivity(), Uri.parse(path));
-                        mCurrentMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    String path = paths[mIndex % paths.length];
+                    mIndex++;
 
-                            @Override
-                            public void onPrepared(MediaPlayer arg0) {
-                                mCurrentMediaPlayer.start();
-                                mVideoSurface.setVisibility(View.GONE);
-                            }
-                        });
-                        mCurrentMediaPlayer.prepareAsync();
+                    backgroundMediaPlayer.setDataSource(getActivity(), Uri.parse(path));
+                    backgroundMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
-                        mNextMediaPlayer.setDataSource(getActivity(), Uri.parse(path));
-                        mNextMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer arg0) {
+                            Log.d(TAG, "media play background onPrepared ... ");
+//                            backgroundSurface.setVisibility(View.GONE);
+                            backgroundMediaPlayer.start();
+//                            // seek to last
+//                            backgroundMediaPlayer.seekTo(backgroundMediaPlayer.getDuration());
+                        }
+                    });
+                    backgroundMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            Log.d(TAG, "media play background OnCompletionListener ... ");
+                        }
+                    });
+                    backgroundMediaPlayer.prepareAsync();
 
-                            @Override
-                            public void onPrepared(MediaPlayer arg0) {
-                                mNextMediaPlayer.start();
-                                Log.d(TAG, "media play real duration : " + mNextMediaPlayer.getDuration());
-                                mHandler.postDelayed(mPlayRun, mNextMediaPlayer.getDuration());
-                            }
-                        });
-                        mNextMediaPlayer.prepareAsync();
-                    } else {
-                        String path = paths[mIndex % paths.length];
-                        mIndex++;
-                        mNextMediaPlayer.setDataSource(getActivity(), Uri.parse(path));
-                        mNextMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    frontMediaPlayer.setDataSource(getActivity(), Uri.parse(path));
+                    frontMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
-                            @Override
-                            public void onPrepared(MediaPlayer arg0) {
-                                mNextMediaPlayer.start();
-                                Log.d(TAG, "media play duration : " + mNextMediaPlayer.getDuration());
-                                mHandler.postDelayed(mPlayRun, mNextMediaPlayer.getDuration());
-                            }
-                        });
-                        mNextMediaPlayer.prepareAsync();
-                    }
+                        @Override
+                        public void onPrepared(MediaPlayer arg0) {
+                            Log.d(TAG, "media play front onPrepared ... ");
+                            frontMediaPlayer.start();
+                            backgroundMediaPlayer.seekTo(backgroundMediaPlayer.getDuration());
+//                            frontSurface.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    frontMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            Log.d(TAG, "media play front OnCompletionListener ... ");
+//                            backgroundSurface.setVisibility(View.VISIBLE);
+                            mHandler.post(mPlayRun);
+                        }
+                    });
+                    Log.d(TAG, "prepare 333");
+                    frontMediaPlayer.prepareAsync();
+                    Log.d(TAG, "prepare 444");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-//                Log.d(TAG, "media play duration : " + duration);
             }
 
         };
 
     }
+
 
     @Nullable
     @Override
@@ -106,30 +113,24 @@ public class VideoFragment extends Fragment {
         mFrame = new FrameLayout(getActivity());
         mHandler = new Handler();
 
-        mCurrentMediaPlayer = new MediaPlayer();
-        mNextMediaPlayer = new MediaPlayer();
+        frontMediaPlayer = new MediaPlayer();
+        backgroundMediaPlayer = new MediaPlayer();
 
-        mVideoSurface = new SurfaceView(getActivity());
-        mVideoSurface.getHolder().addCallback(new VideoSurfaceHodlerCallback());
+        backgroundSurface = new SurfaceView(getActivity());
+        backgroundSurface.getHolder().addCallback(new NextVideoSurfaceHodlerCallback());
 
-        mNextSurface = new SurfaceView(getActivity());
-        mNextSurface.getHolder().addCallback(new NextVideoSurfaceHodlerCallback());
+        frontSurface = new SurfaceView(getActivity());
+        frontSurface.getHolder().addCallback(new VideoSurfaceHodlerCallback());
 
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
-//        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-//                (int) (400 * density),
-//                (int) (300 * density));
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         lp.gravity = Gravity.LEFT | Gravity.TOP;
-        mVideoSurface.setLayoutParams(lp);
 
-//        lp = new FrameLayout.LayoutParams(
-//                (int) (400 * density),
-//                (int) (300 * density));
-//        lp.gravity = Gravity.LEFT | Gravity.TOP;
-        mNextSurface.setLayoutParams(lp);
+        frontSurface.setLayoutParams(lp);
+        backgroundSurface.setLayoutParams(lp);
 
-        mFrame.addView(mNextSurface);
-        mFrame.addView(mVideoSurface);
+        mFrame.addView(frontSurface);
+        mFrame.addView(backgroundSurface);
+
         mHandler.postDelayed(mPlayRun, 2000);
 
         return mFrame;
@@ -139,13 +140,13 @@ public class VideoFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacks(mPlayRun);
-        if (mCurrentMediaPlayer != null) {
-            mCurrentMediaPlayer.release();
-            mCurrentMediaPlayer = null;
+        if (frontMediaPlayer != null) {
+            frontMediaPlayer.release();
+            frontMediaPlayer = null;
         }
-        if (mNextMediaPlayer != null) {
-            mNextMediaPlayer.release();
-            mNextMediaPlayer = null;
+        if (backgroundMediaPlayer != null) {
+            backgroundMediaPlayer.release();
+            backgroundMediaPlayer = null;
         }
     }
 
@@ -160,13 +161,15 @@ public class VideoFragment extends Fragment {
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-            mCurrentMediaPlayer.setDisplay(mVideoSurface.getHolder());
+            frontMediaPlayer.setDisplay(frontSurface.getHolder());
         }
 
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {
 
         }
+
+
 
     }
 
@@ -181,7 +184,7 @@ public class VideoFragment extends Fragment {
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-            mNextMediaPlayer.setDisplay(mNextSurface.getHolder());
+            backgroundMediaPlayer.setDisplay(backgroundSurface.getHolder());
         }
 
         @Override
