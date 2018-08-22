@@ -7,10 +7,13 @@ import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.github.neowen.apibasedemo.ApiDemoApplication;
 import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
 
@@ -29,12 +32,15 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
     String newPath = null;
     VideoFragment videoFragment;
     VideoFragmentTwo videoFragmentTwo;
+    FrameLayout testContent;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.media_play_layout);
 
+        testContent = (FrameLayout) findViewById(R.id.test_content);
         videoView = (ImageView) findViewById(R.id.video_view);
 //        videoView.setVideoURI(Uri.parse("file:///android_asset/testmp4.mp4"));
 //        videoView.setVideoURI(Uri.parse(path));
@@ -68,7 +74,16 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
         int id = v.getId();
         switch (id){
             case R.id.play:
-                videoFragmentTwo.play();
+//                videoFragmentTwo.play();
+                TextView textView = ((ApiDemoApplication)getApplication()).getTextView();
+//                int specWidth = View.MeasureSpec.makeMeasureSpec(1000, View.MeasureSpec.EXACTLY);
+//                int specHeight = View.MeasureSpec.makeMeasureSpec(100, View.MeasureSpec.EXACTLY);
+//                TextView textView = new TextView(this);
+//                textView.setText("Hello");
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT);
+                textView.setLayoutParams(lp);
+                testContent.addView(textView);
+
                 break;
             case R.id.copy:
 //                copy();

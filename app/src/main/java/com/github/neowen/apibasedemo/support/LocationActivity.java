@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,6 +90,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
     }
 
     TextView result;
+    FrameLayout testContent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,6 +98,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.location_layout);
 
         result = (TextView) findViewById(R.id.result);
+        testContent = (FrameLayout) findViewById(R.id.test_content);
 
         findViewById(R.id.fun1).setOnClickListener(this);
         findViewById(R.id.func2).setOnClickListener(this);
@@ -149,9 +152,29 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.get_metadata:
 //                getMetaData();
-                mLocationClient.stopLocation();
-                mLocationClient.startLocation();
+//                mLocationClient.stopLocation();
+//                mLocationClient.startLocation();
+
+                TextView textView = ((ApiDemoApplication)getApplication()).getTextView();
+//                int specWidth = View.MeasureSpec.makeMeasureSpec(1000, View.MeasureSpec.EXACTLY);
+//                int specHeight = View.MeasureSpec.makeMeasureSpec(100, View.MeasureSpec.EXACTLY);
+//                TextView textView = new TextView(this);
+//                textView.setText("Hello");
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT);
+                textView.setLayoutParams(lp);
+                testContent.addView(textView);
+//                textView.measure(specWidth,specHeight);
+//                textView.invalidate();
+
                 break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(testContent!=null){
+            testContent.removeAllViews();
         }
     }
 

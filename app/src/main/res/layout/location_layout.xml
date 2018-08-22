@@ -30,5 +30,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#20000000"
+        android:id="@+id/test_content"
+        />
 
 </LinearLayout>
