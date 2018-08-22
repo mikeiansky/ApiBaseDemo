@@ -28,6 +28,7 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
     String path2 = "file:///android_asset/testmp4.mp4";
     String newPath = null;
     VideoFragment videoFragment;
+    VideoFragmentTwo videoFragmentTwo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,10 +44,11 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.play).setOnClickListener(this);
 
         videoFragment = new VideoFragment();
+        videoFragmentTwo = new VideoFragmentTwo();
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.video_content, videoFragment)
+                .replace(R.id.video_content, videoFragmentTwo)
                 .commit();
 
     }
@@ -66,9 +68,16 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
         int id = v.getId();
         switch (id){
             case R.id.play:
+                videoFragmentTwo.play();
                 break;
             case R.id.copy:
-                copy();
+//                copy();
+
+//                Bitmap bitmap = videoFragmentTwo.getBitmap();
+//                videoView.setImageBitmap(bitmap);
+
+//                videoFragmentTwo.release();
+
                 break;
         }
     }
