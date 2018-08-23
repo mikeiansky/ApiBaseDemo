@@ -107,6 +107,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
 
         //判断是否为android6.0系统版本，如果是，需要动态添加权限
 //        if (Build.VERSION.SDK_INT>=23){
+        getLocationFunc2();
 
     }
 
@@ -215,7 +216,7 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
             public void onLocationChanged(AMapLocation aMapLocation) {
                 Log.d(TAG, "getLocationFunc2 ---> " + aMapLocation);
 //                result.setText(getProvinceIdByName(aMapLocation.getProvince()));
-                result.setText(aMapLocation.getProvince());
+                result.setText("location : "+aMapLocation.getProvince());
             }
         });
 
