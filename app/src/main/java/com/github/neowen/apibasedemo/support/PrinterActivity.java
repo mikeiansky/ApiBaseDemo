@@ -17,9 +17,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.print.PrintHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Printer;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -49,6 +52,7 @@ public class PrinterActivity extends BaseActivity {
 
     boolean change;
 
+
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
@@ -68,10 +72,47 @@ public class PrinterActivity extends BaseActivity {
         setContentView(R.layout.activity_printer);
         Log.d(TAG, "onCreate +++++++++++++>");
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.content, new SupportFragment())
-                .commit();
+        final WebView webView = (WebView) findViewById(R.id.web_view);
+        final WebSettings webSettings = webView.getSettings();
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setDisplayZoomControls(false);
+        webSettings.setJavaScriptEnabled(true); // 设置支持javascript脚本
+        webSettings.setAllowFileAccess(true); // 允许访问文件
+        webSettings.setBuiltInZoomControls(true); // 设置显示缩放按钮
+        webSettings.setSupportZoom(false); // 支持缩放
+//        webView.addJavascriptInterface(this, CONSENSUS_LABLE);
+        webSettings.setLoadWithOverviewMode(true);
+
+        String htmlData = "<html>\n" +
+                "\n" +
+                "\t<head>\n" +
+                "<script type=\"text/javascript\">\n" +
+                "function display_alert()\n" +
+                "  {\n" +
+                "  alert(\"I am an alert box!!\")\n" +
+                "  }\n" +
+                "</script>\n" +
+                "</head>\n" +
+                "\n" +
+                "\t<body>\n" +
+                "\t\n" +
+                "\t\t<a href=\"javascript:display_alert()\">click</a>\t\n" +
+                "\n" +
+                "\t</body>\n" +
+                "\n" +
+                "\t\n" +
+                "\n" +
+                "</html>";
+
+        webView.loadData(htmlData, "text/html", "UTF -8");
+
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.content, new SupportFragment())
+//                .commit();
 
         findViewById(R.id.print).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,10 +151,13 @@ public class PrinterActivity extends BaseActivity {
 //                startActivity(intent);
 //                openApp("com.github.neowen.apibasedemo");
 
-                boolean result = isAppRunning(v.getContext(), "com.github.neowen.apibasedemo");
-                Toast.makeText(v.getContext(), "result : " + result, Toast.LENGTH_SHORT).show();
+//                boolean result = isAppRunning(v.getContext(), "com.github.neowen.apibasedemo");
+//                Toast.makeText(v.getContext(), "result : " + result, Toast.LENGTH_SHORT).show();
+//
+//                isForeground(v.getContext());
 
-                isForeground(v.getContext());
+                webView.loadUrl("javascript:alert(12345)");
+
             }
         });
 
