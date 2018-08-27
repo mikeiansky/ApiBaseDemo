@@ -23,6 +23,7 @@ import android.util.Printer;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -85,6 +86,7 @@ public class PrinterActivity extends BaseActivity {
         webSettings.setSupportZoom(false); // 支持缩放
 //        webView.addJavascriptInterface(this, CONSENSUS_LABLE);
         webSettings.setLoadWithOverviewMode(true);
+        webView.setWebViewClient(new WebViewClient());
 
         String htmlData = "<html>\n" +
                 "\n" +
@@ -92,7 +94,8 @@ public class PrinterActivity extends BaseActivity {
                 "<script type=\"text/javascript\">\n" +
                 "function display_alert()\n" +
                 "  {\n" +
-                "  alert(\"I am an alert box!!\")\n" +
+//                "  alert(\"I am an alert box!!\")\n" +
+                "  window.location.assign(\"http://www.w3school.com.cn\")" +
                 "  }\n" +
                 "</script>\n" +
                 "</head>\n" +
@@ -156,7 +159,7 @@ public class PrinterActivity extends BaseActivity {
 //
 //                isForeground(v.getContext());
 
-                webView.loadUrl("javascript:alert(12345)");
+                webView.loadUrl("javascript:display_alert()");
 
             }
         });
