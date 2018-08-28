@@ -32,5 +32,8 @@ public class SupportListA extends ApiItemListActivity {
 
         apiItem = new ApiItem("Media", MediaPlayActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Handler", HandlerActivity.class);
+        mApiItems.add(apiItem);
     }
 }

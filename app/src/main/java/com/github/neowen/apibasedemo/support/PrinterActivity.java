@@ -1,6 +1,5 @@
 package com.github.neowen.apibasedemo.support;
 
-import android.Manifest;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Looper;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -21,9 +21,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Printer;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -34,6 +31,10 @@ import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.design.emptyview.EmptyDialogFragment;
 import com.sina.weibo.sdk.api.share.Base;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -87,15 +88,22 @@ public class PrinterActivity extends BaseActivity {
 //        webView.addJavascriptInterface(this, CONSENSUS_LABLE);
         webSettings.setLoadWithOverviewMode(true);
         webView.setWebViewClient(new WebViewClient());
-
+        webView.setWebChromeClient(new WebChromeClient());
         String htmlData = "<html>\n" +
                 "\n" +
                 "\t<head>\n" +
                 "<script type=\"text/javascript\">\n" +
                 "function display_alert()\n" +
                 "  {\n" +
-//                "  alert(\"I am an alert box!!\")\n" +
-                "  window.location.assign(\"http://www.w3school.com.cn\")" +
+                "  alert(\"I am an alert box!!\")\n" +
+//                "  window.location.assign(\"http://www.w3school.com.cn\")" +
+                "  }\n" +
+                "</script>\n" +
+                "<script type=\"text/javascript\">\n" +
+                "function testBack()\n" +
+                "  {\n" +
+                "  alert(\"I am back button!!\")\n" +
+//                "  window.location.assign(\"http://www.w3school.com.cn\")" +
                 "  }\n" +
                 "</script>\n" +
                 "</head>\n" +
@@ -159,7 +167,7 @@ public class PrinterActivity extends BaseActivity {
 //
 //                isForeground(v.getContext());
 
-                webView.loadUrl("javascript:display_alert()");
+                webView.loadUrl("javascript:testBack()");
 
             }
         });

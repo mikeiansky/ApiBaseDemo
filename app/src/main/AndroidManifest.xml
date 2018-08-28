@@ -85,6 +85,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".support.HandlerActivity" />
         <activity android:name=".support.SupportListA" />
         <activity android:name=".design.NotificationActivity" />
         <activity android:name=".design.WaveViewActivity" />
