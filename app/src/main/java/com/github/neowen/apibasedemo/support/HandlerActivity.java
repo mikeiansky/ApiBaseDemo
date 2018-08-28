@@ -46,7 +46,8 @@ public class HandlerActivity extends BaseActivity implements View.OnClickListene
 
     private void quit() {
 
-        handler.getLooper().quit();
+//        Message msg = handler.obtainMessage(2);
+        handler.sendMessage(handler.obtainMessage(2));
     }
 
     private void start() {
@@ -60,9 +61,11 @@ public class HandlerActivity extends BaseActivity implements View.OnClickListene
                 handler = new Handler(new Handler.Callback() {
                     @Override
                     public boolean handleMessage(Message msg) {
+                        Log.d(TAG, "handleMessage msg ----> " + msg);
                         return false;
                     }
                 });
+                handler.sendMessage(handler.obtainMessage(1));
                 Log.d(TAG, "Looper prepare---->");
                 Log.d(TAG, "main loop ----> " + getMainLooper());
                 Log.d(TAG, "handler loop ----> " + handler.getLooper());
