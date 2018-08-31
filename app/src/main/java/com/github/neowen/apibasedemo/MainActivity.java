@@ -16,10 +16,23 @@ import com.github.neowen.apibasedemo.performance.PerformanceListActivity;
 import com.github.neowen.apibasedemo.sdk.SdkListActivity;
 import com.github.neowen.apibasedemo.support.SupportListA;
 import com.github.neowen.apibasedemo.view.ViewListActivity;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends ApiItemListActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     protected void addApiItemData() {
 

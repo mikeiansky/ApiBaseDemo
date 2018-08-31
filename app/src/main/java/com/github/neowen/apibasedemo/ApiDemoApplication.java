@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.github.neowen.apibasedemo.utils.CrashHandler;
 import com.github.neowen.apibasedemo.utils.MapUtils;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
 /**
@@ -32,6 +33,8 @@ public class ApiDemoApplication extends Application {
         textView = new TextView(this);
         textView.setTextColor(Color.RED);
         textView.setText("Hello Api Demo!");
+
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_DUM_NORMAL);
     }
 
     public String getProvince() {
