@@ -86,6 +86,7 @@
         </activity>
 
         <activity android:name=".base.BaseApiActivity" />
+        <activity android:name=".build.BuildListActivity" />
         <activity android:name=".support.HandlerActivity" />
         <activity android:name=".support.SupportListA" />
         <activity android:name=".design.NotificationActivity" />
@@ -156,6 +157,10 @@
         <meta-data
             android:name="winson"
             android:value="${winson}" />
+
+        <meta-data android:value="5b8945a1f43e482909000031" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="base" android:name="UMENG_CHANNEL"/>
+
     </application>
 
 </manifest>
