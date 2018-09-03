@@ -16,8 +16,10 @@ public class TestDialogFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.test_dialog, container, false);
-        Bitmap b = null;
-        b.recycle();
         return root;
+    }
+
+    public void getInfo(){
+
     }
 }

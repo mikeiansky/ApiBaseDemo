@@ -27,6 +27,21 @@ android {
             ]
         }
     }
+
+    productFlavors{
+        baidu{
+
+        }
+
+        wandoujia{
+
+        }
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
     sourceSets {
         main {
             jni.srcDirs = []

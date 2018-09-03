@@ -159,7 +159,7 @@
             android:value="${winson}" />
 
         <meta-data android:value="5b8945a1f43e482909000031" android:name="UMENG_APPKEY"/>
-        <meta-data android:value="base" android:name="UMENG_CHANNEL"/>
+        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
 
     </application>
 
