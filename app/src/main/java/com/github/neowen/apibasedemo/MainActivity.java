@@ -6,7 +6,6 @@ import android.util.SparseArray;
 import com.github.neowen.apibasedemo.animation.AnimationListActivity;
 import com.github.neowen.apibasedemo.attr.AttrListActivity;
 import com.github.neowen.apibasedemo.base.BaseApiActivity;
-import com.github.neowen.apibasedemo.build.BuildListActivity;
 import com.github.neowen.apibasedemo.common.DebugUtils;
 import com.github.neowen.apibasedemo.csdn.CsdnListActivity;
 import com.github.neowen.apibasedemo.design.DesignListActivity;
@@ -39,8 +38,8 @@ public class MainActivity extends ApiItemListActivity {
         ApiItem apiItem = new ApiItem("BaseApi", BaseApiActivity.class);
         mApiItems.add(apiItem);
 
-        apiItem = new ApiItem("Build", BuildListActivity.class);
-        mApiItems.add(apiItem);
+//        apiItem = new ApiItem("Build", BuildListActivity.class);
+//        mApiItems.add(apiItem);
 
         apiItem = new ApiItem("Support", SupportListA.class);
         mApiItems.add(apiItem);
