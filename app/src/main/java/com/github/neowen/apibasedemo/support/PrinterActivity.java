@@ -30,6 +30,8 @@ import android.widget.Toast;
 import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.design.emptyview.EmptyDialogFragment;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.api.share.Base;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
@@ -73,6 +75,9 @@ public class PrinterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_printer);
         Log.d(TAG, "onCreate +++++++++++++>");
+
+        Logger.addLogAdapter(new AndroidLogAdapter());
+        Logger.json("{name:'wen',age:25,birthday:2017-02-02}");
 
         final WebView webView = (WebView) findViewById(R.id.web_view);
         final WebSettings webSettings = webView.getSettings();
