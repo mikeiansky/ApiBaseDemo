@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -19,7 +20,7 @@ public class RefreshView extends FrameLayout {
 
     private View headView;
     private PullContentWatcher contentView;
-    private ValueAnimator releaseAnimator;
+    private ValueAnimator releaseAnimator, refreshAnimator;
 
     public RefreshView(@NonNull Context context) {
         super(context);
@@ -43,7 +44,7 @@ public class RefreshView extends FrameLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-
+        handler = new Handler();
     }
 
     public void addHeadView(View headView) {
@@ -78,8 +79,22 @@ public class RefreshView extends FrameLayout {
     int lastY;
     int maxOffset;
     int totalOffset;
-    boolean onDrag;
+    boolean onDrag, pullDown;
     int lastReleaseY;
+    Handler handler;
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        handler.removeCallbacks(releaseRun);
+    }
+
+    Runnable releaseRun = new Runnable() {
+        @Override
+        public void run() {
+            release();
+        }
+    };
 
     DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator();
     ValueAnimator.AnimatorUpdateListener releaseUpdateListener = new ValueAnimator.AnimatorUpdateListener() {
@@ -103,7 +118,8 @@ public class RefreshView extends FrameLayout {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 lastY = (int) event.getRawY();
-                if(releaseAnimator!=null){
+                handler.removeCallbacks(releaseRun);
+                if (releaseAnimator != null) {
                     releaseAnimator.cancel();
                 }
                 break;
@@ -115,6 +131,7 @@ public class RefreshView extends FrameLayout {
                 contentView.setOnDrag(onDrag);
 
                 if (onDrag) {
+                    pullDown = offset > 0;
                     int preTotalOffset = totalOffset + offset;
                     if (preTotalOffset >= maxOffset) {
                         offset = maxOffset - totalOffset;
@@ -133,14 +150,35 @@ public class RefreshView extends FrameLayout {
                 break;
             case MotionEvent.ACTION_UP:
                 if (onDrag) {
-                    lastReleaseY = 0;
-                    releaseAnimator = ValueAnimator.ofInt(0, -totalOffset);
-                    releaseAnimator.setDuration(500);
-                    releaseAnimator.setInterpolator(decelerateInterpolator);
-                    releaseAnimator.addUpdateListener(releaseUpdateListener);
-                    releaseAnimator.start();
+
+                    if (pullDown && totalOffset >= headView.getHeight() / 2f) {
+                        // need to refresh
+                        refresh();
+                    } else {
+                        // need release immediately
+                        release();
+                    }
                 }
                 break;
         }
+    }
+
+    private void refresh() {
+        lastReleaseY = totalOffset;
+        refreshAnimator = ValueAnimator.ofInt(totalOffset, maxOffset);
+        refreshAnimator.setDuration(500);
+        refreshAnimator.setInterpolator(decelerateInterpolator);
+        refreshAnimator.addUpdateListener(releaseUpdateListener);
+        refreshAnimator.start();
+
+    }
+
+    private void release() {
+        lastReleaseY = 0;
+        releaseAnimator = ValueAnimator.ofInt(0, -totalOffset);
+        releaseAnimator.setDuration(500);
+        releaseAnimator.setInterpolator(decelerateInterpolator);
+        releaseAnimator.addUpdateListener(releaseUpdateListener);
+        releaseAnimator.start();
     }
 }
