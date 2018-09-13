@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
+import com.github.neowen.apibasedemo.design.refresh.PullScrollView;
 import com.github.neowen.apibasedemo.design.refresh.RefreshView;
 
 public class MyRefreshActivity extends BaseActivity {
@@ -22,7 +23,7 @@ public class MyRefreshActivity extends BaseActivity {
 
         refreshView = (RefreshView) findViewById(R.id.refresh_view);
         View headView = LayoutInflater.from(this).inflate(R.layout.head_view, refreshView, false);
-        View contentView = LayoutInflater.from(this).inflate(R.layout.content_view, refreshView, false);
+        PullScrollView contentView = (PullScrollView) LayoutInflater.from(this).inflate(R.layout.content_view, refreshView, false);
         refreshView.addHeadView(headView);
         refreshView.addContentView(contentView);
 

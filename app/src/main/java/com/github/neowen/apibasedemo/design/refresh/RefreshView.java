@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,7 +17,7 @@ public class RefreshView extends FrameLayout {
     public static final String TAG = RefreshView.class.getSimpleName();
 
     private View headView;
-    private View contentView;
+    private PullContentWatcher contentView;
 
     public RefreshView(@NonNull Context context) {
         super(context);
@@ -51,9 +50,9 @@ public class RefreshView extends FrameLayout {
         addView(this.headView);
     }
 
-    public void addContentView(View contentView) {
+    public <T extends PullContentWatcher> void addContentView(T contentView) {
         this.contentView = contentView;
-        addView(this.contentView);
+        addView(contentView.getStick());
     }
 
     @Override
@@ -72,26 +71,33 @@ public class RefreshView extends FrameLayout {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         boolean result = super.dispatchTouchEvent(ev);
-        Log.d(TAG, "dispatchTouchEvent----------->");
-        detailMotionEvent(ev);
+//        Log.d(TAG, "dispatchTouchEvent----------->");
+
+        if (headView != null && contentView != null) {
+            detailMotionEvent(ev);
+        }
+
         return result;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean result = super.onInterceptTouchEvent(ev);
-        Log.d(TAG, "onInterceptTouchEvent------->");
+//        Log.d(TAG, "onInterceptTouchEvent------->");
         return result;
     }
 
     int lastY;
     int maxOffset;
     int totalOffset;
+    int state;
+    static final int DRAG = 1;
+    static final int RELEASE = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean result = super.onTouchEvent(event);
-        return true;
+        return result;
     }
 
     private void detailMotionEvent(MotionEvent event) {
@@ -101,25 +107,32 @@ public class RefreshView extends FrameLayout {
                 lastY = (int) event.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
+
                 int cy = (int) event.getRawY();
                 int offset = cy - lastY;
-                int preTotalOffset = totalOffset + offset;
-                if (preTotalOffset >= maxOffset) {
-                    offset = maxOffset - totalOffset;
-                    preTotalOffset = maxOffset;
-                } else if (preTotalOffset <= 0) {
-                    offset = -totalOffset;
-                    preTotalOffset = 0;
+                boolean onDrag = contentView.onTop()
+                        && (totalOffset > 0 || offset > 0);
+                contentView.setOnDrag(onDrag);
+
+                if (onDrag) {
+                    int preTotalOffset = totalOffset + offset;
+                    if (preTotalOffset >= maxOffset) {
+                        offset = maxOffset - totalOffset;
+                        preTotalOffset = maxOffset;
+                    } else if (preTotalOffset <= 0) {
+                        offset = -totalOffset;
+                        preTotalOffset = 0;
+                    }
+                    totalOffset = preTotalOffset;
+
+                    headView.offsetTopAndBottom(offset);
+                    contentView.getStick().offsetTopAndBottom(offset);
+
                 }
-                totalOffset = preTotalOffset;
-
-                headView.offsetTopAndBottom((int) offset);
-                contentView.offsetTopAndBottom((int) offset);
-
                 lastY = cy;
                 break;
             case MotionEvent.ACTION_UP:
-
+                state = RELEASE;
                 break;
         }
     }
