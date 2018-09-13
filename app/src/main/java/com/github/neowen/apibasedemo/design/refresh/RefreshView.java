@@ -1,10 +1,8 @@
 package com.github.neowen.apibasedemo.design.refresh;
 
-import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Build;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -18,14 +16,14 @@ public class RefreshView extends FrameLayout {
 
     public static final String TAG = RefreshView.class.getSimpleName();
 
-    public interface RefreshListener {
+    public interface OnRefreshListener {
         void onRefresh();
     }
 
     private View headView;
     private PullContentWatcher contentView;
     private ValueAnimator releaseAnimator, refreshAnimator;
-    private RefreshListener refreshListener;
+    private OnRefreshListener refreshListener;
 
     public RefreshView(@NonNull Context context) {
         super(context);
@@ -51,7 +49,7 @@ public class RefreshView extends FrameLayout {
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     }
 
-    public void setRefreshListener(RefreshListener refreshListener) {
+    public void setRefreshListener(OnRefreshListener refreshListener) {
         this.refreshListener = refreshListener;
     }
 
@@ -149,7 +147,8 @@ public class RefreshView extends FrameLayout {
             case MotionEvent.ACTION_UP:
                 if (onDrag) {
 
-                    if (pullDown && totalOffset >= headView.getHeight() / 2f) {
+                    if (totalOffset >= headView.getHeight() * 2f / 3f
+                            || (totalOffset >= headView.getHeight() / 2f || pullDown)) {
                         // need to refresh
                         refresh();
                     } else {
@@ -170,7 +169,7 @@ public class RefreshView extends FrameLayout {
             refreshAnimator.setInterpolator(decelerateInterpolator);
             refreshAnimator.addUpdateListener(releaseUpdateListener);
             refreshAnimator.start();
-        }else{
+        } else {
             release();
         }
     }

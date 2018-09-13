@@ -26,6 +26,17 @@ public class MyRefreshActivity extends BaseActivity {
         PullScrollView contentView = (PullScrollView) LayoutInflater.from(this).inflate(R.layout.content_view, refreshView, false);
         refreshView.addHeadView(headView);
         refreshView.addContentView(contentView);
+        refreshView.setRefreshListener(new RefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshView.refreshComplete();
+                    }
+                },3000);
+            }
+        });
 
     }
 
