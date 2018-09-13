@@ -18,9 +18,14 @@ public class RefreshView extends FrameLayout {
 
     public static final String TAG = RefreshView.class.getSimpleName();
 
+    public interface RefreshListener {
+        void onRefresh();
+    }
+
     private View headView;
     private PullContentWatcher contentView;
     private ValueAnimator releaseAnimator, refreshAnimator;
+    private RefreshListener refreshListener;
 
     public RefreshView(@NonNull Context context) {
         super(context);
@@ -44,7 +49,10 @@ public class RefreshView extends FrameLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        handler = new Handler();
+    }
+
+    public void setRefreshListener(RefreshListener refreshListener) {
+        this.refreshListener = refreshListener;
     }
 
     public void addHeadView(View headView) {
@@ -76,26 +84,16 @@ public class RefreshView extends FrameLayout {
         return result;
     }
 
+    public void refreshComplete() {
+        release();
+    }
+
     int lastY;
     int maxOffset;
     int totalOffset;
     boolean onDrag, pullDown;
     int lastReleaseY;
-    Handler handler;
     float resistance = 1.8f;
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        handler.removeCallbacks(releaseRun);
-    }
-
-    Runnable releaseRun = new Runnable() {
-        @Override
-        public void run() {
-            release();
-        }
-    };
 
     DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator();
     ValueAnimator.AnimatorUpdateListener releaseUpdateListener = new ValueAnimator.AnimatorUpdateListener() {
@@ -119,7 +117,6 @@ public class RefreshView extends FrameLayout {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 lastY = (int) event.getRawY();
-                handler.removeCallbacks(releaseRun);
                 if (releaseAnimator != null) {
                     releaseAnimator.cancel();
                 }
@@ -165,13 +162,17 @@ public class RefreshView extends FrameLayout {
     }
 
     private void refresh() {
-        lastReleaseY = totalOffset;
-        refreshAnimator = ValueAnimator.ofInt(totalOffset, maxOffset);
-        refreshAnimator.setDuration(500);
-        refreshAnimator.setInterpolator(decelerateInterpolator);
-        refreshAnimator.addUpdateListener(releaseUpdateListener);
-        refreshAnimator.start();
-
+        if (refreshListener != null) {
+            refreshListener.onRefresh();
+            lastReleaseY = totalOffset;
+            refreshAnimator = ValueAnimator.ofInt(totalOffset, maxOffset);
+            refreshAnimator.setDuration(500);
+            refreshAnimator.setInterpolator(decelerateInterpolator);
+            refreshAnimator.addUpdateListener(releaseUpdateListener);
+            refreshAnimator.start();
+        }else{
+            release();
+        }
     }
 
     private void release() {
