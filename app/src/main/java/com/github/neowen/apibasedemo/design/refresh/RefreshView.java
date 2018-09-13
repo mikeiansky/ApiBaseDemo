@@ -1,5 +1,7 @@
 package com.github.neowen.apibasedemo.design.refresh;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -8,6 +10,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
 public class RefreshView extends FrameLayout {
@@ -16,6 +19,7 @@ public class RefreshView extends FrameLayout {
 
     private View headView;
     private PullContentWatcher contentView;
+    private ValueAnimator releaseAnimator;
 
     public RefreshView(@NonNull Context context) {
         super(context);
@@ -74,17 +78,39 @@ public class RefreshView extends FrameLayout {
     int lastY;
     int maxOffset;
     int totalOffset;
+    boolean onDrag;
+    int lastReleaseY;
+
+    DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator();
+    ValueAnimator.AnimatorUpdateListener releaseUpdateListener = new ValueAnimator.AnimatorUpdateListener() {
+
+        @Override
+        public void onAnimationUpdate(ValueAnimator animation) {
+            int cy = (int) animation.getAnimatedValue();
+
+            int offset = cy - lastReleaseY;
+            headView.offsetTopAndBottom(offset);
+            contentView.getStick().offsetTopAndBottom(offset);
+            totalOffset += offset;
+            lastReleaseY = cy;
+
+        }
+
+    };
 
     private void detailMotionEvent(MotionEvent event) {
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 lastY = (int) event.getRawY();
+                if(releaseAnimator!=null){
+                    releaseAnimator.cancel();
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 int cy = (int) event.getRawY();
                 int offset = cy - lastY;
-                boolean onDrag = contentView.onTop()
+                onDrag = contentView.onTop()
                         && (totalOffset > 0 || offset > 0);
                 contentView.setOnDrag(onDrag);
 
@@ -106,6 +132,14 @@ public class RefreshView extends FrameLayout {
                 lastY = cy;
                 break;
             case MotionEvent.ACTION_UP:
+                if (onDrag) {
+                    lastReleaseY = 0;
+                    releaseAnimator = ValueAnimator.ofInt(0, -totalOffset);
+                    releaseAnimator.setDuration(500);
+                    releaseAnimator.setInterpolator(decelerateInterpolator);
+                    releaseAnimator.addUpdateListener(releaseUpdateListener);
+                    releaseAnimator.start();
+                }
                 break;
         }
     }
