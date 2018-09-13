@@ -9,29 +9,29 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
 
-public class PullScrollView extends ScrollView implements PullContentWatcher {
+public class PullRefreshScrollView extends ScrollView implements PullRefreshContentWatcher {
 
-    public static final String TAG = PullScrollView.class.getSimpleName();
+    public static final String TAG = PullRefreshScrollView.class.getSimpleName();
 
     boolean onDrag;
 
-    public PullScrollView(Context context) {
+    public PullRefreshScrollView(Context context) {
         super(context);
         init(context, null, 0, 0);
     }
 
-    public PullScrollView(Context context, AttributeSet attrs) {
+    public PullRefreshScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0, 0);
     }
 
-    public PullScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PullRefreshScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr, 0);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public PullScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public PullRefreshScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr, defStyleRes);
     }

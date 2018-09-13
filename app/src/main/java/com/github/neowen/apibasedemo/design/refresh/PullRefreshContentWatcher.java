@@ -2,7 +2,7 @@ package com.github.neowen.apibasedemo.design.refresh;
 
 import android.view.View;
 
-public interface PullContentWatcher {
+public interface PullRefreshContentWatcher {
 
     View getStick();
 

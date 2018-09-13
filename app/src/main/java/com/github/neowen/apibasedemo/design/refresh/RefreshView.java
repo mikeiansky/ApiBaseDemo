@@ -21,7 +21,7 @@ public class RefreshView extends FrameLayout {
     }
 
     private View headView;
-    private PullContentWatcher contentView;
+    private PullRefreshContentWatcher contentView;
     private ValueAnimator releaseAnimator, refreshAnimator;
     private OnRefreshListener refreshListener;
 
@@ -58,7 +58,7 @@ public class RefreshView extends FrameLayout {
         addView(this.headView);
     }
 
-    public void addContentView(PullContentWatcher contentView) {
+    public void addContentView(PullRefreshContentWatcher contentView) {
         this.contentView = contentView;
         addView(contentView.getStick());
     }
