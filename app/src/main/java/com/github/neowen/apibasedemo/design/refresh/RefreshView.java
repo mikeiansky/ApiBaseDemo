@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
@@ -24,6 +25,7 @@ public class RefreshView extends FrameLayout {
     private PullRefreshContentWatcher contentView;
     private ValueAnimator releaseAnimator, refreshAnimator;
     private OnRefreshListener refreshListener;
+    private int touchSlop;
 
     public RefreshView(@NonNull Context context) {
         super(context);
@@ -47,6 +49,7 @@ public class RefreshView extends FrameLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
     public void setRefreshListener(OnRefreshListener refreshListener) {
@@ -89,7 +92,7 @@ public class RefreshView extends FrameLayout {
     int lastY;
     int maxOffset;
     int totalOffset;
-    boolean onDrag, pullDown;
+    boolean onDrag, pullDown, onMove;
     int lastReleaseY;
     float resistance = 1.8f;
 
@@ -115,6 +118,7 @@ public class RefreshView extends FrameLayout {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 lastY = (int) event.getRawY();
+                onMove = false;
                 if (releaseAnimator != null) {
                     releaseAnimator.cancel();
                 }
@@ -127,6 +131,11 @@ public class RefreshView extends FrameLayout {
                 contentView.setOnDrag(onDrag);
 
                 if (onDrag) {
+
+                    if (offset >= touchSlop) {
+                        onMove = true;
+                    }
+
                     pullDown = offset > 0;
                     int preTotalOffset = totalOffset + offset;
                     if (preTotalOffset >= maxOffset) {
@@ -146,7 +155,9 @@ public class RefreshView extends FrameLayout {
                 break;
             case MotionEvent.ACTION_UP:
                 if (onDrag) {
-
+                    if (!onMove) {
+                        contentView.setOnDrag(false);
+                    }
                     if (totalOffset >= headView.getHeight() * 2f / 3f
                             || (totalOffset >= headView.getHeight() / 2f || pullDown)) {
                         // need to refresh

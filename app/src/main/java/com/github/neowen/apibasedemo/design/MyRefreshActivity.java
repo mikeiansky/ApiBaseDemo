@@ -2,9 +2,12 @@ package com.github.neowen.apibasedemo.design;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
@@ -43,6 +46,13 @@ public class MyRefreshActivity extends BaseActivity {
                         refreshView.refreshComplete();
                     }
                 }, 3000);
+            }
+        });
+
+        contentView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(view.getContext(), "position : " + position , Toast.LENGTH_SHORT).show();
             }
         });
 
