@@ -82,6 +82,7 @@ public class RefreshView extends FrameLayout {
     boolean onDrag, pullDown;
     int lastReleaseY;
     Handler handler;
+    float resistance = 1.8f;
 
     @Override
     protected void onDetachedFromWindow() {
@@ -125,7 +126,7 @@ public class RefreshView extends FrameLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 int cy = (int) event.getRawY();
-                int offset = cy - lastY;
+                int offset = (int) ((cy - lastY) / resistance);
                 onDrag = contentView.onTop()
                         && (totalOffset > 0 || offset > 0);
                 contentView.setOnDrag(onDrag);
@@ -134,8 +135,8 @@ public class RefreshView extends FrameLayout {
                     pullDown = offset > 0;
                     int preTotalOffset = totalOffset + offset;
                     if (preTotalOffset >= maxOffset) {
-                        offset = maxOffset - totalOffset;
-                        preTotalOffset = maxOffset;
+//                        offset = maxOffset - totalOffset;
+//                        preTotalOffset = maxOffset;
                     } else if (preTotalOffset <= 0) {
                         offset = -totalOffset;
                         preTotalOffset = 0;
@@ -155,7 +156,7 @@ public class RefreshView extends FrameLayout {
                         // need to refresh
                         refresh();
                     } else {
-                        // need release immediately
+//                         need release immediately
                         release();
                     }
                 }
