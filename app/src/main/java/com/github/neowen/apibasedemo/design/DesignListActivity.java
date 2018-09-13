@@ -41,5 +41,8 @@ public class DesignListActivity extends ApiItemListActivity {
 
         apiItem = new ApiItem("Wave View", WaveViewActivity.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Refresh", MyRefreshActivity.class);
+        mApiItems.add(apiItem);
     }
 }
