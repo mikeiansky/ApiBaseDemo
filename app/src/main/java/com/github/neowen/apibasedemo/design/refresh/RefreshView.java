@@ -26,6 +26,12 @@ public class RefreshView extends FrameLayout {
     private ValueAnimator releaseAnimator, refreshAnimator;
     private OnRefreshListener refreshListener;
     private int touchSlop;
+    private Runnable releaseRun = new Runnable() {
+        @Override
+        public void run() {
+            release();
+        }
+    };
 
     public RefreshView(@NonNull Context context) {
         super(context);
@@ -89,6 +95,11 @@ public class RefreshView extends FrameLayout {
         release();
     }
 
+    public void refreshComplete(int delay) {
+        postDelayed(releaseRun, delay);
+    }
+
+    int checkStartY;
     int lastY;
     int maxOffset;
     int totalOffset;
@@ -118,10 +129,12 @@ public class RefreshView extends FrameLayout {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 lastY = (int) event.getRawY();
+                checkStartY = lastY;
                 onMove = false;
                 if (releaseAnimator != null) {
                     releaseAnimator.cancel();
                 }
+                removeCallbacks(releaseRun);
                 onMove = false;
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -131,7 +144,7 @@ public class RefreshView extends FrameLayout {
                         && (totalOffset > 0 || offset > 0);
                 contentView.setOnDrag(onDrag);
 
-                if (offset >= touchSlop) {
+                if (Math.abs(cy - checkStartY) >= touchSlop) {
                     onMove = true;
                 }
 
@@ -160,7 +173,7 @@ public class RefreshView extends FrameLayout {
                         contentView.setOnDrag(false);
                     }
                     if (totalOffset >= headView.getHeight() * 2f / 3f
-                            || (totalOffset >= headView.getHeight() / 2f || pullDown)) {
+                            || (totalOffset >= headView.getHeight() / 2f && pullDown)) {
                         // need to refresh
                         refresh();
                     } else {
