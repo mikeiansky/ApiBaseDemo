@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.github.neowen.apibasedemo.design.refresh.PullRefreshView
+    <com.github.neowen.apibasedemo.design.refresh.PullRefreshLayout
         android:id="@+id/refresh_view"
         android:background="@color/md_amber_400"
         android:layout_width="match_parent"
