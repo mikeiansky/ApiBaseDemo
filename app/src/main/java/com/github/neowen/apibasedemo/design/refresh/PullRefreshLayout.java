@@ -37,6 +37,37 @@ public class PullRefreshLayout extends FrameLayout {
 
     }
 
+    public static class WatcherWrapper implements PullRefreshContentWatcher {
+
+        View contentView;
+        
+        public WatcherWrapper(View contentView) {
+            this.contentView = contentView;
+            contentView.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        public View getStick() {
+            return contentView;
+        }
+
+        @Override
+        public boolean onTop() {
+            return true;
+        }
+
+        @Override
+        public void setOnDrag(boolean onDrag) {
+
+        }
+
+    }
+
     private View headView;
     private PullRefreshContentWatcher contentView;
     private ValueAnimator releaseAnimator, refreshAnimator;
@@ -120,6 +151,10 @@ public class PullRefreshLayout extends FrameLayout {
         }
         this.contentView = contentView;
         addView(contentView.getStick());
+    }
+
+    public void addNativeView(View contentView) {
+        addContentView(new WatcherWrapper(contentView));
     }
 
     public void setResistance(float resistance) {

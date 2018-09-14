@@ -34,8 +34,10 @@ public class MyRefreshActivity extends BaseActivity {
         View headView = LayoutInflater.from(this).inflate(R.layout.head_view, pullRefreshView, false);
         PullRefreshScrollView contentView1 = (PullRefreshScrollView) LayoutInflater.from(this).inflate(R.layout.content_view, pullRefreshView, false);
         PullRefreshListView contentView2 = (PullRefreshListView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_list_view, pullRefreshView, false);
+        View contentView3 = LayoutInflater.from(this).inflate(R.layout.pull_refresh_native_view, pullRefreshView, false);
         pullRefreshView.addHeadView(headView);
-        pullRefreshView.addContentView(contentView1);
+//        pullRefreshView.addContentView(contentView1);
+        pullRefreshView.addNativeView(contentView3);
         pullRefreshView.setRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
