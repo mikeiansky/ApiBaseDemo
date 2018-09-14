@@ -200,6 +200,9 @@ public class RefreshView extends FrameLayout {
     }
 
     private void release() {
+        if (totalOffset == 0) {
+            return;
+        }
         lastReleaseY = 0;
         releaseAnimator = ValueAnimator.ofInt(0, -totalOffset);
         releaseAnimator.setDuration(500);
