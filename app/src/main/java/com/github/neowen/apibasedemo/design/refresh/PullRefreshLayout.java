@@ -115,6 +115,9 @@ public class PullRefreshLayout extends FrameLayout {
     }
 
     public void addContentView(PullRefreshContentWatcher contentView) {
+        if (contentView.getStick() == null) {
+            throw new IllegalArgumentException("Stick view must not be null!");
+        }
         this.contentView = contentView;
         addView(contentView.getStick());
     }
