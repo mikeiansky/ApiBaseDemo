@@ -77,6 +77,10 @@ public class RefreshView extends FrameLayout {
         this.resistance = resistance;
     }
 
+    public void setAnimatorDuration(int duration) {
+        this.duration = duration;
+    }
+
     private void cancelAnimator() {
         if (refreshAnimator != null) {
             refreshAnimator.cancel();
@@ -123,7 +127,7 @@ public class RefreshView extends FrameLayout {
     int lastY;
     int maxOffset;
     int totalOffset;
-    boolean onDrag, pullDown, onMove, onRefresh, onTouch;
+    boolean onDrag, pullDown, onMove, onRefresh, onTouch, releasePressed;
     int lastReleaseY;
     float resistance = 2f;
 
@@ -157,6 +161,7 @@ public class RefreshView extends FrameLayout {
                 }
                 removeCallbacks(releaseRun);
                 onMove = false;
+                releasePressed = false;
                 break;
             case MotionEvent.ACTION_MOVE:
                 int cy = (int) event.getRawY();
@@ -170,7 +175,10 @@ public class RefreshView extends FrameLayout {
                 }
 
                 if (onDrag) {
-
+                    if (!releasePressed) {
+                        contentView.getStick().setPressed(false);
+                        releasePressed = true;
+                    }
                     pullDown = offset > 0;
                     int preTotalOffset = totalOffset + offset;
                     if (preTotalOffset >= maxOffset) {

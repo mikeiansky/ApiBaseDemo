@@ -67,8 +67,13 @@ public class MyRefreshActivity extends BaseActivity {
             @Override
             public void convert(ViewHolder viewHolder, String obj, int position) {
                 ((TextView)viewHolder.findViewById(R.id.title)).setText(obj);
+//                if(position == 4){
+//                    viewHolder.getConvertView().setPressed(true);
+//                }
             }
         });
+
+//        contentView.getChildAt(4).setPressed(true);
 
     }
 
