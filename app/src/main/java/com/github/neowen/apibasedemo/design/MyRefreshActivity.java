@@ -40,7 +40,12 @@ public class MyRefreshActivity extends BaseActivity {
         refreshView.setRefreshListener(new RefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshView.refreshComplete(3000);
+                refreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshView.refreshComplete();
+                    }
+                }, 3000);
             }
         });
 
