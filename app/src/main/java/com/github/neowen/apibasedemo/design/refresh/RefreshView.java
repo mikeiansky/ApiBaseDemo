@@ -72,6 +72,10 @@ public class RefreshView extends FrameLayout {
         addView(contentView.getStick());
     }
 
+    public void setResistance(float resistance) {
+        this.resistance = resistance;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
