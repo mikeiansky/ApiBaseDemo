@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -18,19 +19,36 @@ public class PullRefreshLayout extends FrameLayout {
     public static final String TAG = PullRefreshLayout.class.getSimpleName();
 
     public interface OnRefreshListener {
+
+        /**
+         * When touch event release and the condition can refresh ,this method will be call.
+         */
         void onRefresh();
+
+
+    }
+
+    public interface OnPullProgressUpdateListener {
+
+        /**
+         * @param progress region is (0 - 100)
+         */
+        void onPullProgressUpdate(int progress);
+
     }
 
     private View headView;
     private PullRefreshContentWatcher contentView;
     private ValueAnimator releaseAnimator, refreshAnimator;
     private OnRefreshListener refreshListener;
+    private OnPullProgressUpdateListener onPullProgressUpdateListener;
     private int touchSlop;
     private int duration = 250;
     int checkStartY;
     int lastY;
     int maxOffset;
     int totalOffset;
+    int pullProgress;
     boolean onDrag, pullDown, onMove, onRefresh, onTouch, releasePressed;
     int lastReleaseY;
     float resistance = 2f;
@@ -85,6 +103,10 @@ public class PullRefreshLayout extends FrameLayout {
 
     public void setRefreshListener(OnRefreshListener refreshListener) {
         this.refreshListener = refreshListener;
+    }
+
+    public void setOnPullProgressUpdateListener(OnPullProgressUpdateListener onPullProgressUpdateListener) {
+        this.onPullProgressUpdateListener = onPullProgressUpdateListener;
     }
 
     public void addHeadView(View headView) {
@@ -147,6 +169,26 @@ public class PullRefreshLayout extends FrameLayout {
         }
     }
 
+    private void computeRefreshProgress() {
+        int pullProgress = Math.round((totalOffset * 1f / maxOffset) * 100);
+        if (pullProgress < 0) {
+            pullProgress = 0;
+        }
+        if (pullProgress > 100) {
+            pullProgress = 100;
+        }
+
+        if (this.pullProgress != pullProgress) {
+//            Log.d(TAG, "computeRefreshProgress pullProgress : " + pullProgress);
+            if (onPullProgressUpdateListener != null) {
+                onPullProgressUpdateListener.onPullProgressUpdate(pullProgress);
+            }
+        }
+
+        this.pullProgress = pullProgress;
+
+    }
+
     private void detailMotionEvent(MotionEvent event) {
         int action = event.getAction();
         switch (action) {
@@ -174,6 +216,7 @@ public class PullRefreshLayout extends FrameLayout {
                 }
 
                 if (onDrag) {
+                    computeRefreshProgress();
                     if (!releasePressed) {
                         contentView.getStick().setPressed(false);
                         releasePressed = true;
@@ -262,4 +305,5 @@ public class PullRefreshLayout extends FrameLayout {
         releaseAnimator.addUpdateListener(releaseUpdateListener);
         releaseAnimator.start();
     }
+
 }
