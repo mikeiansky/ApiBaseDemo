@@ -16,10 +16,11 @@
             android:background="@color/md_pink_300"
             />
 
-        <ImageView
+        <Button
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@color/md_cyan_300"
+            android:text="Hello Click Test"
+            android:id="@+id/action"
             />
 
         <ImageView

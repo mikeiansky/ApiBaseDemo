@@ -14,6 +14,7 @@ import com.github.neowen.apibasedemo.common.CommonAdapter;
 import com.github.neowen.apibasedemo.common.ViewHolder;
 import com.github.neowen.apibasedemo.design.refresh.PullRefreshListView;
 import com.github.neowen.apibasedemo.design.refresh.PullRefreshLayout;
+import com.github.neowen.apibasedemo.design.refresh.PullRefreshScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,10 @@ public class MyRefreshActivity extends BaseActivity {
 
         pullRefreshView = (PullRefreshLayout) findViewById(R.id.refresh_view);
         View headView = LayoutInflater.from(this).inflate(R.layout.head_view, pullRefreshView, false);
-//        PullRefreshScrollView contentView = (PullRefreshScrollView) LayoutInflater.from(this).inflate(R.layout.content_view, refreshView, false);
-        PullRefreshListView contentView = (PullRefreshListView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_list_view, pullRefreshView, false);
+        PullRefreshScrollView contentView1 = (PullRefreshScrollView) LayoutInflater.from(this).inflate(R.layout.content_view, pullRefreshView, false);
+        PullRefreshListView contentView2 = (PullRefreshListView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_list_view, pullRefreshView, false);
         pullRefreshView.addHeadView(headView);
-        pullRefreshView.addContentView(contentView);
+        pullRefreshView.addContentView(contentView1);
         pullRefreshView.setRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -47,10 +48,17 @@ public class MyRefreshActivity extends BaseActivity {
             }
         });
 
-        contentView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        contentView1.findViewById(R.id.action).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "action test!!!!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        contentView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(view.getContext(), "position : " + position , Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "position : " + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -59,12 +67,12 @@ public class MyRefreshActivity extends BaseActivity {
             datas.add(" position : " + i);
         }
 
-        contentView.setAdapter(new CommonAdapter<String>(
+        contentView2.setAdapter(new CommonAdapter<String>(
                 this, R.layout.text_list_item, datas
         ) {
             @Override
             public void convert(ViewHolder viewHolder, String obj, int position) {
-                ((TextView)viewHolder.findViewById(R.id.title)).setText(obj);
+                ((TextView) viewHolder.findViewById(R.id.title)).setText(obj);
 //                if(position == 4){
 //                    viewHolder.getConvertView().setPressed(true);
 //                }
