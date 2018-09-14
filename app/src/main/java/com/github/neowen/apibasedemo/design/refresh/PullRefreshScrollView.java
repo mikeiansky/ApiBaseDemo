@@ -63,21 +63,20 @@ public class PullRefreshScrollView extends ScrollView implements PullRefreshCont
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-//        int action = ev.getAction();
-//        switch (action) {
-//            case MotionEvent.ACTION_DOWN:
-//                Log.d(TAG, "onTouchEvent ---> ACTION_DOWN");
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                Log.d(TAG, "onTouchEvent --dddddd-> ACTION_UP");
-//                break;
-//        }
-        if (!onDrag) {
-            super.onTouchEvent(ev);
+        int action = ev.getAction();
+        Log.d(TAG, "onTouchEvent action : " + action);
+        switch (action) {
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_UP:
+                if (!onDrag) {
+                    super.onTouchEvent(ev);
+                }
+                break;
+            default:
+                super.onTouchEvent(ev);
+                break;
         }
         return true;
     }
+
 }
