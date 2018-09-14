@@ -27,6 +27,30 @@ public class RefreshView extends FrameLayout {
     private OnRefreshListener refreshListener;
     private int touchSlop;
     private int duration = 250;
+    int checkStartY;
+    int lastY;
+    int maxOffset;
+    int totalOffset;
+    boolean onDrag, pullDown, onMove, onRefresh, onTouch, releasePressed;
+    int lastReleaseY;
+    float resistance = 2f;
+    DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator();
+    ValueAnimator.AnimatorUpdateListener releaseUpdateListener = new ValueAnimator.AnimatorUpdateListener() {
+
+        @Override
+        public void onAnimationUpdate(ValueAnimator animation) {
+            int cy = (int) animation.getAnimatedValue();
+
+            int offset = cy - lastReleaseY;
+            headView.offsetTopAndBottom(offset);
+            contentView.getStick().offsetTopAndBottom(offset);
+            totalOffset += offset;
+            lastReleaseY = cy;
+
+        }
+
+    };
+
     private Runnable releaseRun = new Runnable() {
         @Override
         public void run() {
@@ -122,31 +146,6 @@ public class RefreshView extends FrameLayout {
             postDelayed(releaseRun, delay);
         }
     }
-
-    int checkStartY;
-    int lastY;
-    int maxOffset;
-    int totalOffset;
-    boolean onDrag, pullDown, onMove, onRefresh, onTouch, releasePressed;
-    int lastReleaseY;
-    float resistance = 2f;
-
-    DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator();
-    ValueAnimator.AnimatorUpdateListener releaseUpdateListener = new ValueAnimator.AnimatorUpdateListener() {
-
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation) {
-            int cy = (int) animation.getAnimatedValue();
-
-            int offset = cy - lastReleaseY;
-            headView.offsetTopAndBottom(offset);
-            contentView.getStick().offsetTopAndBottom(offset);
-            totalOffset += offset;
-            lastReleaseY = cy;
-
-        }
-
-    };
 
     private void detailMotionEvent(MotionEvent event) {
         int action = event.getAction();
