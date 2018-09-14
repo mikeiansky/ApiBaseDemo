@@ -13,9 +13,9 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
-public class RefreshView extends FrameLayout {
+public class PullRefreshView extends FrameLayout {
 
-    public static final String TAG = RefreshView.class.getSimpleName();
+    public static final String TAG = PullRefreshView.class.getSimpleName();
 
     public interface OnRefreshListener {
         void onRefresh();
@@ -58,23 +58,23 @@ public class RefreshView extends FrameLayout {
         }
     };
 
-    public RefreshView(@NonNull Context context) {
+    public PullRefreshView(@NonNull Context context) {
         super(context);
         init(context, null, 0, 0);
     }
 
-    public RefreshView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public PullRefreshView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0, 0);
     }
 
-    public RefreshView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public PullRefreshView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr, 0);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public RefreshView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public PullRefreshView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr, defStyleRes);
     }

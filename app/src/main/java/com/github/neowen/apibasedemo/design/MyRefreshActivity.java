@@ -2,7 +2,6 @@ package com.github.neowen.apibasedemo.design;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,8 +13,7 @@ import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.common.CommonAdapter;
 import com.github.neowen.apibasedemo.common.ViewHolder;
 import com.github.neowen.apibasedemo.design.refresh.PullRefreshListView;
-import com.github.neowen.apibasedemo.design.refresh.PullRefreshScrollView;
-import com.github.neowen.apibasedemo.design.refresh.RefreshView;
+import com.github.neowen.apibasedemo.design.refresh.PullRefreshView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,26 +22,26 @@ public class MyRefreshActivity extends BaseActivity {
 
     public static final String TAG = MyRefreshActivity.class.getSimpleName();
 
-    RefreshView refreshView;
+    PullRefreshView pullRefreshView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_my_refresh);
 
-        refreshView = (RefreshView) findViewById(R.id.refresh_view);
-        View headView = LayoutInflater.from(this).inflate(R.layout.head_view, refreshView, false);
+        pullRefreshView = (PullRefreshView) findViewById(R.id.refresh_view);
+        View headView = LayoutInflater.from(this).inflate(R.layout.head_view, pullRefreshView, false);
 //        PullRefreshScrollView contentView = (PullRefreshScrollView) LayoutInflater.from(this).inflate(R.layout.content_view, refreshView, false);
-        PullRefreshListView contentView = (PullRefreshListView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_list_view, refreshView, false);
-        refreshView.addHeadView(headView);
-        refreshView.addContentView(contentView);
-        refreshView.setRefreshListener(new RefreshView.OnRefreshListener() {
+        PullRefreshListView contentView = (PullRefreshListView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_list_view, pullRefreshView, false);
+        pullRefreshView.addHeadView(headView);
+        pullRefreshView.addContentView(contentView);
+        pullRefreshView.setRefreshListener(new PullRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshView.postDelayed(new Runnable() {
+                pullRefreshView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        refreshView.refreshComplete();
+                        pullRefreshView.refreshComplete();
                     }
                 }, 3000);
             }
