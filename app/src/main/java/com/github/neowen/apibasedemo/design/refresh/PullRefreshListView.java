@@ -63,6 +63,7 @@ public class PullRefreshListView extends ListView implements PullRefreshContentW
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
+        Log.d(TAG, "onTouchEvent action : " + action);
         switch (action) {
             case MotionEvent.ACTION_MOVE:
             case MotionEvent.ACTION_UP:

@@ -78,10 +78,10 @@ public class RefreshView extends FrameLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        boolean result = super.dispatchTouchEvent(ev);
         if (headView != null && contentView != null) {
             detailMotionEvent(ev);
         }
+        boolean result = super.dispatchTouchEvent(ev);
         return result;
     }
 
@@ -122,6 +122,7 @@ public class RefreshView extends FrameLayout {
                 if (releaseAnimator != null) {
                     releaseAnimator.cancel();
                 }
+                onMove = false;
                 break;
             case MotionEvent.ACTION_MOVE:
                 int cy = (int) event.getRawY();
@@ -130,11 +131,11 @@ public class RefreshView extends FrameLayout {
                         && (totalOffset > 0 || offset > 0);
                 contentView.setOnDrag(onDrag);
 
-                if (onDrag) {
+                if (offset >= touchSlop) {
+                    onMove = true;
+                }
 
-                    if (offset >= touchSlop) {
-                        onMove = true;
-                    }
+                if (onDrag) {
 
                     pullDown = offset > 0;
                     int preTotalOffset = totalOffset + offset;
@@ -163,7 +164,7 @@ public class RefreshView extends FrameLayout {
                         // need to refresh
                         refresh();
                     } else {
-//                         need release immediately
+                        // need release immediately
                         release();
                     }
                 }
