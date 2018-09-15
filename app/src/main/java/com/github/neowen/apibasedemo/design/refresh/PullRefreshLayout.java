@@ -27,11 +27,40 @@ public class PullRefreshLayout extends FrameLayout {
 
     }
 
-    public static class WatcherWrapper implements PullRefreshContentWatcher {
+    public static class HeadWatcherWrapper implements PullRefreshHeadWatcher {
+
+        private View headView;
+
+        public HeadWatcherWrapper(View headView) {
+            this.headView = headView;
+        }
+
+        @Override
+        public void onPullProgressUpdate(int progress) {
+
+        }
+
+        @Override
+        public void onRefresh() {
+
+        }
+
+        @Override
+        public void onRefreshComplete() {
+
+        }
+
+        @Override
+        public View getStick() {
+            return headView;
+        }
+    }
+
+    public static class ContentWatcherWrapper implements PullRefreshContentWatcher {
 
         View contentView;
-        
-        public WatcherWrapper(View contentView) {
+
+        public ContentWatcherWrapper(View contentView) {
             this.contentView = contentView;
             contentView.setOnTouchListener(new OnTouchListener() {
                 @Override
@@ -58,9 +87,8 @@ public class PullRefreshLayout extends FrameLayout {
 
     }
 
-    private View headView;
-    private PullRefreshContentWatcher contentView;
-    private PullRefreshHeadWatcher pullRefreshHeadWatcher;
+    private PullRefreshContentWatcher contentWatcher;
+    private PullRefreshHeadWatcher headWatcher;
     private ValueAnimator releaseAnimator, refreshAnimator;
     private OnRefreshListener refreshListener;
     private int touchSlop;
@@ -81,8 +109,8 @@ public class PullRefreshLayout extends FrameLayout {
             int cy = (int) animation.getAnimatedValue();
 
             int offset = cy - lastReleaseY;
-            headView.offsetTopAndBottom(offset);
-            contentView.getStick().offsetTopAndBottom(offset);
+            headWatcher.getStick().offsetTopAndBottom(offset);
+            contentWatcher.getStick().offsetTopAndBottom(offset);
             totalOffset += offset;
             lastReleaseY = cy;
 
@@ -126,21 +154,28 @@ public class PullRefreshLayout extends FrameLayout {
         this.refreshListener = refreshListener;
     }
 
+    public void addHeadWatcher(PullRefreshHeadWatcher headWatcher) {
+        if (headWatcher.getStick() == null) {
+            throw new IllegalArgumentException("Stick view must not be null!");
+        }
+        this.headWatcher = headWatcher;
+        addView(headWatcher.getStick());
+    }
+
     public void addHeadView(View headView) {
-        this.headView = headView;
-        addView(this.headView);
+        addHeadWatcher(new HeadWatcherWrapper(headView));
     }
 
     public void addContentWatcher(PullRefreshContentWatcher contentView) {
         if (contentView.getStick() == null) {
             throw new IllegalArgumentException("Stick view must not be null!");
         }
-        this.contentView = contentView;
+        this.contentWatcher = contentView;
         addView(contentView.getStick());
     }
 
     public void addContentView(View contentView) {
-        addContentWatcher(new WatcherWrapper(contentView));
+        addContentWatcher(new ContentWatcherWrapper(contentView));
     }
 
     public void setResistance(float resistance) {
@@ -163,16 +198,16 @@ public class PullRefreshLayout extends FrameLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (headView != null) {
-            LayoutParams lp = (LayoutParams) headView.getLayoutParams();
-            lp.topMargin = -headView.getMeasuredHeight();
+        if (headWatcher != null) {
+            LayoutParams lp = (LayoutParams) headWatcher.getStick().getLayoutParams();
+            lp.topMargin = -headWatcher.getStick().getMeasuredHeight();
             maxOffset = Math.abs(lp.topMargin);
         }
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (headView != null && contentView != null) {
+        if (headWatcher != null && contentWatcher != null) {
             detailMotionEvent(ev);
         }
         boolean result = super.dispatchTouchEvent(ev);
@@ -204,8 +239,8 @@ public class PullRefreshLayout extends FrameLayout {
 
         if (this.pullProgress != pullProgress) {
 //            Log.d(TAG, "computeRefreshProgress pullProgress : " + pullProgress);
-            if (pullRefreshHeadWatcher != null) {
-                pullRefreshHeadWatcher.onPullProgressUpdate(pullProgress);
+            if (headWatcher != null) {
+                headWatcher.onPullProgressUpdate(pullProgress);
             }
         }
 
@@ -231,9 +266,9 @@ public class PullRefreshLayout extends FrameLayout {
             case MotionEvent.ACTION_MOVE:
                 int cy = (int) event.getRawY();
                 int offset = (int) ((cy - lastY) / resistance);
-                onDrag = contentView.onTop()
+                onDrag = contentWatcher.onTop()
                         && (totalOffset > 0 || offset > 0);
-                contentView.setOnDrag(onDrag);
+                contentWatcher.setOnDrag(onDrag);
 
                 if (Math.abs(cy - checkStartY) >= touchSlop) {
                     onMove = true;
@@ -242,7 +277,7 @@ public class PullRefreshLayout extends FrameLayout {
                 if (onDrag) {
                     computeRefreshProgress();
                     if (!releasePressed) {
-                        contentView.getStick().setPressed(false);
+                        contentWatcher.getStick().setPressed(false);
                         releasePressed = true;
                     }
                     pullDown = offset > 0;
@@ -256,8 +291,8 @@ public class PullRefreshLayout extends FrameLayout {
                     }
                     totalOffset = preTotalOffset;
 
-                    headView.offsetTopAndBottom(offset);
-                    contentView.getStick().offsetTopAndBottom(offset);
+                    headWatcher.getStick().offsetTopAndBottom(offset);
+                    contentWatcher.getStick().offsetTopAndBottom(offset);
 
                 }
                 lastY = cy;
@@ -266,17 +301,17 @@ public class PullRefreshLayout extends FrameLayout {
                 onTouch = false;
                 if (onDrag) {
                     if (!onMove) {
-                        contentView.setOnDrag(false);
+                        contentWatcher.setOnDrag(false);
                     }
                     if (onRefresh) {
                         // need release immediately
-                        if (totalOffset >= headView.getHeight()) {
+                        if (totalOffset >= headWatcher.getStick().getHeight()) {
                             // need to release
                             release();
                         }
                     } else {
-                        if (totalOffset >= headView.getHeight() * 2f / 3f
-                                || (totalOffset >= headView.getHeight() / 2f && pullDown)) {
+                        if (totalOffset >= headWatcher.getStick().getHeight() * 2f / 3f
+                                || (totalOffset >= headWatcher.getStick().getHeight() / 2f && pullDown)) {
                             // need to refresh
                             refresh();
                         } else {

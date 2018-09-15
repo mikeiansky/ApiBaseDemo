@@ -42,6 +42,7 @@ public class MyRefreshActivity extends BaseActivity {
         PullRefreshRecyclerView contentView4 = (PullRefreshRecyclerView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_recycler_view, pullRefreshView, false);
         View contentView3 = LayoutInflater.from(this).inflate(R.layout.pull_refresh_native_view, pullRefreshView, false);
         pullRefreshView.addHeadView(headView);
+
 //        pullRefreshView.addContentWatcher(contentView1);
 //        pullRefreshView.addContentWatcher(contentView2);
 //        pullRefreshView.addContentView(contentView3);
