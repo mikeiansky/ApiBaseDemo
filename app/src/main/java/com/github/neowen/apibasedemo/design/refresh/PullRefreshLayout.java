@@ -98,7 +98,7 @@ public class PullRefreshLayout extends FrameLayout {
     int maxOffset;
     int totalOffset;
     int pullProgress;
-    boolean onDrag, pullDown, onMove, onRefresh, onTouch, releasePressed;
+    private boolean onDrag, pullDown, onMove, onRefresh, onTouch, releasePressed, onLayouted;
     int lastReleaseY;
     float resistance = 2f;
     DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator();
@@ -109,8 +109,10 @@ public class PullRefreshLayout extends FrameLayout {
             int cy = (int) animation.getAnimatedValue();
 
             int offset = cy - lastReleaseY;
-            headWatcher.getStick().offsetTopAndBottom(offset);
-            contentWatcher.getStick().offsetTopAndBottom(offset);
+//            headWatcher.getStick().offsetTopAndBottom(offset);
+//            contentWatcher.getStick().offsetTopAndBottom(offset);
+
+            translateOffset(offset);
 
             totalOffset += offset;
             lastReleaseY = cy;
@@ -200,10 +202,12 @@ public class PullRefreshLayout extends FrameLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (headWatcher != null) {
-            LayoutParams lp = (LayoutParams) headWatcher.getStick().getLayoutParams();
-            lp.topMargin = -headWatcher.getStick().getMeasuredHeight();
-            maxOffset = Math.abs(lp.topMargin);
+        if (!onLayouted) {
+            if (headWatcher != null) {
+                LayoutParams lp = (LayoutParams) headWatcher.getStick().getLayoutParams();
+                lp.topMargin = -headWatcher.getStick().getMeasuredHeight();
+                maxOffset = Math.abs(lp.topMargin);
+            }
         }
     }
 
@@ -212,7 +216,14 @@ public class PullRefreshLayout extends FrameLayout {
         if (headWatcher != null && contentWatcher != null) {
             detailMotionEvent(ev);
         }
+        onLayouted = true;
         boolean result = super.dispatchTouchEvent(ev);
+        if (onDrag && onMove) {
+            if (!releasePressed) {
+                contentWatcher.getStick().setPressed(false);
+                releasePressed = true;
+            }
+        }
         return result;
     }
 
@@ -276,11 +287,9 @@ public class PullRefreshLayout extends FrameLayout {
                 }
 
                 if (onDrag) {
+
+                    contentWatcher.getStick().setPressed(false);
                     computeRefreshProgress();
-                    if (!releasePressed) {
-                        contentWatcher.getStick().setPressed(false);
-                        releasePressed = true;
-                    }
                     pullDown = offset > 0;
                     int preTotalOffset = totalOffset + offset;
                     if (preTotalOffset >= maxOffset) {
@@ -292,9 +301,10 @@ public class PullRefreshLayout extends FrameLayout {
                     }
                     totalOffset = preTotalOffset;
 
-                    headWatcher.getStick().offsetTopAndBottom(offset);
-                    contentWatcher.getStick().offsetTopAndBottom(offset);
+//                    headWatcher.getStick().offsetTopAndBottom(offset);
+//                    contentWatcher.getStick().offsetTopAndBottom(offset);
 
+                    translateOffset(offset);
                 }
                 lastY = cy;
                 break;
@@ -365,6 +375,16 @@ public class PullRefreshLayout extends FrameLayout {
         releaseAnimator.setInterpolator(decelerateInterpolator);
         releaseAnimator.addUpdateListener(releaseUpdateListener);
         releaseAnimator.start();
+    }
+
+    private void translateOffset(int tranOffset) {
+        LayoutParams lp = (LayoutParams) headWatcher.getStick().getLayoutParams();
+        lp.topMargin += tranOffset;
+
+        lp = (LayoutParams) contentWatcher.getStick().getLayoutParams();
+        lp.topMargin += tranOffset;
+
+        requestLayout();
     }
 
 }

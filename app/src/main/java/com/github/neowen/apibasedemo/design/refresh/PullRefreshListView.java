@@ -67,6 +67,9 @@ public class PullRefreshListView extends ListView implements PullRefreshContentW
             case MotionEvent.ACTION_MOVE:
             case MotionEvent.ACTION_UP:
                 if (!onDrag) {
+                    if(action == MotionEvent.ACTION_UP){
+                        Log.d(TAG, "onTouchEvent --> ACTION_UP ");
+                    }
                     super.onTouchEvent(ev);
                 }
                 break;
