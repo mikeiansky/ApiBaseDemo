@@ -111,9 +111,11 @@ public class PullRefreshLayout extends FrameLayout {
             int offset = cy - lastReleaseY;
             headWatcher.getStick().offsetTopAndBottom(offset);
             contentWatcher.getStick().offsetTopAndBottom(offset);
+
             totalOffset += offset;
             lastReleaseY = cy;
 
+            computeRefreshProgress();
         }
 
     };
@@ -216,6 +218,7 @@ public class PullRefreshLayout extends FrameLayout {
 
     public void refreshComplete() {
         onRefresh = false;
+        headWatcher.onRefreshComplete();
         if (!onTouch) {
             release();
         }
@@ -223,6 +226,7 @@ public class PullRefreshLayout extends FrameLayout {
 
     public void refreshComplete(int delay) {
         onRefresh = false;
+        headWatcher.onRefreshComplete();
         if (!onTouch) {
             postDelayed(releaseRun, delay);
         }
@@ -238,10 +242,7 @@ public class PullRefreshLayout extends FrameLayout {
         }
 
         if (this.pullProgress != pullProgress) {
-//            Log.d(TAG, "computeRefreshProgress pullProgress : " + pullProgress);
-            if (headWatcher != null) {
-                headWatcher.onPullProgressUpdate(pullProgress);
-            }
+            headWatcher.onPullProgressUpdate(pullProgress);
         }
 
         this.pullProgress = pullProgress;
@@ -330,6 +331,7 @@ public class PullRefreshLayout extends FrameLayout {
                 releaseAnimator.cancel();
             }
             onRefresh = true;
+            headWatcher.onRefresh();
             refreshListener.onRefresh();
             lastReleaseY = totalOffset;
             refreshAnimator = ValueAnimator.ofInt(totalOffset, maxOffset);
