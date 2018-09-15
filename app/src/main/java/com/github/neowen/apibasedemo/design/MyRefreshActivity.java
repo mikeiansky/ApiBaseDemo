@@ -2,8 +2,12 @@ package com.github.neowen.apibasedemo.design;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +18,7 @@ import com.github.neowen.apibasedemo.common.CommonAdapter;
 import com.github.neowen.apibasedemo.common.ViewHolder;
 import com.github.neowen.apibasedemo.design.refresh.PullRefreshListView;
 import com.github.neowen.apibasedemo.design.refresh.PullRefreshLayout;
+import com.github.neowen.apibasedemo.design.refresh.PullRefreshRecyclerView;
 import com.github.neowen.apibasedemo.design.refresh.PullRefreshScrollView;
 
 import java.util.ArrayList;
@@ -34,10 +39,13 @@ public class MyRefreshActivity extends BaseActivity {
         View headView = LayoutInflater.from(this).inflate(R.layout.head_view, pullRefreshView, false);
         PullRefreshScrollView contentView1 = (PullRefreshScrollView) LayoutInflater.from(this).inflate(R.layout.content_view, pullRefreshView, false);
         PullRefreshListView contentView2 = (PullRefreshListView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_list_view, pullRefreshView, false);
+        PullRefreshRecyclerView contentView4 = (PullRefreshRecyclerView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_recycler_view, pullRefreshView, false);
         View contentView3 = LayoutInflater.from(this).inflate(R.layout.pull_refresh_native_view, pullRefreshView, false);
         pullRefreshView.addHeadView(headView);
 //        pullRefreshView.addContentWatcher(contentView1);
-        pullRefreshView.addContentView(contentView3);
+//        pullRefreshView.addContentWatcher(contentView2);
+//        pullRefreshView.addContentView(contentView3);
+        pullRefreshView.addContentWatcher(contentView4);
         pullRefreshView.setRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -75,13 +83,39 @@ public class MyRefreshActivity extends BaseActivity {
             @Override
             public void convert(ViewHolder viewHolder, String obj, int position) {
                 ((TextView) viewHolder.findViewById(R.id.title)).setText(obj);
-//                if(position == 4){
-//                    viewHolder.getConvertView().setPressed(true);
-//                }
             }
         });
 
-//        contentView.getChildAt(4).setPressed(true);
+        contentView4.setLayoutManager(new LinearLayoutManager(this));
+        contentView4.setAdapter(new RecyclerView.Adapter() {
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_list_item, parent, false);
+                MyViewHolder viewHolder = new MyViewHolder(root);
+                Log.d(TAG, "onCreateViewHolder");
+                return viewHolder;
+            }
+
+            @Override
+            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+                ((TextView)holder.itemView.findViewById(R.id.title)).setText("position -- " + position);
+                Log.d(TAG, "onBindViewHolder");
+            }
+
+            @Override
+            public int getItemCount() {
+                return 30;
+            }
+        });
+
+
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder{
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+        }
 
     }
 
