@@ -16,6 +16,7 @@ import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.common.CommonAdapter;
 import com.github.neowen.apibasedemo.common.ViewHolder;
+import com.github.neowen.apibasedemo.design.refresh.PullRefreshGridView;
 import com.github.neowen.apibasedemo.design.refresh.PullRefreshListView;
 import com.github.neowen.apibasedemo.design.refresh.PullRefreshLayout;
 import com.github.neowen.apibasedemo.design.refresh.PullRefreshRecyclerView;
@@ -39,14 +40,16 @@ public class MyRefreshActivity extends BaseActivity {
         View headView = LayoutInflater.from(this).inflate(R.layout.head_view, pullRefreshView, false);
         PullRefreshScrollView contentView1 = (PullRefreshScrollView) LayoutInflater.from(this).inflate(R.layout.content_view, pullRefreshView, false);
         PullRefreshListView contentView2 = (PullRefreshListView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_list_view, pullRefreshView, false);
-        PullRefreshRecyclerView contentView4 = (PullRefreshRecyclerView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_recycler_view, pullRefreshView, false);
         View contentView3 = LayoutInflater.from(this).inflate(R.layout.pull_refresh_native_view, pullRefreshView, false);
+        PullRefreshRecyclerView contentView4 = (PullRefreshRecyclerView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_recycler_view, pullRefreshView, false);
+        PullRefreshGridView contentView5 = (PullRefreshGridView) LayoutInflater.from(this).inflate(R.layout.pull_refresh_grid_view, pullRefreshView, false);
         pullRefreshView.addHeadView(headView);
 
 //        pullRefreshView.addContentWatcher(contentView1);
 //        pullRefreshView.addContentWatcher(contentView2);
 //        pullRefreshView.addContentView(contentView3);
-        pullRefreshView.addContentWatcher(contentView4);
+//        pullRefreshView.addContentWatcher(contentView4);
+        pullRefreshView.addContentWatcher(contentView5);
         pullRefreshView.setRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -79,6 +82,15 @@ public class MyRefreshActivity extends BaseActivity {
         }
 
         contentView2.setAdapter(new CommonAdapter<String>(
+                this, R.layout.text_list_item, datas
+        ) {
+            @Override
+            public void convert(ViewHolder viewHolder, String obj, int position) {
+                ((TextView) viewHolder.findViewById(R.id.title)).setText(obj);
+            }
+        });
+
+        contentView5.setAdapter(new CommonAdapter<String>(
                 this, R.layout.text_list_item, datas
         ) {
             @Override
