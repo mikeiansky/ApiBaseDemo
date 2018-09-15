@@ -2,7 +2,6 @@
 <com.github.neowen.apibasedemo.design.refresh.PullRefreshHeadLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="@color/md_blue_400"
     android:orientation="vertical">
 
 </com.github.neowen.apibasedemo.design.refresh.PullRefreshHeadLayout>

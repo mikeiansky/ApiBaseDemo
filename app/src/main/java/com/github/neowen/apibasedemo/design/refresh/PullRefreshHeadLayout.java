@@ -6,18 +6,20 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.neowen.apibasedemo.R;
+
 public class PullRefreshHeadLayout extends LinearLayout implements PullRefreshHeadWatcher {
 
     public static final String TAG = PullRefreshHeadWatcher.class.getSimpleName();
 
-    private TextView flagTV;
+    private TextView progressFlagTV;
+    private TextView refreshFlagTV;
 
     public PullRefreshHeadLayout(Context context) {
         super(context);
@@ -48,30 +50,41 @@ public class PullRefreshHeadLayout extends LinearLayout implements PullRefreshHe
         co.setLayoutParams(lp1);
         addView(co);
 
-        flagTV = new TextView(context);
-        flagTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        flagTV.setTextColor(Color.RED);
+        progressFlagTV = new TextView(context);
+        progressFlagTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        progressFlagTV.setTextColor(Color.RED);
+        LayoutParams lp2 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        lp2.gravity = Gravity.BOTTOM | Gravity.LEFT;
+        progressFlagTV.setLayoutParams(lp2);
+        addView(progressFlagTV);
+
+        refreshFlagTV = new TextView(context);
+        refreshFlagTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        refreshFlagTV.setTextColor(Color.RED);
         LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
-        flagTV.setLayoutParams(lp);
-        addView(flagTV);
-//        setBackgroundColor(0xFFCC80);
+        lp.topMargin = 10;
+        refreshFlagTV.setLayoutParams(lp);
+        addView(refreshFlagTV);
+        refreshFlagTV.setText("Not on Refresh");
+
+        setBackgroundColor(getResources().getColor(R.color.md_blue_400));
     }
 
     @Override
     public void onPullProgressUpdate(int progress) {
-        flagTV.setText("onPullProgressUpdate : " + progress);
-        Log.d(TAG, "onPullProgressUpdate ---> " + progress);
+        progressFlagTV.setText("onPullProgressUpdate : " + progress);
     }
 
     @Override
     public void onRefresh() {
-        flagTV.setText("OnRefresh");
+        refreshFlagTV.setText("On Refresh!");
+
     }
 
     @Override
     public void onRefreshComplete() {
-        flagTV.setText("OnRefreshComplete");
+        refreshFlagTV.setText("Not on Refresh!");
     }
 
     @Override
