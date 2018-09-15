@@ -27,15 +27,6 @@ public class PullRefreshLayout extends FrameLayout {
 
     }
 
-    public interface OnPullProgressUpdateListener {
-
-        /**
-         * @param progress region is (0 - 100)
-         */
-        void onPullProgressUpdate(int progress);
-
-    }
-
     public static class WatcherWrapper implements PullRefreshContentWatcher {
 
         View contentView;
@@ -69,9 +60,9 @@ public class PullRefreshLayout extends FrameLayout {
 
     private View headView;
     private PullRefreshContentWatcher contentView;
+    private PullRefreshHeadWatcher pullRefreshHeadWatcher;
     private ValueAnimator releaseAnimator, refreshAnimator;
     private OnRefreshListener refreshListener;
-    private OnPullProgressUpdateListener onPullProgressUpdateListener;
     private int touchSlop;
     private int duration = 250;
     int checkStartY;
@@ -133,10 +124,6 @@ public class PullRefreshLayout extends FrameLayout {
 
     public void setRefreshListener(OnRefreshListener refreshListener) {
         this.refreshListener = refreshListener;
-    }
-
-    public void setOnPullProgressUpdateListener(OnPullProgressUpdateListener onPullProgressUpdateListener) {
-        this.onPullProgressUpdateListener = onPullProgressUpdateListener;
     }
 
     public void addHeadView(View headView) {
@@ -217,8 +204,8 @@ public class PullRefreshLayout extends FrameLayout {
 
         if (this.pullProgress != pullProgress) {
 //            Log.d(TAG, "computeRefreshProgress pullProgress : " + pullProgress);
-            if (onPullProgressUpdateListener != null) {
-                onPullProgressUpdateListener.onPullProgressUpdate(pullProgress);
+            if (pullRefreshHeadWatcher != null) {
+                pullRefreshHeadWatcher.onPullProgressUpdate(pullProgress);
             }
         }
 
