@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.widget.TextView;
+
+import com.github.neowen.apibasedemo.R;
+import com.winson.widget.CommonAdapter;
+import com.winson.widget.ViewHolder;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,12 +21,28 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Winson on 2018/6/30.
  */
 public class Utils {
+
+    public static CommonAdapter<String> getTestAdapter(Context context) {
+        List<String> datas = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            datas.add(" position : " + i);
+        }
+
+        return new CommonAdapter<String>(context, R.layout.text_list_item, datas) {
+            @Override
+            public void convert(ViewHolder viewHolder, String obj, int position) {
+                ((TextView) viewHolder.findViewById(R.id.title)).setText(obj);
+            }
+        };
+    }
 
     public static String readLog(String filePath) {
 

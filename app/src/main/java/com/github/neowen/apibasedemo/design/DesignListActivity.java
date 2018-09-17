@@ -21,6 +21,9 @@ public class DesignListActivity extends ApiItemListActivity {
         ApiItem apiItem = new ApiItem("SwipeBack", SwipeBackActivity.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("Load More", LoadMoreActivity.class);
+        mApiItems.add(apiItem);
+
         apiItem = new ApiItem("Custom Dialog", CustomDialogActivity.class);
         mApiItems.add(apiItem);
 

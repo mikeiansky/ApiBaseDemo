@@ -125,7 +125,6 @@ public class MyRefreshActivity extends BaseActivity {
             }
         });
 
-
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
