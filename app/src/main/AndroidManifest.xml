@@ -85,6 +85,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".support.PhotoSelectActivity"/>
         <activity android:name=".design.LoadMoreActivity"/>
         <activity android:name=".design.MyRefreshActivity"/>
         <activity android:name=".base.BaseApiActivity" />

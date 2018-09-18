@@ -15,6 +15,9 @@ public class SupportListA extends ApiItemListActivity {
         ApiItem apiItem = new ApiItem("ViewDragHelper", ViewDragHelperA.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("Select Photo", PhotoSelectActivity.class);
+        mApiItems.add(apiItem);
+
         apiItem = new ApiItem("WebView", MyWebViewActivity.class);
         mApiItems.add(apiItem);
 
