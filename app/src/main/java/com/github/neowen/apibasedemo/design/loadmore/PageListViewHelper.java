@@ -109,6 +109,7 @@ public class PageListViewHelper<T> {
 
     public void refreshData(List<T> datas) {
         onLoading = false;
+        listView.removeCallbacks(currentLoadMoreRunnable);
         if (datas != null) {
             pageIndex = 2;
             int size = datas.size();
