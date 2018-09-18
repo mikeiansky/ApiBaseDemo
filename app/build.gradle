@@ -76,7 +76,7 @@ dependencies {
     compile 'com.orhanobut:logger:2.2.0'
 
     compile 'com.github.winsonzhou:ad-ui:1.0.0'
-//    compile 'com.github.winsonzhou:ad-ui:0.2.1'
+
 }
 
 

@@ -127,7 +127,7 @@ public class MyRefreshActivity extends BaseActivity {
 
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         public MyViewHolder(View itemView) {
             super(itemView);

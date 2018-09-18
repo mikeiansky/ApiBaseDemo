@@ -1,20 +1,23 @@
 package com.github.neowen.apibasedemo.design;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AbsListView;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
-import com.github.neowen.apibasedemo.common.CommonAdapter;
-import com.github.neowen.apibasedemo.common.ViewHolder;
 import com.github.neowen.apibasedemo.design.loadmore.PageListViewHelper;
+import com.github.neowen.apibasedemo.design.loadmore.PageRecyclerViewHelper;
 import com.github.neowen.apibasedemo.utils.Utils;
+import com.winson.widget.CommonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +35,54 @@ public class LoadMoreActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_load_more);
 
-
-
         ListView listView = (ListView) findViewById(R.id.list_view);
+        listView.setVisibility(View.GONE);
+//        final PageListViewHelper<String> pageListViewHelper = testListView(listView);
+//        findViewById(R.id.refresh).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                List<String> datas = new ArrayList<>();
+//                int region = pageListViewHelper.getPageSize();
+//                for (int i = 0; i < region; i++) {
+//                    datas.add("position " + i);
+//                }
+//                pageListViewHelper.refreshData(datas);
+//            }
+//        });
 
-        com.winson.widget.CommonAdapter adapter = Utils.getTestAdapter(this);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RecyclerView.Adapter() {
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_list_item, parent, false);
+                MyRefreshActivity.MyViewHolder viewHolder = new MyRefreshActivity.MyViewHolder(root);
+                Log.d(TAG, "onCreateViewHolder");
+                return viewHolder;
+            }
 
+            @Override
+            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+                ((TextView)holder.itemView.findViewById(R.id.title)).setText("position -- " + position);
+                Log.d(TAG, "onBindViewHolder");
+            }
+
+            @Override
+            public int getItemCount() {
+                return 30;
+            }
+
+        });
+
+        PageRecyclerViewHelper pageRecyclerViewHelper = new PageRecyclerViewHelper(recyclerView);
+
+
+    }
+
+    @NonNull
+    private PageListViewHelper<String> testListView(ListView listView) {
+        CommonAdapter adapter = Utils.getTestAdapter(this);
         final PageListViewHelper<String> pageListViewHelper = new PageListViewHelper<String>(listView, adapter, R.layout.load_more_foot);
-
         pageListViewHelper.setOnPageChangeListener(new PageListViewHelper.OnPageChangeListener() {
             @Override
             public void onLoadMore() {
@@ -66,19 +109,7 @@ public class LoadMoreActivity extends BaseActivity {
 
             }
         });
-
-        findViewById(R.id.refresh).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<String> datas = new ArrayList<>();
-                int region = pageListViewHelper.getPageSize();
-                for (int i = 0; i < region; i++) {
-                    datas.add("position " + i);
-                }
-                pageListViewHelper.refreshData(datas);
-            }
-        });
-
+        return pageListViewHelper;
     }
 
 }

@@ -3,6 +3,8 @@ package com.github.neowen.apibasedemo.design.loadmore;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * @date on 2018/9/17
@@ -10,7 +12,10 @@ import android.support.v7.widget.RecyclerView;
  */
 public class PageRecyclerViewHelper {
 
+    private static final String TAG = PageRecyclerViewHelper.class.getSimpleName();
+
     RecyclerView recyclerView;
+    boolean onBottom;
 
     public PageRecyclerViewHelper(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
@@ -23,16 +28,27 @@ public class PageRecyclerViewHelper {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                linearLayoutManager.findFirstVisibleItemPosition();
-                linearLayoutManager.findLastVisibleItemPosition();
-
-                RecyclerView.LayoutManager layoutManager = null;
-                GridLayoutManager glm = null;
-                glm.findLastVisibleItemPosition();
+                if (!onBottom && isOnBottom(recyclerView)) {
+                    onBottom = true;
+                    Toast.makeText(recyclerView.getContext(), "onBottom", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
     }
+
+    static boolean isOnBottom(RecyclerView recyclerView) {
+        LinearLayoutManager llm = (LinearLayoutManager) recyclerView.getLayoutManager();
+        int totalCount = llm.getItemCount();
+
+        int lastPosition = llm.findLastVisibleItemPosition();
+
+        if ((lastPosition + 1) >= totalCount) {
+            Log.d(TAG, "isOnBottom : " + lastPosition + " , totalCount : " + totalCount);
+            return true;
+        }
+
+        return false;
+    }
+
 }
