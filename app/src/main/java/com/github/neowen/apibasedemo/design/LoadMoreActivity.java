@@ -16,6 +16,7 @@ import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.design.loadmore.PageListViewHelper;
 import com.github.neowen.apibasedemo.design.loadmore.PageRecyclerViewHelper;
+import com.github.neowen.apibasedemo.design.loadmore.RecyclerViewAdapter;
 import com.github.neowen.apibasedemo.utils.Utils;
 import com.winson.widget.CommonAdapter;
 
@@ -50,31 +51,42 @@ public class LoadMoreActivity extends BaseActivity {
 //            }
 //        });
 
+        List<String> datas = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            datas.add(" position : " + i);
+        }
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerView.Adapter() {
+//        recyclerView.setAdapter(new RecyclerView.Adapter() {
+//            @Override
+//            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//                View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_list_item, parent, false);
+//                MyRefreshActivity.MyViewHolder viewHolder = new MyRefreshActivity.MyViewHolder(root);
+//                Log.d(TAG, "onCreateViewHolder ---> ");
+//                return viewHolder;
+//            }
+//
+//            @Override
+//            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+//                ((TextView)holder.itemView.findViewById(R.id.title)).setText("position -- " + position);
+//                Log.d(TAG, "onBindViewHolder ---> ");
+//            }
+//
+//            @Override
+//            public int getItemCount() {
+//                return 30;
+//            }
+//
+//        });
+//        PageRecyclerViewHelper pageRecyclerViewHelper = new PageRecyclerViewHelper(recyclerView);
+
+        RecyclerViewAdapter<String> rca = new RecyclerViewAdapter<String>(this, datas, R.layout.text_list_item) {
             @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_list_item, parent, false);
-                MyRefreshActivity.MyViewHolder viewHolder = new MyRefreshActivity.MyViewHolder(root);
-                Log.d(TAG, "onCreateViewHolder");
-                return viewHolder;
+            public void bindItemView(RecyclerView.ViewHolder holder, String s, int position) {
+                ((TextView)holder.itemView.findViewById(R.id.title)).setText(s);
             }
-
-            @Override
-            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-                ((TextView)holder.itemView.findViewById(R.id.title)).setText("position -- " + position);
-                Log.d(TAG, "onBindViewHolder");
-            }
-
-            @Override
-            public int getItemCount() {
-                return 30;
-            }
-
-        });
-
-        PageRecyclerViewHelper pageRecyclerViewHelper = new PageRecyclerViewHelper(recyclerView);
+        };
+        recyclerView.setAdapter(rca);
 
 
     }
