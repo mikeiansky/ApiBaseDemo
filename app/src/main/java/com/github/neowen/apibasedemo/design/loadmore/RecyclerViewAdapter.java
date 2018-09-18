@@ -34,6 +34,10 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter {
         this.footLayout = footLayout;
     }
 
+    public void setFootLayout(int footLayout) {
+        this.footLayout = footLayout;
+    }
+
     public void showFoot(boolean showFoot) {
         this.showFoot = showFoot;
         if (this.footLayout == 0) {

@@ -38,18 +38,6 @@ public class LoadMoreActivity extends BaseActivity {
 
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setVisibility(View.GONE);
-//        final PageListViewHelper<String> pageListViewHelper = testListView(listView);
-//        findViewById(R.id.refresh).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                List<String> datas = new ArrayList<>();
-//                int region = pageListViewHelper.getPageSize();
-//                for (int i = 0; i < region; i++) {
-//                    datas.add("position " + i);
-//                }
-//                pageListViewHelper.refreshData(datas);
-//            }
-//        });
 
         List<String> datas = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
@@ -83,12 +71,47 @@ public class LoadMoreActivity extends BaseActivity {
         RecyclerViewAdapter<String> rca = new RecyclerViewAdapter<String>(this, datas, R.layout.text_list_item) {
             @Override
             public void bindItemView(RecyclerView.ViewHolder holder, String s, int position) {
-                ((TextView)holder.itemView.findViewById(R.id.title)).setText(s);
+                ((TextView) holder.itemView.findViewById(R.id.title)).setText(s);
             }
         };
-        recyclerView.setAdapter(rca);
+        final PageRecyclerViewHelper<String> pageRecyclerViewHelper = new PageRecyclerViewHelper<>(recyclerView, rca, R.layout.load_more_foot);
+        pageRecyclerViewHelper.setOnPageLoadListener(new PageRecyclerViewHelper.OnPageLoadListener() {
+            @Override
+            public void onLoadMore() {
+                int pageIndex = pageRecyclerViewHelper.getPageIndex();
+                List<String> datas = new ArrayList<>();
+                int start = datas.size();
+                if (pageIndex >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        datas.add("position " + (start + i));
+                    }
+                } else {
+                    int region = pageRecyclerViewHelper.getPageSize();
+                    for (int i = 0; i < region; i++) {
+                        datas.add("position " + (start + i));
+                    }
+                }
+                pageRecyclerViewHelper.addPageData(datas);
+            }
 
+            @Override
+            public void onLoadFinish() {
 
+            }
+        });
+
+//        final PageListViewHelper<String> pageListViewHelper = testListView(listView);
+        findViewById(R.id.refresh).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> datas = new ArrayList<>();
+                int region = pageRecyclerViewHelper.getPageSize();
+                for (int i = 0; i < region; i++) {
+                    datas.add("position " + i);
+                }
+                pageRecyclerViewHelper.refreshData(datas);
+            }
+        });
     }
 
     @NonNull
