@@ -43,6 +43,7 @@ public class ThumbVideoActivity extends BaseActivity {
     MediaPlayer mediaPlayer;
     MediaMetadataRetriever mediaMetadataRetriever;
     Handler handler;
+    VideoFrame videoFrame;
 
     class MyRun implements Runnable{
 
@@ -61,9 +62,11 @@ public class ThumbVideoActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mediaPlayer.reset();
-        mediaPlayer.release();
-        mediaMetadataRetriever.release();
+//        mediaPlayer.reset();
+//        mediaPlayer.release();
+//        mediaMetadataRetriever.release();
+
+        videoFrame.release();
     }
 
     @Override
@@ -73,124 +76,132 @@ public class ThumbVideoActivity extends BaseActivity {
 
         mediaPlayer = new MediaPlayer();
         handler = new Handler();
+        videoFrame = (VideoFrame) findViewById(R.id.video_frame);
 
         Button pause = (Button) findViewById(R.id.pause);
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.pause();
+//                mediaPlayer.pause();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        videoFrame.setDataSource(path);
+                    }
+                }).start();
             }
         });
-        SeekBar seekBar = (SeekBar) findViewById(R.id.progress_bar);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int lastProgress = 0;
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (lastProgress != progress) {
-
-                    int max = mediaPlayer.getDuration();
-                    final int position = (int) (( progress / 100f ) * max);
+//        SeekBar seekBar = (SeekBar) findViewById(R.id.progress_bar);
+//        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            int lastProgress = 0;
 //
-//                    Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(position * 1000,MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-//                    Log.d(TAG, "duration : " + position + " , bitmap : " + bitmap);
-//                    thumbIV.setImageBitmap(bitmap);
-//                    new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(position * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-//                            Log.d(TAG, "duration : " + position + " , bitmap : " + bitmap);
-////                            thumbIV.setImageBitmap(bitmap);
-//                            handler.post(new MyRun(bitmap));
-//                        }
-//                    }).start();
-
-
-                    lastProgress = progress;
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                int max = mediaPlayer.getDuration();
-                final int position = (int) (( seekBar.getProgress() / 100f ) * max);
-                mediaPlayer.seekTo(position);
-
-            }
-        });
-
-        getThumbBtn = (Button) findViewById(R.id.get_thumb);
-        getThumbBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                int w = textureView.getWidth();
-//                int h = textureView.getHeight();
-////                Bitmap thumb = textureView.getBitmap();
-//                Bitmap thumb = textureView.getBitmap(w / 5, h / 5);
-//                thumbIV.setImageBitmap(thumb);
-//                Log.d(TAG, "thumb bitmap width : " + thumb.getWidth() + " , height : " + thumb.getHeight());
-                int position = mediaPlayer.getCurrentPosition();
-                Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(position * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-                Log.d(TAG, "duration : " + position + " , bitmap width : " + bitmap.getWidth() +" , height : " + bitmap.getHeight());
-                thumbIV.setImageBitmap(bitmap);
-
-                ThumbnailUtils.createVideoThumbnail("", 1);
-            }
-        });
-        thumbIV = (ImageView) findViewById(R.id.iv_thumb);
-
-        textureView = (TextureView) findViewById(R.id.texture_view);
-        textureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
-            @Override
-            public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-                Surface s = new Surface(surface);
-                mediaPlayer.setSurface(s);
-            }
-
-            @Override
-            public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-
-            }
-
-            @Override
-            public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-                return false;
-            }
-
-            @Override
-            public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-
-            }
-        });
-
-        try {
-
-            mediaMetadataRetriever = new MediaMetadataRetriever();
-            mediaMetadataRetriever.setDataSource(path, new HashMap<String, String>());
-
-            mediaPlayer.setDataSource(this, Uri.parse(path));
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mp.start();
-                }
-            });
-            mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
-                @Override
-                public void onBufferingUpdate(MediaPlayer mp, int percent) {
-                    Log.d(TAG, "onBufferingUpdate ---> " + percent);
-                }
-            });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                if (lastProgress != progress) {
+//
+//                    int max = mediaPlayer.getDuration();
+//                    final int position = (int) (( progress / 100f ) * max);
+////
+////                    Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(position * 1000,MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+////                    Log.d(TAG, "duration : " + position + " , bitmap : " + bitmap);
+////                    thumbIV.setImageBitmap(bitmap);
+////                    new Thread(new Runnable() {
+////                        @Override
+////                        public void run() {
+////                            Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(position * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+////                            Log.d(TAG, "duration : " + position + " , bitmap : " + bitmap);
+//////                            thumbIV.setImageBitmap(bitmap);
+////                            handler.post(new MyRun(bitmap));
+////                        }
+////                    }).start();
+//
+//
+//                    lastProgress = progress;
+//                }
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//                int max = mediaPlayer.getDuration();
+//                final int position = (int) (( seekBar.getProgress() / 100f ) * max);
+//                mediaPlayer.seekTo(position);
+//
+//            }
+//        });
+//
+//        getThumbBtn = (Button) findViewById(R.id.get_thumb);
+//        getThumbBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                int w = textureView.getWidth();
+////                int h = textureView.getHeight();
+//////                Bitmap thumb = textureView.getBitmap();
+////                Bitmap thumb = textureView.getBitmap(w / 5, h / 5);
+////                thumbIV.setImageBitmap(thumb);
+////                Log.d(TAG, "thumb bitmap width : " + thumb.getWidth() + " , height : " + thumb.getHeight());
+//                int position = mediaPlayer.getCurrentPosition();
+//                Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(position * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+//                Log.d(TAG, "duration : " + position + " , bitmap width : " + bitmap.getWidth() +" , height : " + bitmap.getHeight());
+//                thumbIV.setImageBitmap(bitmap);
+//
+//                ThumbnailUtils.createVideoThumbnail("", 1);
+//            }
+//        });
+//        thumbIV = (ImageView) findViewById(R.id.iv_thumb);
+//
+//        textureView = (TextureView) findViewById(R.id.texture_view);
+//        textureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
+//            @Override
+//            public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+//                Surface s = new Surface(surface);
+//                Log.d(TAG, "onSurfaceTextureAvailable ---> ");
+//                mediaPlayer.setSurface(s);
+//            }
+//
+//            @Override
+//            public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
+//
+//            }
+//
+//            @Override
+//            public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSurfaceTextureUpdated(SurfaceTexture surface) {
+//
+//            }
+//        });
+//        textureView.getSurfaceTexture();
+//        try {
+//
+//            mediaMetadataRetriever = new MediaMetadataRetriever();
+//            mediaMetadataRetriever.setDataSource(path, new HashMap<String, String>());
+//
+//            mediaPlayer.setDataSource(this, Uri.parse(path));
+//            mediaPlayer.prepareAsync();
+//            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//                @Override
+//                public void onPrepared(MediaPlayer mp) {
+//                    mp.start();
+//                }
+//            });
+//            mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+//                @Override
+//                public void onBufferingUpdate(MediaPlayer mp, int percent) {
+//                    Log.d(TAG, "onBufferingUpdate ---> " + percent);
+//                }
+//            });
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
