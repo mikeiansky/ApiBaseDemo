@@ -32,7 +32,8 @@ public class ThumbVideoActivity extends BaseActivity {
 
     public static final String TAG = ThumbVideoActivity.class.getSimpleName();
 
-    String path = "http://rmcdn.2mdn.net/MotifFiles/html/1248596/android_1330378998288.mp4";
+//    String path = "http://rmcdn.2mdn.net/MotifFiles/html/1248596/android_1330378998288.mp4";
+    String path = "http://v.ysbang.cn//data/video/2015/rkb/2015rkb01.mp4";
 //    String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/zwxtest.mp4";
 
     TextureView textureView;
@@ -92,15 +93,16 @@ public class ThumbVideoActivity extends BaseActivity {
 //                    Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(position * 1000,MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
 //                    Log.d(TAG, "duration : " + position + " , bitmap : " + bitmap);
 //                    thumbIV.setImageBitmap(bitmap);
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(position * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-                            Log.d(TAG, "duration : " + position + " , bitmap : " + bitmap);
-//                            thumbIV.setImageBitmap(bitmap);
-                            handler.post(new MyRun(bitmap));
-                        }
-                    }).start();
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(position * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+//                            Log.d(TAG, "duration : " + position + " , bitmap : " + bitmap);
+////                            thumbIV.setImageBitmap(bitmap);
+//                            handler.post(new MyRun(bitmap));
+//                        }
+//                    }).start();
+
 
                     lastProgress = progress;
                 }
@@ -113,6 +115,9 @@ public class ThumbVideoActivity extends BaseActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                int max = mediaPlayer.getDuration();
+                final int position = (int) (( seekBar.getProgress() / 100f ) * max);
+                mediaPlayer.seekTo(position);
 
             }
         });
