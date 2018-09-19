@@ -3,6 +3,7 @@ package com.github.neowen.apibasedemo.support;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class PhotoSelectActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("TAG", "onActivityResult resultCode : " + resultCode);
         photoSelectUtils.onActivityResult(requestCode, resultCode, data);
     }
 

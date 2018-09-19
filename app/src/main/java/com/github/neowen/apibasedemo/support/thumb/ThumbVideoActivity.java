@@ -22,6 +22,7 @@ import com.github.neowen.apibasedemo.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * @date on 2018/9/19
@@ -30,6 +31,9 @@ import java.io.IOException;
 public class ThumbVideoActivity extends BaseActivity {
 
     public static final String TAG = ThumbVideoActivity.class.getSimpleName();
+
+    String path = "http://rmcdn.2mdn.net/MotifFiles/html/1248596/android_1330378998288.mp4";
+//    String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/zwxtest.mp4";
 
     TextureView textureView;
     Button getThumbBtn;
@@ -157,10 +161,9 @@ public class ThumbVideoActivity extends BaseActivity {
         });
 
         try {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/zwxtest.mp4";
 
             mediaMetadataRetriever = new MediaMetadataRetriever();
-            mediaMetadataRetriever.setDataSource(path);
+            mediaMetadataRetriever.setDataSource(path, new HashMap<String, String>());
 
             mediaPlayer.setDataSource(this, Uri.parse(path));
             mediaPlayer.prepareAsync();
@@ -170,6 +173,13 @@ public class ThumbVideoActivity extends BaseActivity {
                     mp.start();
                 }
             });
+            mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+                @Override
+                public void onBufferingUpdate(MediaPlayer mp, int percent) {
+                    Log.d(TAG, "onBufferingUpdate ---> " + percent);
+                }
+            });
+
         } catch (IOException e) {
             e.printStackTrace();
         }
