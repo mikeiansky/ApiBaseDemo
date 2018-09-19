@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -62,6 +63,7 @@ public class ThumbVideoActivity extends BaseActivity {
         super.onDestroy();
         mediaPlayer.reset();
         mediaPlayer.release();
+        mediaMetadataRetriever.release();
     }
 
     @Override
@@ -134,9 +136,10 @@ public class ThumbVideoActivity extends BaseActivity {
 //                Log.d(TAG, "thumb bitmap width : " + thumb.getWidth() + " , height : " + thumb.getHeight());
                 int position = mediaPlayer.getCurrentPosition();
                 Bitmap bitmap = mediaMetadataRetriever.getFrameAtTime(position * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-                Log.d(TAG, "duration : " + position + " , bitmap : " + bitmap);
+                Log.d(TAG, "duration : " + position + " , bitmap width : " + bitmap.getWidth() +" , height : " + bitmap.getHeight());
                 thumbIV.setImageBitmap(bitmap);
 
+                ThumbnailUtils.createVideoThumbnail("", 1);
             }
         });
         thumbIV = (ImageView) findViewById(R.id.iv_thumb);
