@@ -1,5 +1,6 @@
 package com.github.neowen.apibasedemo.support.thumb;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
@@ -16,9 +17,15 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.github.neowen.apibasedemo.R;
+import com.squareup.picasso.LruCache;
 
 import java.io.IOException;
 import java.util.HashMap;
+
+import static android.content.Context.ACTIVITY_SERVICE;
+import static android.content.pm.ApplicationInfo.FLAG_LARGE_HEAP;
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.HONEYCOMB;
 
 /**
  * @date on 2018/9/19
@@ -34,24 +41,55 @@ class MainVideoPlayer implements VideoPlayer {
     private TextureView textureView;
     private MediaPlayer mediaPlayer;
     private MediaMetadataRetriever mediaMetadataRetriever;
-
+    private boolean release;
     private FrameLayout videoFrame;
     private SeekBar seekBar;
     private ImageView thumbImageView;
+    private LruCache lruCache;
+
+    static class FillRunnable implements Runnable {
+
+        ImageView target;
+        Bitmap frame;
+
+        public FillRunnable(ImageView target, Bitmap frame) {
+            this.target = target;
+            this.frame = frame;
+        }
+
+        @Override
+        public void run() {
+            target.setImageBitmap(frame);
+        }
+    }
+
+    static int calculateMemoryCacheSize(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+        boolean largeHeap = (context.getApplicationInfo().flags & FLAG_LARGE_HEAP) != 0;
+        int memoryClass = am.getMemoryClass();
+        if (largeHeap && SDK_INT >= HONEYCOMB) {
+            memoryClass = am.getLargeMemoryClass();
+        }
+        // Target ~15% of the available heap.
+        return 1024 * 1024 * memoryClass / 7;
+    }
 
     public void setOnVideoActionListener(OnVideoActionListener onVideoActionListener) {
         this.onVideoActionListener = onVideoActionListener;
     }
 
-    public MainVideoPlayer(Context context) {
+    public MainVideoPlayer(final Context context) {
         this.context = context;
-
+        lruCache = new LruCache(calculateMemoryCacheSize(context));
         videoFrame = new FrameLayout(context);
         mediaMetadataRetriever = new MediaMetadataRetriever();
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
+                if (release) {
+                    return;
+                }
                 mp.start();
             }
         });
@@ -64,7 +102,9 @@ class MainVideoPlayer implements VideoPlayer {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-
+                if (onVideoActionListener != null) {
+                    onVideoActionListener.onComplete();
+                }
             }
         });
 
@@ -112,12 +152,25 @@ class MainVideoPlayer implements VideoPlayer {
         seekBar = (SeekBar) videoFrame.findViewById(R.id.seek_bar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            public void onProgressChanged(final SeekBar seekBar, final int progress, boolean fromUser) {
+                if (release) {
+                    return;
+                }
                 if (lastProgress != progress) {
 
-                    int position = (int) ((1f * progress / seekBar.getMax()) * mediaPlayer.getDuration());
-                    Bitmap frame = mediaMetadataRetriever.getFrameAtTime(position * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-                    thumbImageView.setImageBitmap(frame);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            int position = (int) ((1f * progress / seekBar.getMax()) * mediaPlayer.getDuration());
+                            Bitmap cache = lruCache.get("" + position);
+                            if (cache == null) {
+                                Bitmap frame = mediaMetadataRetriever.getFrameAtTime(position * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+                                cache = frame;
+                                lruCache.set("" + position, cache);
+                            }
+                            thumbImageView.post(new FillRunnable(thumbImageView, cache));
+                        }
+                    }).start();
 
                     lastProgress = progress;
                 }
@@ -151,18 +204,26 @@ class MainVideoPlayer implements VideoPlayer {
     }
 
     public void release() {
+        release = true;
         if (mediaPlayer != null) {
             mediaPlayer.release();
+        }
+        if (mediaMetadataRetriever != null) {
+            mediaMetadataRetriever.release();
         }
     }
 
     @Override
     public void setDataSource(Context context, String path) {
         this.dataSource = path;
-        mediaMetadataRetriever.setDataSource(path, new HashMap<String, String>());
         try {
+            if (release) {
+                return;
+            }
             mediaPlayer.setDataSource(context, Uri.parse(path));
             mediaPlayer.prepareAsync();
+            mediaMetadataRetriever.setDataSource(path, new HashMap<String, String>());
+
         } catch (IOException e) {
             e.printStackTrace();
             mediaPlayer.release();
