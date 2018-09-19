@@ -71,7 +71,12 @@ public class VideoFragment extends Fragment {
                         }
                     });
                     backgroundMediaPlayer.prepareAsync();
+                    frontMediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+                        @Override
+                        public void onBufferingUpdate(MediaPlayer mp, int percent) {
 
+                        }
+                    });
                     frontMediaPlayer.setDataSource(getActivity(), Uri.parse(path));
                     frontMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
