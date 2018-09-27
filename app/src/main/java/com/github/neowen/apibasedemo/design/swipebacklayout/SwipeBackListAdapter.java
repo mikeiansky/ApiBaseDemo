@@ -12,7 +12,7 @@ import com.github.neowen.apibasedemo.common.ViewHolder;
 import java.util.HashSet;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -20,11 +20,11 @@ import butterknife.ButterKnife;
  */
 public class SwipeBackListAdapter extends CommonAdapter<String> {
 
-    @Bind(R.id.content)
+    @BindView(R.id.content)
     TextView mContent;
-    @Bind(R.id.right)
+    @BindView(R.id.right)
     TextView mRight;
-    @Bind(R.id.swipe_back_group)
+    @BindView(R.id.swipe_back_group)
     SwipeBackLayout mSwipeBackGroup;
 
     HashSet<Integer> opens = new HashSet<>();

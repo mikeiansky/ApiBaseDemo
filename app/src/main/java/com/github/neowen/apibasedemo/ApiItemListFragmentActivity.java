@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ApiItemListFragmentActivity extends AppCompatActivity {
@@ -21,7 +21,7 @@ public class ApiItemListFragmentActivity extends AppCompatActivity {
     protected ArrayList<ApiItemFragment> mApiItems;
     ApiItemFragmentAdapter mApiItemAdapter;
 
-    @Bind(R.id.list_view)
+    @BindView(R.id.list_view)
     ListView mListView;
 
     @Override

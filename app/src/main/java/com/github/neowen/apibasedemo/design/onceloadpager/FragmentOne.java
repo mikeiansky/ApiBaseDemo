@@ -14,7 +14,7 @@ import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.common.DebugUtils;
 import com.squareup.picasso.Picasso;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -27,9 +27,9 @@ public class FragmentOne extends Fragment {
     View mRootView;
     String mUrl;
 
-    @Bind(R.id.count)
+    @BindView(R.id.count)
     TextView mCount;
-    @Bind(R.id.image)
+    @BindView(R.id.image)
     ImageView mImage;
 
     public FragmentOne(String url) {
@@ -68,6 +68,6 @@ public class FragmentOne extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
     }
 }

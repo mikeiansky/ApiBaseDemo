@@ -20,7 +20,7 @@ import com.github.neowen.apibasedemo.common.DebugUtils;
 import java.io.File;
 import java.lang.ref.WeakReference;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -35,23 +35,23 @@ public class MemoryActivity extends AppCompatActivity implements View.OnClickLis
     Bitmap mRecordBitmap;
     Handler mHandler;
 
-    @Bind(R.id.add_bitmap)
+    @BindView(R.id.add_bitmap)
     Button mAddBitmap;
-    @Bind(R.id.memory_indicator)
+    @BindView(R.id.memory_indicator)
     TextView mMemoryIndicator;
-    @Bind(R.id.image)
+    @BindView(R.id.image)
     ImageView mImage;
-    @Bind(R.id.show_memory)
+    @BindView(R.id.show_memory)
     Button mShowMemory;
-    @Bind(R.id.show)
+    @BindView(R.id.show)
     Button mShow;
-    @Bind(R.id.recycle)
+    @BindView(R.id.recycle)
     Button mRecycle;
-    @Bind(R.id.recycle_last)
+    @BindView(R.id.recycle_last)
     Button mRecycleLast;
-    @Bind(R.id.size)
+    @BindView(R.id.size)
     TextView mSize;
-    @Bind(R.id.load_thread)
+    @BindView(R.id.load_thread)
     Button mLoadThread;
 
     @Override
@@ -73,7 +73,7 @@ public class MemoryActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
         mHandler.removeCallbacksAndMessages(null);
     }
 

@@ -14,7 +14,7 @@ import com.github.neowen.apibasedemo.R;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -27,9 +27,9 @@ public class MultiTypeListViewActivity extends AppCompatActivity {
     ArrayList<Item> mItems;
     MyAdapter mMyAdapter;
 
-    @Bind(R.id.list_view)
+    @BindView(R.id.list_view)
     ListView mListView;
-    @Bind(R.id.refresh)
+    @BindView(R.id.refresh)
     Button mRefresh;
 
     @Override

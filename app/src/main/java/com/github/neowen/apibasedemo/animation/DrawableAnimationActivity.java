@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.github.neowen.apibasedemo.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -18,9 +18,9 @@ public class DrawableAnimationActivity extends AppCompatActivity implements View
 
     public static final String TAG = DrawableAnimationActivity.class.getSimpleName();
 
-    @Bind(R.id.btn)
+    @BindView(R.id.btn)
     ImageView mBtn;
-    @Bind(R.id.select)
+    @BindView(R.id.select)
     Button mSelect;
 
     @Override

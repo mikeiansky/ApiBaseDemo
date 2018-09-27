@@ -13,7 +13,7 @@ import com.github.neowen.apibasedemo.common.DebugUtils;
 
 import java.lang.ref.WeakReference;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,11 +23,11 @@ public class MemoryLeakActivity extends AppCompatActivity implements View.OnClic
 
     public static final String TAG = MemoryLeakActivity.class.getSimpleName();
 
-    @Bind(R.id.handler_leak)
+    @BindView(R.id.handler_leak)
     Button mHandlerLeak;
-    @Bind(R.id.thread_leak)
+    @BindView(R.id.thread_leak)
     Button mThreadLeak;
-    @Bind(R.id.singleton_leak)
+    @BindView(R.id.singleton_leak)
     Button mSingletonLeak;
 
     Singleton mSingleton;
@@ -84,7 +84,7 @@ public class MemoryLeakActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
 //        mHandler.removeCallbacksAndMessages(null);
 //        mHandler.removeCallbacks(mRunnable);
 

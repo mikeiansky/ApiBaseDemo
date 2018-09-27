@@ -14,7 +14,7 @@ import android.widget.Button;
 import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.common.DebugUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,7 +24,7 @@ public class MediaDatabaseActivity extends AppCompatActivity implements OnClickL
 
     public static final String TAG = MediaDatabaseActivity.class.getSimpleName();
 
-    @Bind(R.id.query_photo)
+    @BindView(R.id.query_photo)
     Button mQueryPhoto;
 
     @Override

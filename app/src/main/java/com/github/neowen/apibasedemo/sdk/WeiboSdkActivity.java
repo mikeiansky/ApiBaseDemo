@@ -15,7 +15,7 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -29,7 +29,7 @@ public class WeiboSdkActivity extends BaseActivity implements View.OnClickListen
     Oauth2AccessToken mAccessToken;
     SsoHandler mSsoHandler;
 
-    @Bind(R.id.login)
+    @BindView(R.id.login)
     Button mLogin;
 
     @Override

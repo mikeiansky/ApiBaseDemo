@@ -13,7 +13,7 @@ import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.common.DebugUtils;
 
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,7 +23,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
 
     public static final String TAG = MessageActivity.class.getSimpleName();
 
-    @Bind(R.id.send)
+    @BindView(R.id.send)
     Button mSend;
 
     Handler mHandler;

@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import com.github.neowen.apibasedemo.R;
 import com.github.neowen.apibasedemo.view.MeasureViewGroup;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,11 +24,11 @@ public class EmptyViewActivity extends AppCompatActivity implements View.OnClick
 
     View mLoadingView;
 
-    @Bind(R.id.show)
+    @BindView(R.id.show)
     Button mShow;
-    @Bind(R.id.hidden)
+    @BindView(R.id.hidden)
     Button mHidden;
-    @Bind(R.id.content)
+    @BindView(R.id.content)
     AbsoluteLayout mContent;
 
     @Override

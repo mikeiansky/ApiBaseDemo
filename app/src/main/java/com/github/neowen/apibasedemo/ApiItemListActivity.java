@@ -12,7 +12,7 @@ import com.github.neowen.apibasedemo.support.ViewDragHelperA;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ApiItemListActivity extends AppCompatActivity {
@@ -23,7 +23,7 @@ public class ApiItemListActivity extends AppCompatActivity {
     protected ArrayList<ApiItem> mApiItems;
     ApiItemAdapter mApiItemAdapter;
 
-    @Bind(R.id.list_view)
+    @BindView(R.id.list_view)
     ListView mListView;
 
     @Override

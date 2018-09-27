@@ -13,7 +13,7 @@ import com.github.neowen.apibasedemo.R;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,9 +23,9 @@ public class ViewPropertyAnimatorActivity extends AppCompatActivity {
 
     public static final String TAG = ViewPropertyAnimatorActivity.class.getSimpleName();
 
-    @Bind(R.id.target)
+    @BindView(R.id.target)
     ImageView mTarget;
-    @Bind(R.id.start_animator)
+    @BindView(R.id.start_animator)
     Button mStartAnimator;
 
     @Override

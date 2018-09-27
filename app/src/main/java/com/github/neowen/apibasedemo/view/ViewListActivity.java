@@ -13,7 +13,7 @@ import com.github.neowen.apibasedemo.common.ViewHolder;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**

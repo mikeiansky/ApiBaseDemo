@@ -16,7 +16,8 @@ import com.github.neowen.apibasedemo.common.ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -26,9 +27,9 @@ public class EmptyListViewActivity extends AppCompatActivity {
 
     public static final String TAG = EmptyListViewActivity.class.getSimpleName();
 
-    @Bind(R.id.list_view)
+    @BindView(R.id.list_view)
     ListView mListView;
-    @Bind(R.id.empty_view)
+    @BindView(R.id.empty_view)
     TextView mEmptyView;
 
     @Override

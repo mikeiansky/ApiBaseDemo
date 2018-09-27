@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -40,7 +40,7 @@ public class QQSdkActivity extends BaseActivity implements View.OnClickListener 
     public static Tencent mTencent;
     BaseUiListener mListener;
 
-    @Bind(R.id.login)
+    @BindView(R.id.login)
     Button mLogin;
 
     @Override

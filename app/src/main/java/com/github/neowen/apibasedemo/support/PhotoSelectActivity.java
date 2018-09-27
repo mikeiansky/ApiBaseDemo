@@ -14,7 +14,7 @@ import com.github.neowen.apibasedemo.support.photo.PhotoSelectUtils;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,11 +23,11 @@ import butterknife.ButterKnife;
  */
 public class PhotoSelectActivity extends BaseActivity implements View.OnClickListener {
 
-    @Bind(R.id.select_by_album)
+    @BindView(R.id.select_by_album)
     Button selectByAlbum;
-    @Bind(R.id.select_by_camera)
+    @BindView(R.id.select_by_camera)
     Button selectByCamera;
-    @Bind(R.id.result)
+    @BindView(R.id.result)
     TextView result;
 
     PhotoSelectUtils photoSelectUtils;

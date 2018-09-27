@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.github.neowen.apibasedemo.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -26,7 +26,7 @@ public class OnceLoadPagerActivity extends AppCompatActivity {
             new FragmentOne("http://cdn.llsapp.com/357070051859561_1390016094611.jpg"),
             new FragmentOne("http://cdn.llsapp.com/crm_test_1449051526097.jpg")};
 
-    @Bind(R.id.pager)
+    @BindView(R.id.pager)
     ViewPager mPager;
 
     @Override

@@ -17,7 +17,7 @@ import com.github.neowen.apibasedemo.common.DebugUtils;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -30,7 +30,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
     ArrayList<ListItem> mData;
     MyAdapter mMyAdapter;
 
-    @Bind(R.id.recyclerview)
+    @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
 
     @Override
@@ -181,6 +181,6 @@ public class RecyclerViewActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
     }
 }

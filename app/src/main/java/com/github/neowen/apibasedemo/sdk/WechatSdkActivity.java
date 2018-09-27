@@ -15,7 +15,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -27,7 +27,7 @@ public class WechatSdkActivity extends BaseActivity implements View.OnClickListe
 
     IWXAPI mIWXAPI;
 
-    @Bind(R.id.login)
+    @BindView(R.id.login)
     Button mLogin;
 
     @Override

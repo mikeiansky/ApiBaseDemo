@@ -18,7 +18,7 @@ import com.github.neowen.apibasedemo.common.ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -30,9 +30,9 @@ public class TouchActivity extends AppCompatActivity {
 
     MyAdapter mMyAdapter;
 
-    @Bind(R.id.list)
+    @BindView(R.id.list)
     ListView mList;
-    @Bind(R.id.touch_child)
+    @BindView(R.id.touch_child)
     ImageView mTouchChild;
 
     @Override

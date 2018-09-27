@@ -44,7 +44,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by Winson on 2017/11/13.

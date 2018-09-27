@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.github.neowen.apibasedemo.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -20,9 +20,9 @@ public class CustomDialogActivity extends AppCompatActivity {
 
     public static final String TAG = CustomDialogActivity.class.getSimpleName();
 
-    @Bind(R.id.show_dialog)
+    @BindView(R.id.show_dialog)
     Button mShowDialog;
-    @Bind(R.id.show_custom)
+    @BindView(R.id.show_custom)
     Button mShowCustom;
 
     @Override

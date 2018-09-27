@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 
 import com.github.neowen.apibasedemo.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -20,11 +20,11 @@ public class DialogFragmentEmptyActivity extends AppCompatActivity implements Vi
 
     public static final String TAG = DialogFragmentEmptyActivity.class.getSimpleName();
 
-    @Bind(R.id.show)
+    @BindView(R.id.show)
     Button mShow;
-    @Bind(R.id.hidden)
+    @BindView(R.id.hidden)
     Button mHidden;
-//    @Bind(R.id.content)
+//    @BindView(R.id.content)
 //    FrameLayout mContent;
 
     @Override

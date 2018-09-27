@@ -11,7 +11,7 @@ import com.github.neowen.apibasedemo.R;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,13 +23,13 @@ public class SwipeBackActivity extends AppCompatActivity {
 
     SwipeBackListAdapter mSwipeBackListAdapter;
 
-    @Bind(R.id.top)
+    @BindView(R.id.top)
     TextView mTop;
-    @Bind(R.id.right)
+    @BindView(R.id.right)
     TextView mRight;
-    @Bind(R.id.swipeback)
+    @BindView(R.id.swipeback)
     SwipeBackLayout mSwipeback;
-    @Bind(R.id.swipelayout_list)
+    @BindView(R.id.swipelayout_list)
     ListView mSwipelayoutList;
 
     @Override

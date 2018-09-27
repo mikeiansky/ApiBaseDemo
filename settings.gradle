@@ -1,2 +1,3 @@
-include ':app', ':plugapp'
+include ':app'
+//include ':plugapp'
 include ':weiboSDK'

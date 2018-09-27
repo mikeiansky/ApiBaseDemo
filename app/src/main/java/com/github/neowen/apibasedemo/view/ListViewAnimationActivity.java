@@ -16,7 +16,7 @@ import com.github.neowen.apibasedemo.common.ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -28,7 +28,7 @@ public class ListViewAnimationActivity extends AppCompatActivity {
 
     MyAdapter mMyAdapter;
 
-    @Bind(R.id.list_view)
+    @BindView(R.id.list_view)
     ListView mListView;
 
     @Override
@@ -72,7 +72,7 @@ public class ListViewAnimationActivity extends AppCompatActivity {
      * @author ButterKnifeZelezny, plugin for Android Studio by Avast Developers (http://github.com/avast)
      */
     static class MyViewHolder {
-        @Bind(R.id.title)
+        @BindView(R.id.title)
         TextView mTitle;
 
         MyViewHolder(View view) {
