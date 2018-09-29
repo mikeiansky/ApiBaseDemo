@@ -59,7 +59,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-//    testCompile 'junit:junit:4.12'
+    //    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.jakewharton:butterknife:8.8.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
@@ -68,19 +68,16 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.android.support:support-v4:26.0.0-alpha1'
-
     // umeng
     //注意：统计SDK必须依赖基础组件库。所以需要加入对应依赖:
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:utdid:1.1.5.3'
     compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.orhanobut:logger:2.2.0'
-
     compile 'com.github.winsonzhou:ad-ui:1.1.1'
-
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.jakewharton:butterknife:8.4.0'
-
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
 
 

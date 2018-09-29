@@ -2,6 +2,7 @@ package com.github.neowen.apibasedemo.support;
 
 import com.github.neowen.apibasedemo.ApiItem;
 import com.github.neowen.apibasedemo.ApiItemListActivity;
+import com.github.neowen.apibasedemo.support.support.ConstraintLayoutActivity;
 import com.github.neowen.apibasedemo.support.thumb.ThumbVideoActivity;
 
 /**
@@ -14,6 +15,9 @@ public class SupportListA extends ApiItemListActivity {
         super.addApiItemData();
 
         ApiItem apiItem = new ApiItem("ViewDragHelper", ViewDragHelperA.class);
+        mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("ConstraintLayout", ConstraintLayoutActivity.class);
         mApiItems.add(apiItem);
 
         apiItem = new ApiItem("Thumb Video", ThumbVideoActivity.class);
