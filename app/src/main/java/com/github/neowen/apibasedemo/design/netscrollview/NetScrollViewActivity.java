@@ -27,19 +27,22 @@ public class NetScrollViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_net_scroll2);
 
-        CoordinatorLayout coordinatorLayout = findViewById(R.id.target);
+//        CoordinatorLayout coordinatorLayout = findViewById(R.id.target);
+//
+//        AppBarLayout appBarLayout = findViewById(R.id.appbar);
+//        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+//            @Override
+//            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+////                Log.d("TAG", "verticalOffset ---> " + verticalOffset);
+//            }
+//        });
 
-        AppBarLayout appBarLayout = findViewById(R.id.appbar);
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                Log.d("TAG", "verticalOffset ---> " + verticalOffset);
-            }
-        });
-
-//        ViewPager vp = (ViewPager) findViewById(R.id.view_pager);
-//        vp.setAdapter(new MyAdapter(getSupportFragmentManager()));
-//        ((TabLayout) findViewById(R.id.tab_layout)).setupWithViewPager(vp);
+        ViewPager vp = (ViewPager) findViewById(R.id.view_pager);
+        vp.setPageMargin(50);
+        MyAdapter adapter = new MyAdapter(getSupportFragmentManager());
+        vp.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
+        ((TabLayout) findViewById(R.id.tab_layout)).setupWithViewPager(vp);
 
     }
 

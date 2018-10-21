@@ -9,39 +9,59 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <!--<android.support.design.widget.AppBarLayout-->
+            <!--android:id="@+id/appbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
 
-            <ImageView
-                app:layout_scrollFlags="scroll"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/head_height"
-                android:background="@color/md_orange_300" />
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/head_height"-->
+                <!--android:background="@color/md_orange_300"-->
+                <!--app:layout_scrollFlags="scroll" />-->
 
-            <ImageView
-                app:layout_scrollFlags="scroll"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/md_blue_400" />
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:background="@color/md_blue_400" />-->
 
-        </android.support.design.widget.AppBarLayout>
+        <!--</android.support.design.widget.AppBarLayout>-->
 
-        <android.support.v4.widget.NestedScrollView
+        <!--<android.support.v4.widget.NestedScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="WinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinson  End"-->
+                <!--android:textSize="50sp" />-->
+
+
+        <!--</android.support.v4.widget.NestedScrollView>-->
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:clipChildren="false"
+            android:orientation="vertical">
 
-            <TextView
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="WinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinsonWinson  End"
-                android:textSize="50sp" />
+                android:layout_height="50dp" />
 
-        </android.support.v4.widget.NestedScrollView>
+            <android.support.v4.view.ViewPager
+                android:clipChildren="false"
+                android:id="@+id/view_pager"
+                android:layout_marginRight="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
+        </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 
