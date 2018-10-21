@@ -6,6 +6,7 @@ import com.github.neowen.apibasedemo.design.customdialog.CustomDialogActivity;
 import com.github.neowen.apibasedemo.design.emptyview.DialogFragmentEmptyActivity;
 import com.github.neowen.apibasedemo.design.emptyview.EmptyViewActivity;
 import com.github.neowen.apibasedemo.design.multitypelistview.MultiTypeListViewActivity;
+import com.github.neowen.apibasedemo.design.netscrollview.NetScrollViewActivity;
 import com.github.neowen.apibasedemo.design.onceloadpager.OnceLoadPagerActivity;
 import com.github.neowen.apibasedemo.design.swipebacklayout.SwipeBackActivity;
 
@@ -19,6 +20,9 @@ public class DesignListActivity extends ApiItemListActivity {
         super.addApiItemData();
 
         ApiItem apiItem = new ApiItem("SwipeBack", SwipeBackActivity.class);
+        mApiItems.add(apiItem);
+
+        apiItem = new ApiItem("Net ScrollView", NetScrollViewActivity.class);
         mApiItems.add(apiItem);
 
         apiItem = new ApiItem("Load More", LoadMoreActivity.class);

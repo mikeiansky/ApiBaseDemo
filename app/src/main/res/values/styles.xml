@@ -11,6 +11,7 @@
         <!-- Customize your theme here. -->
         <item name="my_size">30sp</item>
         <item name="android:textSize">?attr/my_size</item>
+        <item name="colorPrimary">@color/md_red_400</item>
         <!--<item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.AppButon</item>-->
     </style>
 
