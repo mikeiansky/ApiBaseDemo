@@ -25,4 +25,11 @@
         android:layout_marginTop="10dp"
         android:text="show style dialog" />
 
+    <ImageView
+        android:layerType="software"
+        android:background="@drawable/c_line"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="20dp" />
+
 </LinearLayout>

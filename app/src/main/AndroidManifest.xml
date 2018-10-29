@@ -102,7 +102,9 @@
         <activity android:name=".design.swipebacklayout.SwipeBackActivity" />
         <activity android:name=".view.TouchActivity" />
         <activity android:name=".view.ViewListActivity" />
-        <activity android:name=".design.customdialog.CustomDialogActivity" />
+        <activity android:name=".design.customdialog.CustomDialogActivity"
+            android:hardwareAccelerated="false"
+            />
         <activity android:name=".view.ListViewAnimationActivity" />
         <activity android:name=".animation.AnimationListActivity" />
         <activity android:name=".animation.ViewPropertyAnimatorActivity" />
@@ -165,6 +167,8 @@
         <meta-data
             android:name="winson"
             android:value="${winson}" />
+
+        <activity android:name=".BAct"/>
 
         <!--<meta-data android:value="5b8945a1f43e482909000031" android:name="UMENG_APPKEY"/>-->
         <!--<meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>-->
