@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -50,5 +51,12 @@ public class ViewDragHelperA extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("TAG", "----> data : " + data.getStringExtra("hello"));
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d("TAG","onKeyDown --> keycode : " + keyCode + " , event : " + event.getAction());
+//        return super.onKeyDown(keyCode, event);
+        return true;
     }
 }

@@ -10,6 +10,10 @@
         android:layout_height="wrap_content"
         android:text="read" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
     <com.github.neowen.apibasedemo.support.MyViewDragViewGroup
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.github.neowen.apibasedemo.R;
 
@@ -48,6 +50,13 @@ public class ViewPropertyAnimatorActivity extends AppCompatActivity {
             }
         });
 
+        Spinner spinner = findViewById(R.id.spinner);
+//        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,
+//                android.R.id.text1,
+//                new String[]{"Java", "Oracle", "PHP"}));
+        spinner.setAdapter(new ArrayAdapter<String>(this,R.layout.item_spinner,
+                R.id.title,
+                new String[]{"Java", "Oracle", "PHP"}));
 
     }
 
