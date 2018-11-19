@@ -2,7 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00ff00"
+    android:background="#ffffff"
     android:orientation="vertical">
+
+    <Button
+        android:id="@+id/show_pop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="show pop" />
+
+    <EditText
+        android:id="@+id/edit"
+        android:background="@null"
+        android:layout_width="100dp"
+        android:layout_height="1px" />
 
 </LinearLayout>
