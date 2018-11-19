@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:text="show pop" />
 
-    <EditText
-        android:id="@+id/edit"
-        android:background="@null"
-        android:layout_width="100dp"
-        android:layout_height="1px" />
+    <!--<EditText-->
+        <!--android:id="@+id/edit"-->
+        <!--android:background="@null"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="0px" />-->
 
 </LinearLayout>

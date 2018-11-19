@@ -4,6 +4,20 @@
     <attr name="my_size" format="dimension" />
     <attr name="my_style" format="reference" />
 
+    <style name="dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@color/transparent</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+        <!--<item name="android:windowFullscreen">true</item>-->
+    </style>
+
+    <style name="anim_photo_select">
+        <item name="android:windowEnterAnimation">@anim/photo_pop_in</item>
+        <item name="android:windowExitAnimation">@anim/photo_pop_out</item>
+    </style>
 
     <!-- Base application theme. -->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
