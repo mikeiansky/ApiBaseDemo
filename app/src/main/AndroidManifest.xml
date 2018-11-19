@@ -46,6 +46,7 @@
         android:theme="@style/MyAppTheme">
 
         <service android:name="com.amap.api.location.APSService"/>
+        <service android:name=".base.MyService" />
 
         <!-- weibo sdk platform start -->
         <activity
@@ -169,6 +170,8 @@
             android:value="${winson}" />
 
         <activity android:name=".BAct"/>
+
+        <service android:name=".base.MyService"/>
 
         <!--<meta-data android:value="5b8945a1f43e482909000031" android:name="UMENG_APPKEY"/>-->
         <!--<meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>-->

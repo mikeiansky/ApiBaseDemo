@@ -12,6 +12,9 @@ public class BaseApiActivity extends ApiItemListFragmentActivity {
         super.addApiItemData();
         ApiItemFragment apiItem = new ApiItemFragment("Dialog", TestDialogFragment.class);
         mApiItems.add(apiItem);
+
+        apiItem = new ApiItemFragment("My Service", MyServiceFragment.class);
+        mApiItems.add(apiItem);
     }
 
 }
