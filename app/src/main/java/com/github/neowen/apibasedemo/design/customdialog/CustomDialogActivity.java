@@ -35,6 +35,8 @@ public class CustomDialogActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Dialog dialog = new Dialog(CustomDialogActivity.this, R.style.CustomDialog);
+//                Dialog dialog = new Dialog(CustomDialogActivity.this, 0);
+//                Dialog dialog = new Dialog(CustomDialogActivity.this);
                 dialog.setContentView(R.layout.custom_dialog_layout);
                 dialog.show();
 
@@ -45,24 +47,29 @@ public class CustomDialogActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Title");
-                builder.setMessage("Message");
-                builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.setPositiveButton("confirm",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
+//                Dialog dialog = new Dialog(CustomDialogActivity.this, R.style.CustomDialog);
+                Dialog dialog = new Dialog(CustomDialogActivity.this);
+                dialog.setContentView(R.layout.custom_dialog_layout);
+                dialog.show();
 
-                                arg0.dismiss();
-                            }
-                        });
-                builder.create().show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+//                builder.setTitle("Title");
+//                builder.setMessage("Message");
+//                builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                builder.setPositiveButton("confirm",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//
+//                                arg0.dismiss();
+//                            }
+//                        });
+//                builder.create().show();
 
             }
         });

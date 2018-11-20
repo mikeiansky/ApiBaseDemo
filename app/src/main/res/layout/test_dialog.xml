@@ -6,15 +6,10 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/show_pop"
+        android:id="@+id/show_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="show pop" />
+        android:text="show dialog" />
 
-    <!--<EditText-->
-        <!--android:id="@+id/edit"-->
-        <!--android:background="@null"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="0px" />-->
 
 </LinearLayout>
