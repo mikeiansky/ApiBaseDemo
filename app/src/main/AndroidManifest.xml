@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!--用于进行网络定位-->
     <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>-->
@@ -45,7 +45,7 @@
         android:label="@string/app_name"
         android:theme="@style/MyAppTheme">
 
-        <service android:name="com.amap.api.location.APSService"/>
+        <service android:name="com.amap.api.location.APSService" />
         <service android:name=".base.MyService" />
 
         <!-- weibo sdk platform start -->
@@ -86,12 +86,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".support.thumb.ThumbVideoActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            />
-        <activity android:name=".support.PhotoSelectActivity"/>
-        <activity android:name=".design.LoadMoreActivity"/>
-        <activity android:name=".design.MyRefreshActivity"/>
+        <activity
+            android:name=".support.thumb.ThumbVideoActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode" />
+        <activity android:name=".support.PhotoSelectActivity" />
+        <activity android:name=".design.LoadMoreActivity" />
+        <activity android:name=".design.MyRefreshActivity" />
         <activity android:name=".base.BaseApiActivity" />
         <activity android:name=".build.BuildListActivity" />
         <activity android:name=".support.HandlerActivity" />
@@ -103,9 +103,9 @@
         <activity android:name=".design.swipebacklayout.SwipeBackActivity" />
         <activity android:name=".view.TouchActivity" />
         <activity android:name=".view.ViewListActivity" />
-        <activity android:name=".design.customdialog.CustomDialogActivity"
-            android:hardwareAccelerated="false"
-            />
+        <activity
+            android:name=".design.customdialog.CustomDialogActivity"
+            android:hardwareAccelerated="false" />
         <activity android:name=".view.ListViewAnimationActivity" />
         <activity android:name=".animation.AnimationListActivity" />
         <activity android:name=".animation.ViewPropertyAnimatorActivity" />
@@ -146,9 +146,9 @@
         <activity android:name=".support.CrashLogActivity" />
         <activity android:name=".drawable.ShadowActivity" />
         <activity android:name=".support.LocationActivity" />
-        <activity android:name=".support.MediaPlayActivity"/>
-        <activity android:name=".design.netscrollview.NetScrollViewActivity"/>
-        <activity android:name=".support.support.ConstraintLayoutActivity"/>
+        <activity android:name=".support.MediaPlayActivity" />
+        <activity android:name=".design.netscrollview.NetScrollViewActivity" />
+        <activity android:name=".support.support.ConstraintLayoutActivity" />
         <activity
             android:name=".support.PrinterActivity"
             android:screenOrientation="portrait" />
@@ -162,6 +162,11 @@
             android:name=".view.MeasureViewActivity"
             android:screenOrientation="portrait" />
 
+        <provider
+            android:name=".base.MyContentProvider"
+            android:authorities="com.winson.demo"
+            android:exported="true" />
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="b553012948bed2a802eaa62344bb2bae" />
@@ -169,9 +174,9 @@
             android:name="winson"
             android:value="${winson}" />
 
-        <activity android:name=".BAct"/>
+        <activity android:name=".BAct" />
 
-        <service android:name=".base.MyService"/>
+        <service android:name=".base.MyService" />
 
         <!--<meta-data android:value="5b8945a1f43e482909000031" android:name="UMENG_APPKEY"/>-->
         <!--<meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>-->

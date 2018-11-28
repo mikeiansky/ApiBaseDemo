@@ -15,6 +15,9 @@ public class BaseApiActivity extends ApiItemListFragmentActivity {
 
         apiItem = new ApiItemFragment("My Service", MyServiceFragment.class);
         mApiItems.add(apiItem);
+
+        MyDbHelper myDbHelper = new MyDbHelper(this);
+        myDbHelper.getWritableDatabase();
     }
 
 }
