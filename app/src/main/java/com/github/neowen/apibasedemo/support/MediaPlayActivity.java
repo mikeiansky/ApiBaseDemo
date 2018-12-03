@@ -17,6 +17,8 @@ import android.widget.VideoView;
 import com.github.neowen.apibasedemo.ApiDemoApplication;
 import com.github.neowen.apibasedemo.BaseActivity;
 import com.github.neowen.apibasedemo.R;
+import com.xiao.nicevideoplayer.NiceVideoPlayer;
+import com.xiao.nicevideoplayer.TxVideoPlayerController;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,28 +29,30 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
 
     public static final String TAG = MediaPlayActivity.class.getSimpleName();
 
-    ImageView videoView;
-    String path = Environment.getExternalStorageDirectory().getPath()+"/testmp4.mp4";
+    String path = Environment.getExternalStorageDirectory().getPath() + "/testmp4.mp4";
     String path2 = "file:///android_asset/testmp4.mp4";
     String newPath = null;
     VideoFragment videoFragment;
     VideoFragmentTwo videoFragmentTwo;
     FrameLayout testContent;
-//    String TEST_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/testmp4.mp4";
+    //    String TEST_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/testmp4.mp4";
 //    String TEST_PATH = "https://scb.liaidi.com//data//video//2017//12//20171214235251279358.mp4";
     String TEST_PATH = "https://scb.liaidi.com//data//video//2017//12//20171214235251279358.mp4";
+//    String TEST_PATH = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
+    NiceVideoPlayer niceVideoPlayer;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.media_play_layout);
-
+        niceVideoPlayer = findViewById(R.id.nice_video_player);
         testContent = (FrameLayout) findViewById(R.id.test_content);
-        videoView = (ImageView) findViewById(R.id.video_view);
 //        videoView.setVideoURI(Uri.parse("file:///android_asset/testmp4.mp4"));
 //        videoView.setVideoURI(Uri.parse(path));
 //        videoView.start();
+        TxVideoPlayerController controller = new TxVideoPlayerController(this);
+        niceVideoPlayer.setController(controller);
 
         findViewById(R.id.copy).setOnClickListener(this);
         findViewById(R.id.play).setOnClickListener(this);
@@ -64,7 +68,6 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -76,7 +79,7 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch (id){
+        switch (id) {
             case R.id.play:
                 videoFragment.play(TEST_PATH);
 //                videoFragmentTwo.play();
@@ -91,7 +94,9 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
 
                 break;
             case R.id.copy:
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                niceVideoPlayer.setUp(TEST_PATH, null);
+
+//                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 //                Log.d(TAG, "is play ing : " + videoFragment.isPlay());
 //                copy();
 
@@ -118,7 +123,7 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
             FileOutputStream out = new FileOutputStream(new File(newPath));
             int length = 0;
             byte[] buf = new byte[1024];
-            while((length = in.read(buf))!=-1){
+            while ((length = in.read(buf)) != -1) {
                 out.write(buf, 0, length);
                 out.flush();
             }

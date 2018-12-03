@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.github.neowen.apibasedemo"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -78,6 +78,7 @@ dependencies {
     compile 'com.github.winsonzhou:ad-ui:2.1.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.2'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
 
