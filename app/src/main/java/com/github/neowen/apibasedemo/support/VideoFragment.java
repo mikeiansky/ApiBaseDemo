@@ -334,7 +334,7 @@ public class VideoFragment extends Fragment {
                 }
             });
             videoView.start();
-            action.setBackgroundResource(R.drawable.pause);
+            action.setBackgroundResource(R.drawable.ic_video_pause);
             showController();
         }
 
