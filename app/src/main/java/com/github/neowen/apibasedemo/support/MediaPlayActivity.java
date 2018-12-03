@@ -34,6 +34,7 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
     VideoFragment videoFragment;
     VideoFragmentTwo videoFragmentTwo;
     FrameLayout testContent;
+    String TEST_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/testmp4.mp4";
 
 
     @Override
@@ -75,7 +76,7 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
         int id = v.getId();
         switch (id){
             case R.id.play:
-                videoFragment.play();
+                videoFragment.play(TEST_PATH);
 //                videoFragmentTwo.play();
 //                TextView textView = ((ApiDemoApplication)getApplication()).getTextView();
 //                int specWidth = View.MeasureSpec.makeMeasureSpec(1000, View.MeasureSpec.EXACTLY);

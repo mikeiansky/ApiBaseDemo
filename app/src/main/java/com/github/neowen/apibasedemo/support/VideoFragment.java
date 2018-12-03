@@ -23,9 +23,9 @@ public class VideoFragment extends Fragment {
 
     public static final String TAG = VideoFragment.class.getSimpleName();
 
-    String TEST_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/testmp4.mp4";
     Handler handler = new Handler();
 
+    String videoPath;
     ProgressBar bottomProgressBar;
     SeekBar seekBar;
     VideoView videoView;
@@ -121,9 +121,10 @@ public class VideoFragment extends Fragment {
         return videoView.isPlaying();
     }
 
-    public void play() {
+    public void play(String videoPath) {
+        this.videoPath = videoPath;
         if (videoView != null) {
-            videoView.setVideoURI(Uri.parse(TEST_PATH));
+            videoView.setVideoURI(Uri.parse(videoPath));
             videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
