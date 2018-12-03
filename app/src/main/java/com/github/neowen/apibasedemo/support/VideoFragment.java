@@ -85,6 +85,12 @@ public class VideoFragment extends Fragment {
         bottomProgressBar.setAlpha(0f);
         seekBar = root.findViewById(R.id.seek_bar);
         controller = root.findViewById(R.id.controller);
+        controller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
         progressText = root.findViewById(R.id.progress_text);
         durationText = root.findViewById(R.id.duration_text);
         action = root.findViewById(R.id.action);
