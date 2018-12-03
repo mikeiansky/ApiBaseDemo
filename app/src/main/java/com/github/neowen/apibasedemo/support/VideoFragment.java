@@ -41,6 +41,7 @@ public class VideoFragment extends Fragment {
     ImageView action;
     boolean onAnimator;
     boolean controllerShow;
+    float lastX;
 
     Runnable progressRunnable = new Runnable() {
         @Override
@@ -79,7 +80,7 @@ public class VideoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.frag_video, container, false);
+        final View root = inflater.inflate(R.layout.frag_video, container, false);
         bottomProgressBar = root.findViewById(R.id.bottom_progress);
         bottomProgressBar.setAlpha(0f);
         seekBar = root.findViewById(R.id.seek_bar);
@@ -200,9 +201,25 @@ public class VideoFragment extends Fragment {
             }
         });
         root.setOnTouchListener(new View.OnTouchListener() {
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 gestureDetector.onTouchEvent(event);
+//                int action = event.getAction();
+//                switch (action) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        lastX = event.getRawY();
+//                        break;
+//                    case MotionEvent.ACTION_MOVE:
+//                    case MotionEvent.ACTION_UP:
+//
+//                        float currentX = event.getRawX();
+//                        float max = root.getWidth() * 5f;
+//                        float offsetX = currentX - lastX;
+//                        float offset = offsetX / max;
+//
+//                        break;
+//                }
                 return true;
             }
         });
