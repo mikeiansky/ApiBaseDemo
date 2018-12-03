@@ -230,11 +230,11 @@ public class VideoFragment extends Fragment {
             public void onClick(View v) {
                 if (videoView.isPlaying()) {
                     videoView.pause();
-                    action.setBackgroundResource(R.drawable.play);
+                    action.setBackgroundResource(R.drawable.ic_video_play);
                     handler.removeCallbacks(progressRunnable);
                 } else {
                     videoView.start();
-                    action.setBackgroundResource(R.drawable.pause);
+                    action.setBackgroundResource(R.drawable.ic_video_pause);
                     updateProgress();
                 }
                 refreshHiddenController();
@@ -289,7 +289,7 @@ public class VideoFragment extends Fragment {
         }
         progressText.setText(formatDuration(currentPosition));
         durationText.setText(formatDuration(duration));
-        action.setBackgroundResource(R.drawable.play);
+        action.setBackgroundResource(R.drawable.ic_video_play);
         handler.removeCallbacks(progressRunnable);
     }
 

@@ -35,7 +35,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/play" />
+            android:background="@drawable/ic_video_play" />
 
         <TextView
             android:id="@+id/progress_text"
@@ -67,6 +67,15 @@
             android:textColor="#ffffff"
             android:textSize="14sp" />
 
+        <ImageView
+            android:id="@+id/fullscreen"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/ic_fullscreen" />
+
     </LinearLayout>
+
 
 </FrameLayout>
