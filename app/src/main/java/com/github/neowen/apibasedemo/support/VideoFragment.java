@@ -56,9 +56,11 @@ public class VideoFragment extends Fragment {
                 if (videoView.isPlaying()) {
                     videoView.pause();
                     action.setBackgroundResource(R.drawable.play);
+                    handler.removeCallbacks(progressRunnable);
                 } else {
                     videoView.start();
                     action.setBackgroundResource(R.drawable.pause);
+                    updateProgress();
                 }
             }
         });
