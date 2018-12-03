@@ -25,6 +25,7 @@ public class VideoFragment extends Fragment {
 
     Handler handler = new Handler();
 
+    boolean seekBarOnTouch;
     String videoPath;
     ProgressBar bottomProgressBar;
     SeekBar seekBar;
@@ -71,6 +72,26 @@ public class VideoFragment extends Fragment {
                 complete();
             }
         });
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                seekBarOnTouch = true;
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                seekBarOnTouch = false;
+                int progress = seekBar.getProgress();
+                int duration = videoView.getDuration();
+                int seek = (int) ((progress / 100f) * duration);
+                videoView.seekTo(seek);
+            }
+        });
 
         return root;
     }
@@ -87,7 +108,9 @@ public class VideoFragment extends Fragment {
         int currentPosition = duration;
         int progress = 100;
         bottomProgressBar.setProgress(progress);
-        seekBar.setProgress(progress);
+        if (!seekBarOnTouch) {
+            seekBar.setProgress(progress);
+        }
         progressText.setText(formatDuration(currentPosition));
         durationText.setText(formatDuration(duration));
         action.setBackgroundResource(R.drawable.play);
@@ -102,7 +125,9 @@ public class VideoFragment extends Fragment {
         }
         int progress = (int) (100f * currentPosition / duration);
         bottomProgressBar.setProgress(progress);
-        seekBar.setProgress(progress);
+        if (!seekBarOnTouch) {
+            seekBar.setProgress(progress);
+        }
         progressText.setText(formatDuration(currentPosition));
         durationText.setText(formatDuration(duration));
 
