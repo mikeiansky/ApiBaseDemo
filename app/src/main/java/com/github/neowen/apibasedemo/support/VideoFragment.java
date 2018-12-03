@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class VideoFragment extends Fragment {
     VideoView videoView;
     View controller;
     TextView progressText, durationText;
+    ImageView action;
 
     Runnable progressRunnable = new Runnable() {
         @Override
@@ -42,12 +44,32 @@ public class VideoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frag_video, container, false);
-        videoView = root.findViewById(R.id.video_view);
         bottomProgressBar = root.findViewById(R.id.bottom_progress);
         seekBar = root.findViewById(R.id.seek_bar);
         controller = root.findViewById(R.id.controller);
         progressText = root.findViewById(R.id.progress_text);
         durationText = root.findViewById(R.id.duration_text);
+        action = root.findViewById(R.id.action);
+        action.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (videoView.isPlaying()) {
+                    videoView.pause();
+                    action.setBackgroundResource(R.drawable.play);
+                } else {
+                    videoView.start();
+                    action.setBackgroundResource(R.drawable.pause);
+                }
+            }
+        });
+        videoView = root.findViewById(R.id.video_view);
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                complete();
+            }
+        });
+
         return root;
     }
 
@@ -56,6 +78,18 @@ public class VideoFragment extends Fragment {
         int second = total % 60;
         int minute = total / 60 / 60;
         return String.format("%02d:%02d", minute, second);
+    }
+
+    private void complete() {
+        int duration = videoView.getDuration();
+        int currentPosition = duration;
+        int progress = 100;
+        bottomProgressBar.setProgress(progress);
+        seekBar.setProgress(progress);
+        progressText.setText(formatDuration(currentPosition));
+        durationText.setText(formatDuration(duration));
+        action.setBackgroundResource(R.drawable.play);
+        handler.removeCallbacks(progressRunnable);
     }
 
     private void updateProgress() {
@@ -95,6 +129,7 @@ public class VideoFragment extends Fragment {
                 }
             });
             videoView.start();
+            action.setBackgroundResource(R.drawable.pause);
         }
 
     }
