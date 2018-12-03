@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.VideoView;
 
 import com.github.neowen.apibasedemo.R;
@@ -24,7 +25,9 @@ public class VideoFragment extends Fragment {
     Handler handler = new Handler();
 
     ProgressBar bottomProgressBar;
+    SeekBar seekBar;
     VideoView videoView;
+    View controller;
 
     Runnable progressRunnable = new Runnable() {
         @Override
@@ -39,6 +42,8 @@ public class VideoFragment extends Fragment {
         View root = inflater.inflate(R.layout.frag_video, container, false);
         videoView = root.findViewById(R.id.video_view);
         bottomProgressBar = root.findViewById(R.id.bottom_progress);
+        seekBar = root.findViewById(R.id.seek_bar);
+        controller = root.findViewById(R.id.controller);
         return root;
     }
 
@@ -50,12 +55,20 @@ public class VideoFragment extends Fragment {
         }
         int progress = (int) (100f * currentPosition / duration);
         bottomProgressBar.setProgress(progress);
+        seekBar.setProgress(progress);
         handler.postDelayed(progressRunnable, 400);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    public boolean isPlay() {
+        if (videoView == null) {
+            return false;
+        }
+        return videoView.isPlaying();
     }
 
     public void play() {

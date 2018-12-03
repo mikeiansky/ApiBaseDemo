@@ -89,7 +89,7 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.copy:
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
+//                Log.d(TAG, "is play ing : " + videoFragment.isPlay());
 //                copy();
 
 //                Bitmap bitmap = videoFragmentTwo.getBitmap();
