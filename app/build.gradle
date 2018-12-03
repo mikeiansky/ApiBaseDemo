@@ -75,7 +75,7 @@ dependencies {
 //    compile 'com.umeng.sdk:utdid:1.1.5.3'
 //    compile 'com.umeng.sdk:analytics:1.1.5.3'
     compile 'com.orhanobut:logger:2.2.0'
-    compile 'com.github.winsonzhou:ad-ui:1.1.1'
+    compile 'com.github.winsonzhou:ad-ui:2.1.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'

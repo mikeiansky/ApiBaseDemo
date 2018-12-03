@@ -1,5 +1,6 @@
 package com.github.neowen.apibasedemo.support;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,7 +55,7 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.video_content, videoFragmentTwo)
+                .replace(R.id.video_content, videoFragment)
                 .commit();
 
     }
@@ -74,18 +75,21 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
         int id = v.getId();
         switch (id){
             case R.id.play:
+                videoFragment.play();
 //                videoFragmentTwo.play();
-                TextView textView = ((ApiDemoApplication)getApplication()).getTextView();
+//                TextView textView = ((ApiDemoApplication)getApplication()).getTextView();
 //                int specWidth = View.MeasureSpec.makeMeasureSpec(1000, View.MeasureSpec.EXACTLY);
 //                int specHeight = View.MeasureSpec.makeMeasureSpec(100, View.MeasureSpec.EXACTLY);
 //                TextView textView = new TextView(this);
 //                textView.setText("Hello");
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT);
-                textView.setLayoutParams(lp);
-                testContent.addView(textView);
+//                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT);
+//                textView.setLayoutParams(lp);
+//                testContent.addView(textView);
 
                 break;
             case R.id.copy:
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
 //                copy();
 
 //                Bitmap bitmap = videoFragmentTwo.getBitmap();

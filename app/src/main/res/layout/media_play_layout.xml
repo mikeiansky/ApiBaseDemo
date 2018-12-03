@@ -17,6 +17,7 @@
         android:text="play" />
 
     <FrameLayout
+        android:visibility="gone"
         android:id="@+id/test_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -31,6 +32,7 @@
 
 
     <FrameLayout
+        android:background="#000000"
         android:id="@+id/video_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

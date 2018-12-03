@@ -146,7 +146,10 @@
         <activity android:name=".support.CrashLogActivity" />
         <activity android:name=".drawable.ShadowActivity" />
         <activity android:name=".support.LocationActivity" />
-        <activity android:name=".support.MediaPlayActivity" />
+
+        <activity android:name=".support.MediaPlayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+
         <activity android:name=".design.netscrollview.NetScrollViewActivity" />
         <activity android:name=".support.support.ConstraintLayoutActivity" />
         <activity

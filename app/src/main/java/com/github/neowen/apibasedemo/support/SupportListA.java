@@ -17,6 +17,9 @@ public class SupportListA extends ApiItemListActivity {
         ApiItem apiItem = new ApiItem("ViewDragHelper", ViewDragHelperA.class);
         mApiItems.add(apiItem);
 
+        apiItem = new ApiItem("Media", MediaPlayActivity.class);
+        mApiItems.add(apiItem);
+
         apiItem = new ApiItem("ConstraintLayout", ConstraintLayoutActivity.class);
         mApiItems.add(apiItem);
 
@@ -39,9 +42,6 @@ public class SupportListA extends ApiItemListActivity {
         mApiItems.add(apiItem);
 
         apiItem = new ApiItem("Location", LocationActivity.class);
-        mApiItems.add(apiItem);
-
-        apiItem = new ApiItem("Media", MediaPlayActivity.class);
         mApiItems.add(apiItem);
 
         apiItem = new ApiItem("Handler", HandlerActivity.class);

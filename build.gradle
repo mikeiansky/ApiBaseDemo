@@ -3,6 +3,8 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
         google()
     }
     dependencies {
@@ -13,14 +15,14 @@ buildscript {
         // in the individual module build.gradle files
         classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6'
 
-
-
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://jitpack.io" }
+        mavenCentral()
         google()
     }
 }

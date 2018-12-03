@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.winson.widget.RateLayout;
+
 import java.io.IOException;
 
 public class VideoFragmentTwo extends Fragment {
@@ -124,9 +126,14 @@ public class VideoFragmentTwo extends Fragment {
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         lp.gravity = Gravity.LEFT | Gravity.TOP;
 
+        final RateLayout rateLayout = new RateLayout(getActivity());
+        FrameLayout.LayoutParams mlp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        mlp.gravity = Gravity.CENTER;
         textureView = new TextureView(getActivity());
-        textureView.setLayoutParams(lp);
-        content.addView(textureView);
+        textureView.setLayoutParams(mlp);
+        rateLayout.setLayoutParams(mlp);
+        content.addView(rateLayout);
+        rateLayout.addView(textureView);
 
         frameImage = new ImageView(getActivity());
         frameImage.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -144,7 +151,7 @@ public class VideoFragmentTwo extends Fragment {
 
             @Override
             public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-                Log.d(TAG, "onSurfaceTextureSizeChanged --- > ");
+                Log.d(TAG, "onSurfaceTextureSizeChanged --- > width : " + width + ", height : " + height);
 
             }
 
@@ -156,7 +163,17 @@ public class VideoFragmentTwo extends Fragment {
 
             @Override
             public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-                Log.d(TAG, "onSurfaceTextureUpdated --- > ");
+//                Log.d(TAG, "onSurfaceTextureUpdated --- > ");
+
+            }
+        });
+
+        mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
+            @Override
+            public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
+                Log.d(TAG, "onVideoSizeChanged width : " + width + " , height : " + height);
+                rateLayout.setRateOritation(RateLayout.HORIZONTAL);
+                rateLayout.setRate(1f * height / width);
 
             }
         });
