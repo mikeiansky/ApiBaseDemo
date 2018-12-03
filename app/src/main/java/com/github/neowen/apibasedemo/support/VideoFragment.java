@@ -65,8 +65,10 @@ public class VideoFragment extends Fragment {
 
     private void showController() {
         if (!controllerShow) {
-            showController();
+            controllerShow = true;
+            showAnimator.start();
         }
+        refreshHiddenController();
     }
 
     @Override
@@ -316,6 +318,7 @@ public class VideoFragment extends Fragment {
             });
             videoView.start();
             action.setBackgroundResource(R.drawable.pause);
+            showController();
         }
 
     }
