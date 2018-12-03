@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.github.neowen.apibasedemo.R;
@@ -28,6 +29,7 @@ public class VideoFragment extends Fragment {
     SeekBar seekBar;
     VideoView videoView;
     View controller;
+    TextView progressText, durationText;
 
     Runnable progressRunnable = new Runnable() {
         @Override
@@ -44,7 +46,16 @@ public class VideoFragment extends Fragment {
         bottomProgressBar = root.findViewById(R.id.bottom_progress);
         seekBar = root.findViewById(R.id.seek_bar);
         controller = root.findViewById(R.id.controller);
+        progressText = root.findViewById(R.id.progress_text);
+        durationText = root.findViewById(R.id.duration_text);
         return root;
+    }
+
+    private String formatDuration(int duration) {
+        int total = duration / 1000;
+        int second = total % 60;
+        int minute = total / 60 / 60;
+        return String.format("%02d:%02d", minute, second);
     }
 
     private void updateProgress() {
@@ -56,6 +67,9 @@ public class VideoFragment extends Fragment {
         int progress = (int) (100f * currentPosition / duration);
         bottomProgressBar.setProgress(progress);
         seekBar.setProgress(progress);
+        progressText.setText(formatDuration(currentPosition));
+        durationText.setText(formatDuration(duration));
+
         handler.postDelayed(progressRunnable, 400);
     }
 
