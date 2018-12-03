@@ -1,5 +1,8 @@
 package com.github.neowen.apibasedemo.support;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,7 +10,10 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,7 +30,7 @@ public class VideoFragment extends Fragment {
     public static final String TAG = VideoFragment.class.getSimpleName();
 
     Handler handler = new Handler();
-
+    ValueAnimator showAnimator, hiddenAnimator;
     boolean seekBarOnTouch;
     String videoPath;
     ProgressBar bottomProgressBar;
@@ -33,6 +39,8 @@ public class VideoFragment extends Fragment {
     View controller;
     TextView progressText, durationText;
     ImageView action;
+    boolean onAnimator;
+    boolean controllerShow;
 
     Runnable progressRunnable = new Runnable() {
         @Override
@@ -41,16 +49,163 @@ public class VideoFragment extends Fragment {
         }
     };
 
+    Runnable hiddenControllerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (controller != null) {
+                hiddenAnimator.start();
+            }
+        }
+    };
+
+    private void refreshHiddenController() {
+        handler.removeCallbacks(hiddenControllerRunnable);
+        handler.postDelayed(hiddenControllerRunnable, 5000);
+    }
+
+    private void showController() {
+        if (!controllerShow) {
+            showController();
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frag_video, container, false);
         bottomProgressBar = root.findViewById(R.id.bottom_progress);
+        bottomProgressBar.setAlpha(0f);
         seekBar = root.findViewById(R.id.seek_bar);
         controller = root.findViewById(R.id.controller);
         progressText = root.findViewById(R.id.progress_text);
         durationText = root.findViewById(R.id.duration_text);
         action = root.findViewById(R.id.action);
+        videoView = root.findViewById(R.id.video_view);
+        controllerShow = true;
+        showAnimator = ValueAnimator.ofFloat(1f, 0f);
+        showAnimator.setDuration(250);
+        showAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                controller.setTranslationY(container.getHeight() * value);
+                bottomProgressBar.setAlpha(value);
+            }
+        });
+        showAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                controllerShow = true;
+                onAnimator = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                onAnimator = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                onAnimator = false;
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        hiddenAnimator = ValueAnimator.ofFloat(0f, 1f);
+        hiddenAnimator.setDuration(250);
+        hiddenAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                controller.setTranslationY(container.getHeight() * value);
+                bottomProgressBar.setAlpha(value);
+            }
+        });
+        hiddenAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                controllerShow = false;
+                onAnimator = true;
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                onAnimator = false;
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                onAnimator = false;
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.OnGestureListener() {
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                if (!onAnimator) {
+                    if (controllerShow) {
+                        hiddenAnimator.start();
+                    } else {
+                        showAnimator.start();
+                        refreshHiddenController();
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                Log.d(TAG, "onScroll distanceX : " + distanceX);
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                return false;
+            }
+        });
+        root.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
+
+
         action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,9 +218,9 @@ public class VideoFragment extends Fragment {
                     action.setBackgroundResource(R.drawable.pause);
                     updateProgress();
                 }
+                refreshHiddenController();
             }
         });
-        videoView = root.findViewById(R.id.video_view);
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -80,6 +235,7 @@ public class VideoFragment extends Fragment {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                handler.removeCallbacks(hiddenControllerRunnable);
                 seekBarOnTouch = true;
             }
 
@@ -90,9 +246,10 @@ public class VideoFragment extends Fragment {
                 int duration = videoView.getDuration();
                 int seek = (int) ((progress / 100f) * duration);
                 videoView.seekTo(seek);
+                refreshHiddenController();
             }
         });
-
+        refreshHiddenController();
         return root;
     }
 
@@ -137,6 +294,7 @@ public class VideoFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        handler.removeCallbacks(hiddenControllerRunnable);
     }
 
     public boolean isPlay() {
