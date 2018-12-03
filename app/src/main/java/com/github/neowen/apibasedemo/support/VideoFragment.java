@@ -3,6 +3,7 @@ package com.github.neowen.apibasedemo.support;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class VideoFragment extends Fragment {
     View controller;
     TextView progressText, durationText;
     ImageView action;
+    ImageView fullscreenAction;
     boolean onAnimator;
     boolean controllerShow;
     float lastX;
@@ -83,12 +85,13 @@ public class VideoFragment extends Fragment {
         final View root = inflater.inflate(R.layout.frag_video, container, false);
         bottomProgressBar = root.findViewById(R.id.bottom_progress);
         bottomProgressBar.setAlpha(0f);
+        fullscreenAction = root.findViewById(R.id.fullscreen);
         seekBar = root.findViewById(R.id.seek_bar);
         controller = root.findViewById(R.id.controller);
         controller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
             }
         });
         progressText = root.findViewById(R.id.progress_text);
@@ -274,6 +277,13 @@ public class VideoFragment extends Fragment {
                 refreshHiddenController();
             }
         });
+        fullscreenAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            }
+        });
+
         refreshHiddenController();
         return root;
     }
@@ -281,7 +291,7 @@ public class VideoFragment extends Fragment {
     private String formatDuration(int duration) {
         int total = duration / 1000;
         int second = total % 60;
-        int minute = total / 60 / 60;
+        int minute = total / 60;
         return String.format("%02d:%02d", minute, second);
     }
 

@@ -34,7 +34,9 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
     VideoFragment videoFragment;
     VideoFragmentTwo videoFragmentTwo;
     FrameLayout testContent;
-    String TEST_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/testmp4.mp4";
+//    String TEST_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/testmp4.mp4";
+//    String TEST_PATH = "https://scb.liaidi.com//data//video//2017//12//20171214235251279358.mp4";
+    String TEST_PATH = "https://scb.liaidi.com//data//video//2017//12//20171214235251279358.mp4";
 
 
     @Override
