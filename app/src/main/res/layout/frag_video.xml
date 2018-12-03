@@ -15,7 +15,8 @@
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:progressDrawable="@drawable/seek_bar_bg" />
 
     <LinearLayout
         android:id="@+id/controller"
@@ -44,6 +45,9 @@
             android:layout_marginRight="6dp"
             android:layout_weight="1"
             android:layerType="software"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progressDrawable="@drawable/seek_bar_bg"
             android:thumb="@drawable/seek_bar_thumb" />
 
         <TextView
