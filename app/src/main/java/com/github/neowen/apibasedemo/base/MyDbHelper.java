@@ -25,7 +25,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("drop table " + TABLE_NAME);
+        db.execSQL("drop table if exists " + TABLE_NAME);
         db.execSQL(CREATE_SERVER_TABLE);
         Log.d("TAG", "create db success");
     }

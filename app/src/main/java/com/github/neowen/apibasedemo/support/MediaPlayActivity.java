@@ -51,6 +51,7 @@ public class MediaPlayActivity extends BaseActivity implements View.OnClickListe
 //        videoView.setVideoURI(Uri.parse("file:///android_asset/testmp4.mp4"));
 //        videoView.setVideoURI(Uri.parse(path));
 //        videoView.start();
+        niceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_NATIVE);
         TxVideoPlayerController controller = new TxVideoPlayerController(this);
         niceVideoPlayer.setController(controller);
 

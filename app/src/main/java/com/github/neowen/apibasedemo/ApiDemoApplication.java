@@ -2,11 +2,13 @@ package com.github.neowen.apibasedemo;
 
 import android.app.Application;
 import android.graphics.Color;
+import android.os.StrictMode;
 import android.widget.TextView;
 
 import com.github.neowen.apibasedemo.utils.CrashHandler;
 //import com.github.neowen.apibasedemo.utils.MapUtils;
 //import com.umeng.analytics.MobclickAgent;
+import com.squareup.leakcanary.LeakCanary;
 import com.umeng.commonsdk.UMConfigure;
 
 /**
@@ -22,9 +24,28 @@ public class ApiDemoApplication extends Application {
         return textView;
     }
 
+    private static void enabledStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder() //
+                .detectAll() //
+                .penaltyLog() //
+                .penaltyDeath() //
+                .build());
+    }
+
+    protected void setupLeakCanary() {
+//        enabledStrictMode();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        setupLeakCanary();
         CrashHandler c = new CrashHandler(this);
 //        mapUtils = new MapUtils(this);
 //        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "1fe6a20054bcef865eeb0991ee84525b");
