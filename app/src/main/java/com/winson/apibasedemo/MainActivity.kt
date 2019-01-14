@@ -1,13 +1,15 @@
 package com.winson.apibasedemo
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.winson.apibasedemo.base.ApiItem
+import com.winson.apibasedemo.base.ApiItemListActivity
+import com.winson.apibasedemo.hybird.HybirdActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ApiItemListActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun bindData() {
+        val item = ApiItem("Hybird")
+        item.activityClassName = HybirdActivity::class.java
+        items.add(item)
     }
 
 }
