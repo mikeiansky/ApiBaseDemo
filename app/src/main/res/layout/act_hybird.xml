@@ -4,4 +4,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <Button
+            android:id="@+id/call_js"
+            android:text="call js"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <WebView android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:id="@+id/web_view"/>
+
+
 </LinearLayout>
