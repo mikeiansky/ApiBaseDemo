@@ -1,51 +1,11 @@
 <resources>
 
-    <!-- attr -->
-    <attr name="my_size" format="dimension" />
-    <attr name="my_style" format="reference" />
-
-    <style name="dialog">
-        <item name="android:windowFrame">@null</item><!--边框-->
-        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
-        <item name="android:windowIsTranslucent">false</item><!--半透明-->
-        <item name="android:windowNoTitle">true</item><!--无标题-->
-        <item name="android:windowBackground">@color/transparent</item><!--背景透明-->
-        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
-        <!--<item name="android:windowFullscreen">true</item>-->
-    </style>
-
-    <style name="anim_photo_select">
-        <item name="android:windowEnterAnimation">@anim/photo_pop_in</item>
-        <item name="android:windowExitAnimation">@anim/photo_pop_out</item>
-    </style>
-
     <!-- Base application theme. -->
-    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-    <style name="MyAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="my_size">30sp</item>
-        <item name="android:textSize">?attr/my_size</item>
-        <item name="colorPrimary">@color/md_red_400</item>
-        <!--<item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.AppButon</item>-->
-    </style>
-
-    <style name="MyStyle">
-        <item name="android:textColor">#4400ff</item>
-    </style>
-
-    <style name="TestStyle" parent="@android:style/Theme.Black.NoTitleBar.Fullscreen">
-
-    </style>
-
-    <style name="CustomDialog" parent="android:Theme.DeviceDefault.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <!--<item name="android:background">@null</item>-->
-        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
-    </style>
-
-    <style name="Widget.AppCompat.Button.Borderless.AppButon">
-        <!--<item name="android:background">@drawable/app_btn</item>-->
-        <!--<item name="android:textColor">#ffffff</item>-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
 </resources>

@@ -1,15 +1,3 @@
 <resources>
     <string name="app_name">ApiBaseDemo</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
-    <!-- csdn-->
-    <string name="circle_no_black_video">循环播放不黑屏播放器</string>
-
-    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
-    <string name="header_behavior" translatable="false">com.github.neowen.apibasedemo.design.netscrollview.MyBehavior</string>
-    <string name="header_behavior2" translatable="false">com.github.neowen.apibasedemo.design.netscrollview.HeaderFloatBehavior</string>
-
-
 </resources>
