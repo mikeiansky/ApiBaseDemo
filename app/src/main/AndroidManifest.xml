@@ -18,6 +18,8 @@
         </activity>
 
         <activity android:name=".hybird.HybirdActivity"/>
+        <activity android:name=".view.ViewActivity"/>
+        <activity android:name=".view.ShadowViewActivity"/>
 
     </application>
 

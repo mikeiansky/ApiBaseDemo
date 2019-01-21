@@ -20,7 +20,7 @@ class ApiItemAdapter(context: Context, val fragmentManager: FragmentManager, val
         viewHolder.convertView.setOnClickListener {
             if (item.isFragment) {
                 fragmentManager.beginTransaction()
-                    .replace(rootViewId, item.fragment!!)
+                    .add(item.fragment!!,"item")
                     .addToBackStack(null)
                     .commit()
             } else {
