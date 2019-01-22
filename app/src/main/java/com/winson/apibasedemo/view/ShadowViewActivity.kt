@@ -19,8 +19,6 @@ class ShadowViewActivity:BaseActivity(){
         super.onBind(savedInstanceState)
         setContentView(R.layout.act_shadow_view)
 
-        val shadowView = findViewById<ImageView>(R.id.shadow_view)
-        shadowView.elevation = 50f
 
     }
 

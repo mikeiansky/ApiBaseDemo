@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#ffffff">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:clipChildren="false"
+             android:layout_height="match_parent"
+             android:background="#ffffff">
 
-    <ImageView
-            android:background="#ff0000"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="50dp"
-            android:id="@+id/shadow_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+    <com.winson.apibasedemo.view.MyShadowView android:layout_width="100dp" android:layout_height="100dp"
+                                              android:layout_marginLeft="50dp"
+                                              android:layout_marginTop="50dp"
+    />
 
-    <ImageView
-            android:background="@drawable/shadow_bg"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+    <ImageView android:layout_width="80dp" android:layout_height="80dp"
+               android:layout_marginTop="160dp"
+               android:layout_marginLeft="60dp"
+               android:background="#ff00ff"
+    />
 
-</LinearLayout>
+</FrameLayout>
