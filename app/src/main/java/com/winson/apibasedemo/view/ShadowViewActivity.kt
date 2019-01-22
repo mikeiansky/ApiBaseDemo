@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
 import com.winson.apibasedemo.R
 import com.winson.apibasedemo.base.BaseActivity
 import com.winson.apibasedemo.base.BaseFragment
@@ -19,6 +20,9 @@ class ShadowViewActivity:BaseActivity(){
         super.onBind(savedInstanceState)
         setContentView(R.layout.act_shadow_view)
 
+        val shadowView = findViewById<ImageView>(R.id.shadow_view)
+        val shadowDrawable = ShadowDrawable(this)
+        ViewCompat.setBackground(shadowView, shadowDrawable)
 
     }
 

@@ -12,10 +12,10 @@
                                               android:layout_marginTop="50dp"
     />
 
-    <ImageView android:layout_width="80dp" android:layout_height="80dp"
+    <ImageView android:layout_width="100dp" android:layout_height="100dp"
                android:layout_marginTop="160dp"
-               android:layout_marginLeft="60dp"
-               android:background="#ff00ff"
+               android:layout_marginLeft="50dp"
+               android:id="@+id/shadow_view"
     />
 
 </FrameLayout>
