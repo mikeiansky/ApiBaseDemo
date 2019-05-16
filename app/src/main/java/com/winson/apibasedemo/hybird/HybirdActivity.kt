@@ -37,6 +37,8 @@ class HybirdActivity : BaseActivity() {
             "\n" +
             "</html>"
 
+    var webView: WebView? = null
+
     override fun onBind(savedInstanceState: Bundle?) {
         super.onBind(savedInstanceState)
         setContentView(R.layout.act_hybird)
@@ -47,11 +49,21 @@ class HybirdActivity : BaseActivity() {
         webView.webChromeClient = WebChromeClient()
         webView.webViewClient = object : WebViewClient(){}
         webView.addJavascriptInterface(this, "winson")
-        webView.loadData(HTML, "text/html", "UTF-8")
+//        webView.loadData(HTML, "text/html", "UTF-8")
+
+        webView.loadUrl("http://v.qq.com/cover/f/f7hbxgwnskb2obt.html?vid=8KUE9qOMlFT")
+
+        this.webView = webView
+
         callJs.setOnClickListener {
             webView.loadUrl("javascript:callJs()")
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        webView?.destroy()
     }
 
     @JavascriptInterface

@@ -3,19 +3,27 @@
              xmlns:app="http://schemas.android.com/apk/res-auto"
              android:orientation="vertical"
              android:layout_width="match_parent"
-             android:clipChildren="false"
              android:layout_height="match_parent"
              android:background="#ffffff">
 
-    <com.winson.apibasedemo.view.MyShadowView android:layout_width="100dp" android:layout_height="100dp"
-                                              android:layout_marginLeft="50dp"
-                                              android:layout_marginTop="50dp"
-    />
+    <!--<com.winson.apibasedemo.view.MyShadowView android:layout_width="100dp" android:layout_height="100dp"-->
+    <!--android:layout_marginLeft="50dp"-->
+    <!--android:layout_marginTop="50dp"-->
+    <!--/>-->
 
-    <ImageView android:layout_width="100dp" android:layout_height="100dp"
-               android:layout_marginTop="160dp"
-               android:layout_marginLeft="50dp"
-               android:id="@+id/shadow_view"
-    />
+    <!--<ImageView android:layout_width="100dp" android:layout_height="100dp"-->
+    <!--android:layout_marginTop="160dp"-->
+    <!--android:layout_marginLeft="50dp"-->
+    <!--android:id="@+id/shadow_view"-->
+    <!--/>-->
+
+    <com.winson.apibasedemo.view.ProgressView
+            android:id="@+id/indicator_view"
+            app:bg_color="#00ff00"
+            app:progress_color="#ff0000"
+            app:stroke_with="3dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_width="100dp" android:layout_height="100dp"/>
 
 </FrameLayout>
