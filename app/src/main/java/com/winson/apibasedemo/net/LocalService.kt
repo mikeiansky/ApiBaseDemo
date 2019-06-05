@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface LocalService {
 
-    @GET("/test/say")
-    fun say(): Observable<MyResult>
+    @GET("/test/pay")
+    fun pay(): Observable<MyResult>
 
 }

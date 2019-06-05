@@ -35,7 +35,7 @@ class ToolsActivity : BaseActivity() {
         result.setOnClickListener {
 
             val localService = NetManager.buildApi().create(LocalService::class.java)
-            localService.say()
+            localService.pay()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<MyResult> {
@@ -64,12 +64,6 @@ class ToolsActivity : BaseActivity() {
 
         }
 
-    }
-
-    fun check() {
-        val service = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val wifiNetworkInfo = service.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-        Log.d("TAG", "wifi network info : " + wifiNetworkInfo.isConnected)
     }
 
 }
