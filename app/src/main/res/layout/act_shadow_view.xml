@@ -1,29 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:orientation="vertical"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="#ffffff">
-
-    <!--<com.winson.apibasedemo.view.MyShadowView android:layout_width="100dp" android:layout_height="100dp"-->
-    <!--android:layout_marginLeft="50dp"-->
-    <!--android:layout_marginTop="50dp"-->
-    <!--/>-->
-
-    <!--<ImageView android:layout_width="100dp" android:layout_height="100dp"-->
-    <!--android:layout_marginTop="160dp"-->
-    <!--android:layout_marginLeft="50dp"-->
-    <!--android:id="@+id/shadow_view"-->
-    <!--/>-->
-
-    <com.winson.apibasedemo.view.ProgressView
-            android:id="@+id/indicator_view"
-            app:bg_color="#00ff00"
-            app:progress_color="#ff0000"
-            app:stroke_with="3dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_width="100dp" android:layout_height="100dp"/>
+    android:layout_width="match_parent"
+    
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2CD1CC">
+        
+        <ImageView
+            android:id="@+id/start_desc_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@mipmap/start_desc" />
+    
+    
+    </FrameLayout>
+    
+    <ImageView
+        android:id="@+id/start_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/start_bg_light"
+        android:scaleType="fitXY" />
+    
+    <ImageView
+        android:id="@+id/start_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="200dp"
+        android:background="@mipmap/start_desc" />
+    
+    <ImageView
+        android:id="@+id/start_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="100dp"
+        android:background="@mipmap/start_logo_light" />
+    
+    <ImageView
+        android:id="@+id/start_shan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="220dp"
+        android:background="@mipmap/start_shan" />
+    
+    <ImageView
+        android:id="@+id/start_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/start_person" />
+    
+    <ImageView
+        android:id="@+id/start_hb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="150dp"
+        android:background="@mipmap/start_hb" />
 
 </FrameLayout>

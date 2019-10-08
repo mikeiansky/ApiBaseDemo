@@ -7,6 +7,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
+import com.winson.apibasedemo.MainActivity
 import com.winson.apibasedemo.R
 import com.winson.apibasedemo.base.BaseActivity
 
@@ -29,7 +30,7 @@ class HybirdActivity : BaseActivity() {
             "\t<body>\n" +
             "\t\t<button onclick=\"javascript:callJs()\">From Android</button>\n" +
             "\t\t<br/>\n" +
-            "\t\t<button onclick=\"window.winson.callAndroid('From WebView')\">Call Android</button>\n" +
+            "\t\t<button onclick=\"window.winson.callAndroid('From MineWebView')\">Call Android</button>\n" +
             "\t\t<br/>\n" +
             "\t\t<div id=\"content\">Hello Android</div>\n" +
             "\n" +
@@ -47,11 +48,11 @@ class HybirdActivity : BaseActivity() {
         val webView = findViewById<WebView>(R.id.web_view)
         webView.settings.javaScriptEnabled = true
         webView.webChromeClient = WebChromeClient()
-        webView.webViewClient = object : WebViewClient(){}
+        webView.webViewClient = object : WebViewClient() {}
         webView.addJavascriptInterface(this, "winson")
 //        webView.loadData(HTML, "text/html", "UTF-8")
 
-        webView.loadUrl("http://v.qq.com/cover/f/f7hbxgwnskb2obt.html?vid=8KUE9qOMlFT")
+        webView.loadUrl("https://mp.weixin.qq.com/s?__biz=MzU4NjA4NjMwNw==&tempkey=MTAxN19rRUo1REw3dTlwT1lIMHJYM1JBQUNXX2UxYXVvMk9SR3F0bUd5ZTdEdHhETmlaQTZyWnEzVmpVb2RkYU9uQ0lCcDFfV2JPZGNvVHFVZnhDcnhoaEMweVRzWHc2X1BBemRxY05odjdnZjgzMkxhR0tiWTZONFRKdnhiOVB6cUozd3YzaHR5aGFoczNYc0M2am9vZWhqXzZqb3RSV0F2STUzV0lkZkhBfn4%3D&chksm=7d825c454af5d553ed9e126dece1b2b953d21800b4feb0e086641295be834fc782808afe9af3&mpshare=1&scene=1&srcid=0715NrhYA01JDhseQ492X2Jr#wechat_redirect")
 
         this.webView = webView
 

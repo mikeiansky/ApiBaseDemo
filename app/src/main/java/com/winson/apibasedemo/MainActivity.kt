@@ -1,5 +1,6 @@
 package com.winson.apibasedemo
 
+import android.os.Bundle
 import android.util.Log
 import com.winson.apibasedemo.base.ApiItem
 import com.winson.apibasedemo.base.ApiItemListActivity
@@ -8,6 +9,43 @@ import com.winson.apibasedemo.tools.ToolsActivity
 import com.winson.apibasedemo.view.ViewActivity
 
 class MainActivity : ApiItemListActivity() {
+
+    private val TAG = MainActivity::class.java.simpleName
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "lifeCycle onStop --------->")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG,"lifeCycle onRestart --------->")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG,"lifeCycle onStart --------->")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG,"lifeCycle onCreate --------->")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG,"lifeCycle onResume --------->")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG,"lifeCycle onPause --------->")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG,"lifeCycle onDestroy --------->")
+    }
 
     var test : Int? = 0
     set(value) {

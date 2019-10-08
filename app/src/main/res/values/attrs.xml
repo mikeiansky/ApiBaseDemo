@@ -7,4 +7,11 @@
         <attr name="stroke_with" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="CardShadowView">
+        <attr name="corner" format="dimension"/>
+        <attr name="offset" format="dimension"/>
+        <attr name="frame_color" format="color"/>
+        <attr name="shadow_color" format="color"/>
+    </declare-styleable>
+
 </resources>

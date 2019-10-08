@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+    
     <TextView
-            android:gravity="center"
-            android:text="alipay"
-            android:layout_width="match_parent"
-            android:id="@+id/result"
-            android:layout_height="match_parent"/>
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="卖家id"
+        android:textSize="20sp" />
+    
+    <EditText
+        android:id="@+id/seller_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="20001" />
+    
+    <TextView
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户id"
+        android:textSize="20sp" />
+    
+    <EditText
+        android:id="@+id/user_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="10001" />
+    
+    <TextView
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="支付金额"
+        android:textSize="20sp" />
+    
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal" />
+    
+    <TextView
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="商品描述"
+        android:textSize="20sp" />
+    
+    <EditText
+        android:id="@+id/subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    
+    <Button
+        android:id="@+id/ali_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="ali pay" />
+    
+    <Button
+        android:id="@+id/wx_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="wx pay" />
+    
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        
+        <ImageView
+            android:background="@mipmap/grow_float_bg"
+            android:layout_width="114dp"
+            android:layout_height="44dp" />
+        <TextView
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="尝试其他职业方向"
+            android:textColor="#45CFC5"
+            android:textSize="12sp"/>
+        
+    </FrameLayout>
+    
+
 
 </LinearLayout>
