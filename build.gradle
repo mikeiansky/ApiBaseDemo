@@ -9,6 +9,7 @@ buildscript {
         maven { url "https://dl.bintray.com/thelasterstar/maven/" }
         maven { url "https://jitpack.io" }
         maven { url "https://oss.sonatype.org/content/groups/public" }
+        maven { url 'http://dl.bintray.com/amulyakhare/maven' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
@@ -27,6 +28,7 @@ allprojects {
         maven { url "https://dl.bintray.com/thelasterstar/maven/" }
         maven { url "https://jitpack.io" }
         maven { url "https://oss.sonatype.org/content/groups/public" }
+        maven { url 'http://dl.bintray.com/amulyakhare/maven' }
     }
 }
 

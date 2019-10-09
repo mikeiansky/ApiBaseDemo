@@ -10,7 +10,7 @@ import com.winson.apibasedemo.hybird.HybirdActivity
  *@date on 2019/1/21
  *@Author Winson
  */
-class ViewActivity : ApiItemListActivity(){
+class ViewActivity : ApiItemListActivity() {
 
     private val TAG = ViewActivity::class.java.simpleName
 
@@ -64,6 +64,10 @@ class ViewActivity : ApiItemListActivity(){
 
         item = ApiItem("AnimatorFour")
         item.activityClassName = AnimatorActivity::class.java
+        items.add(item)
+
+        item = ApiItem("Text")
+        item.activityClassName = TextActivity::class.java
         items.add(item)
     }
 

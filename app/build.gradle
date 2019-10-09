@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.3.1'
 //    implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
 //    implementation "androidx.core:core-ktx:1.0.0"
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
 }
 
