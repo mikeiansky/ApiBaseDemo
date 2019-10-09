@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical"
     android:padding="10dp">
     
@@ -23,12 +24,18 @@
         android:layout_height="150dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp">
-    
-        <ImageView
-            android:background="#00ff00"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
         
+        <VideoView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        
+        <ImageView
+            android:id="@+id/video_front"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    
+    
     </FrameLayout>
 
 </LinearLayout>
