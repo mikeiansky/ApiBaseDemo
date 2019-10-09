@@ -1,7 +1,5 @@
 package com.winson.apibasedemo.view
 
-import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -12,13 +10,14 @@ import android.widget.TextView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.winson.apibasedemo.base.BaseActivity
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.widget.ImageView
+import android.widget.VideoView
 import androidx.annotation.NonNull
 import com.winson.apibasedemo.R
+import com.winson.apibasedemo.utils.Constant
 
 
 /**
@@ -54,7 +53,8 @@ class TextActivity : BaseActivity() {
         val customText = findViewById<TextView>(R.id.custom_text)
         val span = SpannableStringBuilder()
         span.append("0Hello World!")
-        val fontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics)
+        val fontSize =
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics)
         val red = TextDrawable.builder()
             .beginConfig()
             .textColor(Color.WHITE)
@@ -68,9 +68,32 @@ class TextActivity : BaseActivity() {
         span.setSpan(bs, 0, 1, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
         customText.text = span
 
-//        val image = findViewById<ImageView>(R.id.image)
-//        image.background = red
+        val videoView = findViewById<VideoView>(R.id.video_view)
+        videoView.setVideoPath(Constant.VIDEO_PATH)
+        videoView.start()
 
+        val videoFront = findViewById<ImageView>(R.id.video_front)
+
+        val stroken =
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics)
+        val bw =
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250f, resources.displayMetrics)
+        val bh =
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150f, resources.displayMetrics)
+
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        paint.strokeWidth = stroken
+        paint.style = Paint.Style.STROKE
+        paint.color = Color.parseColor("#ffffff")
+        val source = Bitmap.createBitmap(bw.toInt(), bh.toInt(), Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(source)
+        val corner =
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics)
+        val offset = stroken / 2f
+        val rectF = RectF(-offset, -offset, bw + offset, bh + offset)
+        canvas.drawRoundRect(rectF, corner, corner, paint)
+
+        videoFront.setImageBitmap(source)
     }
 
 }
