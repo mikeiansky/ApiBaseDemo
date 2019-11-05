@@ -6,6 +6,7 @@ import com.winson.apibasedemo.base.ApiItem
 import com.winson.apibasedemo.base.ApiItemListActivity
 import com.winson.apibasedemo.hybird.HybirdActivity
 import com.winson.apibasedemo.tools.ToolsActivity
+import com.winson.apibasedemo.tools.ToolsListActivity
 import com.winson.apibasedemo.view.ViewActivity
 
 class MainActivity : ApiItemListActivity() {
@@ -63,7 +64,7 @@ class MainActivity : ApiItemListActivity() {
         items.add(item)
 
         item = ApiItem("Tools")
-        item.activityClassName = ToolsActivity::class.java
+        item.activityClassName = ToolsListActivity::class.java
         items.add(item)
     }
 
