@@ -21,7 +21,7 @@ class ParasiteBean {
     var carrier: String? = null
 
     // 日志创建时间
-    var createdAtMs: String? = null
+    val createdAtMs: Long = System.currentTimeMillis()
 
     // 设备唯一标识
     var deviceId: String? = ParasiteBaseInfo.deviceId

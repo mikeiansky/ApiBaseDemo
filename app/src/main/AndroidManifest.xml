@@ -74,6 +74,8 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
+        <service android:name=".bean.ParasiteService" />
+
         <activity
             android:name="com.ciwei.live.wxapi.WXPayEntryActivity"
             android:exported="true"

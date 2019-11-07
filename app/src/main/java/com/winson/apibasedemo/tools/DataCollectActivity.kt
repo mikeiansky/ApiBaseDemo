@@ -2,6 +2,7 @@ package com.winson.apibasedemo.tools
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.wifi.WifiManager
 import android.os.Bundle
@@ -13,10 +14,15 @@ import android.net.ConnectivityManager
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import com.google.gson.Gson
+import com.winson.apibasedemo.R
 import com.winson.apibasedemo.bean.ParasiteBean
+import com.winson.apibasedemo.bean.ParasiteDbHelper
+import com.winson.apibasedemo.bean.ParasiteService
+import kotlinx.android.synthetic.main.act_data_collect.view.*
 import java.util.*
 
 
@@ -149,11 +155,23 @@ class DataCollectActivity : BaseActivity() {
         infoText.text = infoBuilder.toString()
 
         val gson = Gson()
+        val dbHelper = ParasiteDbHelper(this)
 
         infoText.setOnClickListener {
             val bean = ParasiteBean()
-            Log.d("TAG","result ---> ${gson.toJson(bean)}")
+            Log.d("TAG", "result ---> ${gson.toJson(bean)}")
+            dbHelper.addRecord(bean)
         }
+
+        findViewById<View>(R.id.read).setOnClickListener {
+            Log.d("TAG", "query result : ${dbHelper.queryRecord()}")
+        }
+
+        findViewById<View>(R.id.start_service).setOnClickListener {
+            val intent = Intent(this, ParasiteService::class.java)
+            startService(intent)
+        }
+
     }
 
 }
