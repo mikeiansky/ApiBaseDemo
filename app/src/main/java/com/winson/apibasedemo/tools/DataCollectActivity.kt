@@ -62,10 +62,10 @@ class DataCollectActivity : BaseActivity() {
             val nSubType = networkInfo.subtype
             val mTelephony = context
                 .getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-            if (nSubType == TelephonyManager.NETWORK_TYPE_UMTS && !mTelephony.isNetworkRoaming) {
-                netType = 2// 3G
+            netType = if (nSubType == TelephonyManager.NETWORK_TYPE_UMTS && !mTelephony.isNetworkRoaming) {
+                2// 3G
             } else {
-                netType = 3// 2G
+                3// 2G
             }
         }
         return netType
@@ -154,7 +154,7 @@ class DataCollectActivity : BaseActivity() {
 
         val apnType = getAPNType(this)
         infoBuilder.append("apnType:")
-        infoBuilder.append(apnType)
+        infoBuilder.append(NetState.getNetWorkStatus(this))
         infoBuilder.append("\r\n")
 
         val androidVersion = android.os.Build.VERSION.SDK_INT
