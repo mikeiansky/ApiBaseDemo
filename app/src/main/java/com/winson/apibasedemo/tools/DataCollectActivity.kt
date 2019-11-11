@@ -1,8 +1,10 @@
 package com.winson.apibasedemo.tools
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.net.wifi.WifiManager
 import android.os.Bundle
@@ -11,18 +13,26 @@ import android.widget.TextView
 import com.winson.apibasedemo.base.BaseActivity
 import java.lang.StringBuilder
 import android.net.ConnectivityManager
+import android.os.Environment
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.Toast
 import com.google.gson.Gson
 import com.winson.apibasedemo.R
 import com.winson.apibasedemo.bean.ParasiteBean
 import com.winson.apibasedemo.bean.ParasiteDbHelper
 import com.winson.apibasedemo.bean.ParasiteService
+import com.winson.apibasedemo.utils.FileUtils
+import com.winson.apibasedemo.utils.PermissionUtils
 import kotlinx.android.synthetic.main.act_data_collect.view.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.StringReader
 import java.util.*
 
 
@@ -164,8 +174,37 @@ class DataCollectActivity : BaseActivity() {
         }
 
         findViewById<View>(R.id.read).setOnClickListener {
-            val records = dbHelper.queryRecord()
-            Log.d("TAG", "size: ${records.size} , query result : $records")
+            //            val records = dbHelper.queryRecord()
+//            Log.d("TAG", "size: ${records.size} , query result : $records")
+            var info = Settings.System.getString(contentResolver, Settings.System.ANDROID_ID)
+            if (info == null || info == "9774d56d682e549c") {
+                // read from sp
+                val sp = getSharedPreferences("app", Context.MODE_PRIVATE)
+                info = sp.getString("deviceId", null)
+                val pathFile =
+                    File(Environment.getExternalStorageDirectory().absolutePath + "/data/id.txt")
+                if (info == null) {
+                    // read from file
+                    if (!pathFile.parentFile.isDirectory
+                        || !pathFile.parentFile.exists()
+                    ) {
+                        pathFile.mkdirs()
+                    }
+                    if (!pathFile.exists()) {
+                        val uuid = UUID.randomUUID().toString()
+                        saveDeviceId(uuid, pathFile)
+                    } else {
+                        info = FileUtils.file2String(pathFile, "utf-8")
+                    }
+                } else {
+                    saveDeviceId(info, pathFile)
+                }
+
+                val editor = sp.edit()
+                editor.putString("deviceId", info)
+                editor.apply()
+            }
+            Log.d("TAG", "info --------> $info")
         }
 
         findViewById<View>(R.id.start_service).setOnClickListener {
@@ -174,5 +213,29 @@ class DataCollectActivity : BaseActivity() {
         }
 
     }
+
+    private fun saveDeviceId(uuid: String, pathFile: File) {
+        if (PermissionUtils.hasAlwaysDeniedPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        ) {
+            PermissionUtils.requestPermissions(this,
+                0x11,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                object : PermissionUtils.OnPermissionListener {
+                    override fun onPermissionGranted() {
+                        FileUtils.string2File(uuid, pathFile.absolutePath)
+                    }
+
+                    override fun onPermissionDenied(deniedPermissions: Array<String>) {
+
+                    }
+                })
+        } else {
+            FileUtils.string2File(uuid, pathFile.absolutePath)
+        }
+    }
+
 
 }

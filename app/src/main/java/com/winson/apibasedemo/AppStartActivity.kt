@@ -1,17 +1,27 @@
 package com.winson.apibasedemo
 
+import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
+import android.provider.Settings
+import android.text.TextUtils
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.AnticipateInterpolator
 import android.view.animation.BounceInterpolator
 import android.view.animation.DecelerateInterpolator
 import com.winson.apibasedemo.base.BaseActivity
+import com.winson.apibasedemo.utils.FileUtils
+import com.winson.apibasedemo.utils.PermissionUtils
+import java.io.File
+import java.util.*
 
 /**
  *
@@ -143,10 +153,77 @@ class AppStartActivity : BaseActivity() {
 //
 //        })
 
+        getDeviceId(true)
+
         val intent = Intent(this@AppStartActivity, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
 
+    private fun getDeviceId(save: Boolean): String {
+        var info = Settings.System.getString(contentResolver, Settings.System.ANDROID_ID)
+        if (info == null || info == "9774d56d682e549c") {
+            // read from sp
+            val sp = getSharedPreferences("app", Context.MODE_PRIVATE)
+            info = sp.getString("deviceId", null)
+            val pathFile =
+                File(Environment.getExternalStorageDirectory().absolutePath + "/data/id.txt")
+            // read from file
+            if (!pathFile.parentFile.isDirectory
+                || !pathFile.parentFile.exists()
+            ) {
+                pathFile.mkdirs()
+            }
+            if (pathFile.exists()) {
+                val old = FileUtils.file2String(pathFile, "utf-8")
+                if (TextUtils.isEmpty(old)) {
+                    if (info == null) {
+                        info = UUID.randomUUID().toString()
+                    }
+                    if (save) {
+                        saveDeviceId(info, pathFile)
+                    }
+                } else {
+                    info = old
+                }
+            } else {
+                if (info == null) {
+                    info = UUID.randomUUID().toString()
+                }
+                if (save) {
+                    saveDeviceId(info, pathFile)
+                }
+            }
+
+            val editor = sp.edit()
+            editor.putString("deviceId", info)
+            editor.apply()
+        }
+
+        return info
+    }
+
+    private fun saveDeviceId(uuid: String, pathFile: File) {
+        if (PermissionUtils.hasAlwaysDeniedPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        ) {
+            PermissionUtils.requestPermissions(this,
+                0x11,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                object : PermissionUtils.OnPermissionListener {
+                    override fun onPermissionGranted() {
+                        FileUtils.string2File(uuid, pathFile.absolutePath)
+                    }
+
+                    override fun onPermissionDenied(deniedPermissions: Array<String>) {
+
+                    }
+                })
+        } else {
+            FileUtils.string2File(uuid, pathFile.absolutePath)
+        }
     }
 
 }
