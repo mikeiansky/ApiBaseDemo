@@ -99,7 +99,7 @@ class ParasiteService : Service() {
                 if (!checkNet()) {
                     return
                 }
-                
+
             }
         }
     }

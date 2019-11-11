@@ -57,7 +57,16 @@ class ParasiteDbHelper : SQLiteOpenHelper {
     fun queryRecord(): ArrayList<ParasiteRecord> {
         val records = arrayListOf<ParasiteRecord>()
         val db = readableDatabase
-        val cursor = db.query(PARASITE_TABLE_NAME, null, null, null, null, null, null)
+        val cursor = db.query(
+            PARASITE_TABLE_NAME,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "100"
+        )
         if (cursor.moveToFirst()) {
             do {
                 val id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID))

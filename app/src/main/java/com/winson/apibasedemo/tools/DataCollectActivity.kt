@@ -164,7 +164,8 @@ class DataCollectActivity : BaseActivity() {
         }
 
         findViewById<View>(R.id.read).setOnClickListener {
-            Log.d("TAG", "query result : ${dbHelper.queryRecord()}")
+            val records = dbHelper.queryRecord()
+            Log.d("TAG", "size: ${records.size} , query result : $records")
         }
 
         findViewById<View>(R.id.start_service).setOnClickListener {
