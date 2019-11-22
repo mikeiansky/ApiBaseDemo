@@ -67,6 +67,8 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <service android:name=".service.DownloadService"/>
+
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -80,6 +82,11 @@
             android:name="com.ciwei.live.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
+
+        <meta-data
+            android:name="CHANNEL"
+            android:value="CIWEI"
+            />
 
     </application>
 

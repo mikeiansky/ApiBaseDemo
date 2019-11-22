@@ -21,6 +21,11 @@ import java.util.*
  */
 class MyApplication : Application() {
 
+    override fun onTerminate() {
+        super.onTerminate()
+        Log.d("TAG","MyApplication ---> onTerminate")
+    }
+
     override fun onCreate() {
         super.onCreate()
         ParasiteBaseInfo.init(this)

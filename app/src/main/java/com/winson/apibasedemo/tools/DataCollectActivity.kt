@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.wifi.WifiManager
 import android.os.Bundle
@@ -26,6 +27,7 @@ import com.winson.apibasedemo.R
 import com.winson.apibasedemo.bean.ParasiteBean
 import com.winson.apibasedemo.bean.ParasiteDbHelper
 import com.winson.apibasedemo.bean.ParasiteService
+import com.winson.apibasedemo.service.DownloadService
 import com.winson.apibasedemo.utils.FileUtils
 import com.winson.apibasedemo.utils.PermissionUtils
 import kotlinx.android.synthetic.main.act_data_collect.view.*
@@ -62,11 +64,12 @@ class DataCollectActivity : BaseActivity() {
             val nSubType = networkInfo.subtype
             val mTelephony = context
                 .getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-            netType = if (nSubType == TelephonyManager.NETWORK_TYPE_UMTS && !mTelephony.isNetworkRoaming) {
-                2// 3G
-            } else {
-                3// 2G
-            }
+            netType =
+                if (nSubType == TelephonyManager.NETWORK_TYPE_UMTS && !mTelephony.isNetworkRoaming) {
+                    2// 3G
+                } else {
+                    3// 2G
+                }
         }
         return netType
     }
@@ -75,6 +78,11 @@ class DataCollectActivity : BaseActivity() {
     override fun onBind(savedInstanceState: Bundle?) {
         super.onBind(savedInstanceState)
         setContentView(com.winson.apibasedemo.R.layout.act_data_collect)
+
+        val metaTextView: TextView = findViewById(R.id.meta)
+        val pack = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+        val channel = pack.metaData.getString("CHANNEL")
+        metaTextView.text = channel
 
         //wifi mac地址
         val infoText = findViewById<TextView>(com.winson.apibasedemo.R.id.info)
@@ -176,35 +184,43 @@ class DataCollectActivity : BaseActivity() {
         findViewById<View>(R.id.read).setOnClickListener {
             //            val records = dbHelper.queryRecord()
 //            Log.d("TAG", "size: ${records.size} , query result : $records")
-            var info = Settings.System.getString(contentResolver, Settings.System.ANDROID_ID)
-            if (info == null || info == "9774d56d682e549c") {
-                // read from sp
-                val sp = getSharedPreferences("app", Context.MODE_PRIVATE)
-                info = sp.getString("deviceId", null)
-                val pathFile =
-                    File(Environment.getExternalStorageDirectory().absolutePath + "/data/id.txt")
-                if (info == null) {
-                    // read from file
-                    if (!pathFile.parentFile.isDirectory
-                        || !pathFile.parentFile.exists()
-                    ) {
-                        pathFile.mkdirs()
-                    }
-                    if (!pathFile.exists()) {
-                        val uuid = UUID.randomUUID().toString()
-                        saveDeviceId(uuid, pathFile)
-                    } else {
-                        info = FileUtils.file2String(pathFile, "utf-8")
-                    }
-                } else {
-                    saveDeviceId(info, pathFile)
-                }
+//            var info = Settings.System.getString(contentResolver, Settings.System.ANDROID_ID)
+//            if (info == null || info == "9774d56d682e549c") {
+//                // read from sp
+//                val sp = getSharedPreferences("app", Context.MODE_PRIVATE)
+//                info = sp.getString("deviceId", null)
+//                val pathFile =
+//                    File(Environment.getExternalStorageDirectory().absolutePath + "/data/id.txt")
+//                if (info == null) {
+//                    // read from file
+//                    if (!pathFile.parentFile.isDirectory
+//                        || !pathFile.parentFile.exists()
+//                    ) {
+//                        pathFile.mkdirs()
+//                    }
+//                    if (!pathFile.exists()) {
+//                        val uuid = UUID.randomUUID().toString()
+//                        saveDeviceId(uuid, pathFile)
+//                    } else {
+//                        info = FileUtils.file2String(pathFile, "utf-8")
+//                    }
+//                } else {
+//                    saveDeviceId(info, pathFile)
+//                }
+//
+//                val editor = sp.edit()
+//                editor.putString("deviceId", info)
+//                editor.apply()
+//            }
+//            Log.d("TAG", "info --------> $info")
 
-                val editor = sp.edit()
-                editor.putString("deviceId", info)
-                editor.apply()
-            }
-            Log.d("TAG", "info --------> $info")
+//            var usableSpace = Environment.getExternalStorageDirectory().usableSpace
+//            usableSpace /= (1024 * 1024 * 1024)
+//            Log.d("TAG", "usableSpace : $usableSpace")
+
+            val intent = Intent(it.context, DownloadService::class.java)
+            startService(intent)
+
         }
 
         findViewById<View>(R.id.start_service).setOnClickListener {
@@ -212,29 +228,6 @@ class DataCollectActivity : BaseActivity() {
             startService(intent)
         }
 
-    }
-
-    private fun saveDeviceId(uuid: String, pathFile: File) {
-        if (PermissionUtils.hasAlwaysDeniedPermission(
-                this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
-        ) {
-            PermissionUtils.requestPermissions(this,
-                0x11,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                object : PermissionUtils.OnPermissionListener {
-                    override fun onPermissionGranted() {
-                        FileUtils.string2File(uuid, pathFile.absolutePath)
-                    }
-
-                    override fun onPermissionDenied(deniedPermissions: Array<String>) {
-
-                    }
-                })
-        } else {
-            FileUtils.string2File(uuid, pathFile.absolutePath)
-        }
     }
 
 
