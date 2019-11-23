@@ -84,8 +84,8 @@
             android:launchMode="singleTop" />
 
         <meta-data
-            android:name="CHANNEL"
-            android:value="CIWEI"
+            android:name="CIWEI_CHANNEL"
+            android:value="${CIWEI_CHANNEL}"
             />
 
     </application>

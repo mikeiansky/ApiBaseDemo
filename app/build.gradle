@@ -13,6 +13,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        flavorDimensions "default"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,6 +21,22 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    productFlavors {
+
+        wandoujia {
+            manifestPlaceholders = [
+                    CIWEI_CHANNEL: "wandoujia"
+            ]
+        }
+
+        a360 {
+            manifestPlaceholders = [
+                    CIWEI_CHANNEL: "a360"
+            ]
+        }
+
     }
 
 }

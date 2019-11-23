@@ -81,7 +81,8 @@ class DataCollectActivity : BaseActivity() {
 
         val metaTextView: TextView = findViewById(R.id.meta)
         val pack = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
-        val channel = pack.metaData.getString("CHANNEL")
+//        val channel = pack.metaData.getString("CHANNEL")
+        val channel = pack.metaData.getString("CIWEI_CHANNEL")
         metaTextView.text = channel
 
         //wifi mac地址
