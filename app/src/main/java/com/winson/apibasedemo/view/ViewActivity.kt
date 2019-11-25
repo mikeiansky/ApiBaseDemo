@@ -69,6 +69,10 @@ class ViewActivity : ApiItemListActivity() {
         item = ApiItem("Text")
         item.activityClassName = TextActivity::class.java
         items.add(item)
+
+        item = ApiItem("Banner")
+        item.activityClassName = BannerActivity::class.java
+        items.add(item)
     }
 
 }

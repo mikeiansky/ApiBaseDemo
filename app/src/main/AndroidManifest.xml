@@ -67,7 +67,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
-        <service android:name=".service.DownloadService"/>
+        <activity
+            android:name=".view.BannerActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".service.DownloadService" />
 
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -85,8 +89,7 @@
 
         <meta-data
             android:name="CIWEI_CHANNEL"
-            android:value="${CIWEI_CHANNEL}"
-            />
+            android:value="${CIWEI_CHANNEL}" />
 
     </application>
 

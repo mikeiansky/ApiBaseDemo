@@ -67,6 +67,7 @@ dependencies {
 //    implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
 //    implementation "androidx.core:core-ktx:1.0.0"
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'com.facebook.fresco:fresco:0.12.0'
 
 }
 
