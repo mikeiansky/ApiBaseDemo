@@ -61,7 +61,9 @@ class BannerActivity : BaseActivity() {
         viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
-
+                if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    stairBannerView.notifyUpdate()
+                }
             }
 
             override fun onPageScrolled(
@@ -69,17 +71,17 @@ class BannerActivity : BaseActivity() {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-                Log.d(
-                    "TAG",
-                    "onPageScrolled --> position: $position , positionOffset:$positionOffset"
-                )
+//                Log.d(
+//                    "TAG",
+//                    "onPageScrolled --> position: $position , positionOffset:$positionOffset"
+//                )
                 if (position == 0) {
                     stairBannerView.actionScroll(positionOffset)
                 }
             }
 
             override fun onPageSelected(position: Int) {
-
+                stairBannerView.notifyUpdate()
             }
 
         })

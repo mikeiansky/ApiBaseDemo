@@ -91,6 +91,10 @@ class StairBannerView : FrameLayout {
         return layoutParams
     }
 
+    fun notifyUpdate(){
+        refreshLayoutParams()
+    }
+
     fun actionScroll(scrollOffset: Float) {
 
         // second hierarchy view
@@ -153,6 +157,11 @@ class StairBannerView : FrameLayout {
         threeImage.scaleX = threeScale
         threeImage.scaleY = threeScale
         threeImage.translationX = threeTranslateX
+
+        val twoImage = getChildAt(3)
+        twoImage.scaleX = 1f
+        twoImage.scaleY = 1f
+        twoImage.translationX = 0f
 
         // one
         val oneTx = topImage.width * -1f - offset * 5
