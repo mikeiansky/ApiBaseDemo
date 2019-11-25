@@ -5,8 +5,15 @@
     android:orientation="vertical">
 
     <com.winson.apibasedemo.view.StairBannerView
+        android:id="@+id/stair_banner_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>

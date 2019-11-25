@@ -64,9 +64,18 @@ class StairBannerView : FrameLayout {
 
     private val testImageUrl =
         arrayListOf(imageUrl1, imageUrl2, imageUrl3, imageUrl4, imageUrl5, imageUrl6)
+
     private val fiveScale = 0.7f
+    private var fiveTranslateX = 0f
+    private var b45w = 0f
+
     private val fourScale = 0.8f
+    private var fourTranslateX = 0f
+    private var b34w = 0f
+
     private val threeScale = 0.9f
+    private var threeTranslateX = 0f
+
     private val aspectRatio = 2.38f
     private var paddTB = 0
     private var paddLR = 0
@@ -82,10 +91,73 @@ class StairBannerView : FrameLayout {
         return layoutParams
     }
 
+    fun actionScroll(scrollOffset: Float) {
+
+        // second hierarchy view
+        val secondView = getChildAt(3)
+        secondView.translationX = -(secondView.width + paddTB + paddLR) * scrollOffset
+//        secondView.translationX = -secondView.width * 2f
+
+        // third hierarchy view
+        val ts = threeScale + (1f - threeScale) * scrollOffset
+        val thirdView = getChildAt(2)
+        thirdView.translationX = threeTranslateX * (1 - scrollOffset)
+        thirdView.scaleX = ts
+        thirdView.scaleY = ts
+//        thirdView.translationX = -secondView.width * 2f
+
+        // four hierarchy view
+        val fs = fourScale + (threeScale - fourScale) * scrollOffset
+        val fourView = getChildAt(1)
+        fourView.translationX = threeTranslateX + b34w * (1 - scrollOffset)
+        fourView.scaleX = fs
+        fourView.scaleY = fs
+
+        // five hierarchy view
+        val fiveS = fiveScale + (fourScale - fiveScale) * scrollOffset
+        val fiveView = getChildAt(0)
+        fiveView.translationX = fourTranslateX + b45w * (1 - scrollOffset)
+        fiveView.alpha = scrollOffset
+        fiveView.scaleX = fiveS
+        fiveView.scaleY = fiveS
+
+    }
+
     private fun refreshLayoutParams() {
         for (i in 0 until childCount) {
             getChildAt(i).layoutParams = fromLayoutParams()
         }
+
+        val topImage = getChildAt(childCount - 1)
+        fiveTranslateX = topImage.width * (1 - fiveScale) / 2f + offset + offset + offset
+        fourTranslateX = topImage.width * (1 - fourScale) / 2f + offset + offset
+        threeTranslateX = topImage.width * (1 - threeScale) / 2f + offset
+        b45w = fiveTranslateX - fourTranslateX
+        b34w = fourTranslateX - threeTranslateX
+
+        // five
+        val fiveImage = getChildAt(0)
+        fiveImage.scaleX = fiveScale
+        fiveImage.scaleY = fiveScale
+        fiveImage.alpha = 0.0f
+        fiveImage.translationX = fiveTranslateX
+
+        // four
+        val fourImage = getChildAt(1)
+        fourImage.scaleX = fourScale
+        fourImage.scaleY = fourScale
+        fourImage.translationX = fourTranslateX
+
+        // three
+        val threeImage = getChildAt(2)
+        threeImage.scaleX = threeScale
+        threeImage.scaleY = threeScale
+        threeImage.translationX = threeTranslateX
+
+        // one
+        val oneTx = topImage.width * -1f - offset * 5
+        topImage.translationX = oneTx
+
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -95,10 +167,8 @@ class StairBannerView : FrameLayout {
         defStyleAttr: Int,
         defStyleRes: Int
     ) {
-
         clipChildren = false
         clipToPadding = false
-
         paddTB = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             20f,
@@ -137,35 +207,7 @@ class StairBannerView : FrameLayout {
         refreshLayoutParams()
         viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
-
-                val topImage = getChildAt(childCount - 1)
-
-                // five
-                val fiveImage = getChildAt(0)
-                val fiveTx = topImage.width * (1 - fiveScale) / 2f + offset + offset + offset
-                fiveImage.scaleX = fiveScale
-                fiveImage.scaleY = fiveScale
-                fiveImage.alpha = 0.5f
-                fiveImage.translationX = fiveTx
-
-                // four
-                val fourImage = getChildAt(1)
-                val fourTx = topImage.width * (1 - fourScale) / 2f + offset + offset
-                fourImage.scaleX = fourScale
-                fourImage.scaleY = fourScale
-                fourImage.translationX = fourTx
-
-                // three
-                val threeImage = getChildAt(2)
-                val threeTx = topImage.width * (1 - threeScale) / 2f + offset
-                threeImage.scaleX = threeScale
-                threeImage.scaleY = threeScale
-                threeImage.translationX = threeTx
-
-                // one
-                val oneTx = topImage.width * -1f - offset * 5
-                topImage.translationX = oneTx
-
+                refreshLayoutParams()
                 viewTreeObserver.removeOnPreDrawListener(this)
                 return false
             }
