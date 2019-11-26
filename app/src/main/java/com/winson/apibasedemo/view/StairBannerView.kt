@@ -56,21 +56,6 @@ class StairBannerView : FrameLayout {
         init(context, attrs, defStyleAttr, defStyleRes)
     }
 
-    private val imageUrl1 =
-        "https://img.shixijob.net/college/20190921/E08197083058746ACB97795FAE3FEC9F.jpg"
-    private val imageUrl2 =
-        "https://img.shixijob.net/college/20190921/370B196584E027705A6B5BD2DC6417E8.jpeg"
-    private val imageUrl3 =
-        "https://img.shixijob.net/college/20190829/6013B011049502A0C36E7BFFB4AB8D7F.png"
-    private val imageUrl4 =
-        "https://img.shixijob.net/college/20190829/B0B3F990EC4292751E7A7DDA1CE3263E.png"
-    private val imageUrl5 =
-        "https://img.shixijob.net/college/20190829/A4DE10855E024376B4AC0AE111E0A1F7.png"
-    private val imageUrl6 =
-        "https://img.shixijob.net/college/20190830/54B10C10D4DE1B4FE2315C184B5D9395.jpg"
-    private val testImageUrl =
-        arrayListOf(imageUrl1, imageUrl2, imageUrl3, imageUrl4, imageUrl5, imageUrl6)
-
     private val fiveScale = 0.7f
     private var fiveTranslateX = 0f
     private var b45w = 0f
@@ -270,7 +255,6 @@ class StairBannerView : FrameLayout {
 
         for ((index) in (0..4).withIndex()) {
             val coverView = createCoverView()
-            coverView.setImageURI(testImageUrl[index])
             addView(coverView)
         }
 
@@ -297,7 +281,6 @@ class StairBannerView : FrameLayout {
     }
 
     private fun refreshShowPosition(firstShowPosition: Int) {
-        Log.d("TAG", "refreshShowPosition --> $firstShowPosition")
         this.firstShowPosition = firstShowPosition
         if (datas == null || datas!!.isEmpty()) {
             for ((index) in (0 until childCount).withIndex()) {
@@ -305,7 +288,7 @@ class StairBannerView : FrameLayout {
             }
         } else {
             (getChildAt(4) as SimpleDraweeView).setImageURI(datas!![getPosition(firstShowPosition - 1)].getCover())
-            (getChildAt(3) as SimpleDraweeView).setImageURI(datas!![firstShowPosition].getCover())
+            (getChildAt(3) as SimpleDraweeView).setImageURI(datas!![getPosition(firstShowPosition)].getCover())
             (getChildAt(2) as SimpleDraweeView).setImageURI(datas!![getPosition(firstShowPosition + 1)].getCover())
             (getChildAt(1) as SimpleDraweeView).setImageURI(datas!![getPosition(firstShowPosition + 2)].getCover())
             (getChildAt(0) as SimpleDraweeView).setImageURI(datas!![getPosition(firstShowPosition + 3)].getCover())

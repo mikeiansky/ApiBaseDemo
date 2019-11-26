@@ -108,11 +108,11 @@ class BannerActivity : BaseActivity() {
             private var lastPosition = 1
 
             override fun onPageScrollStateChanged(state: Int) {
-                if (state == ViewPager.SCROLL_STATE_IDLE) {
+                if (state == ViewPager.SCROLL_STATE_IDLE || state == ViewPager.SCROLL_STATE_DRAGGING) {
                     val current = viewPager.currentItem
                     Log.d(
                         "TAG",
-                        "WinsonPage onPageScrollStateChanged --> size:${adapter.count} lastPosition:$lastPosition, current$current"
+                        "WinsonPage onPageScrollStateChanged -->state:$state , lastPosition:$lastPosition, current:$current"
                     )
                     if (lastPosition != current) {
                         val offset = current - lastPosition
@@ -153,6 +153,7 @@ class BannerActivity : BaseActivity() {
 
         })
 
+        stairBannerView.refreshData(coverDatas)
         findViewById<View>(R.id.refresh).setOnClickListener {
             stairBannerView.refreshData(coverDatas)
         }
