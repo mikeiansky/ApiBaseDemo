@@ -21,7 +21,7 @@ public class AldViewPager extends ViewPager {
     private InnerAdapter mAdapter;
     private PagerAdapter mOriginAdapter;
     private int mIndex = 1;
-    private int mDuration = 1000*60*60;
+    private int mDuration = 1000*3;
     private Handler mHandler;
     private AldPagerIndicator mPagerIndicator;
 
