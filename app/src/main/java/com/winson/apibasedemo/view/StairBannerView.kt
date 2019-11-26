@@ -88,6 +88,8 @@ class StairBannerView : FrameLayout {
         val rightMargin = paddLR + offset * 2
         layoutParams.leftMargin = leftMargin
         layoutParams.rightMargin = rightMargin
+        layoutParams.topMargin = paddTB
+        layoutParams.bottomMargin = paddTB
         return layoutParams
     }
 
@@ -106,14 +108,38 @@ class StairBannerView : FrameLayout {
     }
 
     fun actionScroll(prev: Boolean, scrollOffset: Float) {
-        Log.d("TAG", "actionScroll ---> prev:$prev, scrollOffset:$scrollOffset")
+        Log.d("TAG", "WinsonPage actionScroll ---> prev:$prev, scrollOffset:$scrollOffset")
         if (prev) {
+            // first hierarchy view
+            val firstView = getChildAt(4)
+            firstView.translationX = -(firstView.width + offset * 5) * scrollOffset
+
+            // second hierarchy view
+            val secondView = getChildAt(3)
+            val ss = threeScale + (1f - threeScale) * scrollOffset
+            secondView.scaleX = ss
+            secondView.scaleY = ss
+            secondView.translationX = threeTranslateX * (1 - scrollOffset)
+
+            // third hierarchy view
+            val ts = fourScale + (threeScale - fourScale) * scrollOffset
+            val thirdView = getChildAt(2)
+            thirdView.translationX = threeTranslateX + b34w * (1 - scrollOffset)
+            thirdView.scaleX = ts
+            thirdView.scaleY = ts
+
+            // four hierarchy view
+            val fs = fiveScale + (fourScale - fiveScale) * scrollOffset
+            val fourView = getChildAt(1)
+            fourView.translationX = fourTranslateX + b45w * (1 - scrollOffset)
+            fourView.scaleX = fs
+            fourView.scaleY = fs
+            fourView.alpha = scrollOffset
 
         } else {
             // second hierarchy view
             val secondView = getChildAt(3)
             secondView.translationX = -(secondView.width + paddTB + paddLR) * scrollOffset
-//        secondView.translationX = -secondView.width * 2f
 
             // third hierarchy view
             val ts = threeScale + (1f - threeScale) * scrollOffset
@@ -121,7 +147,6 @@ class StairBannerView : FrameLayout {
             thirdView.translationX = threeTranslateX * (1 - scrollOffset)
             thirdView.scaleX = ts
             thirdView.scaleY = ts
-//        thirdView.translationX = -secondView.width * 2f
 
             // four hierarchy view
             val fs = fourScale + (threeScale - fourScale) * scrollOffset
@@ -140,6 +165,7 @@ class StairBannerView : FrameLayout {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun refreshLayoutParams(swap: Boolean) {
         if (swap) {
             // top
@@ -168,6 +194,7 @@ class StairBannerView : FrameLayout {
         fiveImage.scaleX = fiveScale
         fiveImage.scaleY = fiveScale
         fiveImage.alpha = 0.0f
+        fiveImage.elevation = 2f
         fiveImage.translationX = fiveTranslateX
 
         // four
@@ -175,6 +202,7 @@ class StairBannerView : FrameLayout {
         fourImage.scaleX = fourScale
         fourImage.scaleY = fourScale
         fourImage.alpha = 1f
+        fourImage.elevation = 3f
         fourImage.translationX = fourTranslateX
 
         // three
@@ -182,17 +210,22 @@ class StairBannerView : FrameLayout {
         threeImage.scaleX = threeScale
         threeImage.scaleY = threeScale
         threeImage.alpha = 1f
+        threeImage.elevation = 4f
         threeImage.translationX = threeTranslateX
 
         val twoImage = getChildAt(3)
         twoImage.scaleX = 1f
         twoImage.scaleY = 1f
         twoImage.alpha = 1f
+        twoImage.elevation = 5f
         twoImage.translationX = 0f
 
         // one
         val oneTx = topImage.width * -1f - offset * 5
+        topImage.scaleX = 1f
+        topImage.scaleY = 1f
         topImage.alpha = 1f
+        topImage.elevation = 6f
         topImage.translationX = oneTx
 
     }
@@ -208,7 +241,7 @@ class StairBannerView : FrameLayout {
         clipToPadding = false
         paddTB = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            20f,
+            50f,
             context.resources.displayMetrics
         ).toInt()
 

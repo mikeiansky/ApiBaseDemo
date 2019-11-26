@@ -66,8 +66,8 @@ class BannerActivity : BaseActivity() {
             override fun onPageScrollStateChanged(state: Int) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
                     if (lastPosition != viewPager.currentItem) {
-                        lastPosition = viewPager.currentItem
                         stairBannerView.notifyUpdate()
+                        lastPosition = viewPager.currentItem
                     }
                     Log.d("TAG", "WinsonPage onPageScrollStateChanged -->")
                 }
@@ -82,9 +82,9 @@ class BannerActivity : BaseActivity() {
                     "TAG",
                     "WinsonPage onPageScrolled --> position: $position , lastPosition:${lastPosition} , positionOffset:$positionOffset"
                 )
-//                if (position == 0) {
-                stairBannerView.actionScroll(position != lastPosition, positionOffset)
-//                }
+                if (position <= lastPosition) {
+                    stairBannerView.actionScroll(position < lastPosition, positionOffset)
+                }
             }
 
             override fun onPageSelected(position: Int) {
