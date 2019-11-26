@@ -103,7 +103,6 @@ class StairBannerView : FrameLayout {
     }
 
     fun notifyUpdate(toNext: Boolean) {
-        Log.d("TAG", "notifyUpdate ---> toNext:$toNext")
         if (toNext) {
             // top
             val topView = getChildAt(childCount - 1)

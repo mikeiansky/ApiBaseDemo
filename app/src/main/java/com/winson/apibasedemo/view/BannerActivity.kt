@@ -47,7 +47,7 @@ class BannerActivity : BaseActivity() {
         }
 
         override fun getCount(): Int {
-            return 10
+            return 1
         }
 
     }
@@ -66,8 +66,12 @@ class BannerActivity : BaseActivity() {
 
             override fun onPageScrollStateChanged(state: Int) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    if (lastPosition != viewPager.currentItem) {
-                        val current = viewPager.currentItem
+                    val current = viewPager.currentItem
+                    Log.d(
+                        "TAG",
+                        "WinsonPage onPageScrollStateChanged --> size:${adapter.count} lastPosition:$lastPosition, current$current"
+                    )
+                    if (lastPosition != current) {
                         val offset = current - lastPosition
                         if (abs(offset) >= 2) {
                             if (offset > 0) {
@@ -88,6 +92,10 @@ class BannerActivity : BaseActivity() {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
+//                Log.d(
+//                    "TAG",
+//                    "WinsonPage onPageScrolled --> position: $position , lastPosition:${lastPosition} , positionOffset:$positionOffset"
+//                )
                 if (position <= lastPosition) {
                     stairBannerView.actionScroll(position < lastPosition, positionOffset)
                 }
@@ -97,6 +105,7 @@ class BannerActivity : BaseActivity() {
 //                stairBannerView.notifyUpdate()
 //                Log.d("TAG", "WinsonPage onPageSelected --> $position")
 //                stairBannerView.notifyUpdate()
+
             }
 
         })
