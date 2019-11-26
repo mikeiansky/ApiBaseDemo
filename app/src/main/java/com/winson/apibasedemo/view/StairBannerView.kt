@@ -102,13 +102,27 @@ class StairBannerView : FrameLayout {
         return coverView
     }
 
-    fun notifyUpdate() {
-        Log.d("TAG", "notifyUpdate------->")
-        refreshLayoutParams(true)
+    fun notifyUpdate(toNext: Boolean) {
+        Log.d("TAG", "notifyUpdate ---> toNext:$toNext")
+        if (toNext) {
+            // top
+            val topView = getChildAt(childCount - 1)
+            removeView(topView)
+
+            // add bottom
+            addView(topView, 0)
+        } else {
+            // bottom
+            val bottomView = getChildAt(0)
+            removeView(bottomView)
+
+            // add bottom
+            addView(bottomView)
+        }
+        refreshLayoutParams()
     }
 
     fun actionScroll(prev: Boolean, scrollOffset: Float) {
-        Log.d("TAG", "WinsonPage actionScroll ---> prev:$prev, scrollOffset:$scrollOffset")
         if (prev) {
             // first hierarchy view
             val firstView = getChildAt(4)
@@ -165,19 +179,7 @@ class StairBannerView : FrameLayout {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun refreshLayoutParams(swap: Boolean) {
-        if (swap) {
-            // top
-            val topView = getChildAt(childCount - 1)
-            removeView(topView)
-
-            // add bottom
-//            val coverView = createCoverView()
-//            coverView.setImageURI(testImageUrl[5])
-            addView(topView, 0)
-        }
-
+    private fun refreshLayoutParams() {
         for (i in 0 until childCount) {
             getChildAt(i).layoutParams = fromLayoutParams()
         }
@@ -194,7 +196,6 @@ class StairBannerView : FrameLayout {
         fiveImage.scaleX = fiveScale
         fiveImage.scaleY = fiveScale
         fiveImage.alpha = 0.0f
-        fiveImage.elevation = 2f
         fiveImage.translationX = fiveTranslateX
 
         // four
@@ -202,7 +203,6 @@ class StairBannerView : FrameLayout {
         fourImage.scaleX = fourScale
         fourImage.scaleY = fourScale
         fourImage.alpha = 1f
-        fourImage.elevation = 3f
         fourImage.translationX = fourTranslateX
 
         // three
@@ -210,14 +210,12 @@ class StairBannerView : FrameLayout {
         threeImage.scaleX = threeScale
         threeImage.scaleY = threeScale
         threeImage.alpha = 1f
-        threeImage.elevation = 4f
         threeImage.translationX = threeTranslateX
 
         val twoImage = getChildAt(3)
         twoImage.scaleX = 1f
         twoImage.scaleY = 1f
         twoImage.alpha = 1f
-        twoImage.elevation = 5f
         twoImage.translationX = 0f
 
         // one
@@ -225,9 +223,7 @@ class StairBannerView : FrameLayout {
         topImage.scaleX = 1f
         topImage.scaleY = 1f
         topImage.alpha = 1f
-        topImage.elevation = 6f
         topImage.translationX = oneTx
-
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -270,10 +266,10 @@ class StairBannerView : FrameLayout {
             addView(coverView)
         }
 
-        refreshLayoutParams(false)
+        refreshLayoutParams()
         viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
-                refreshLayoutParams(false)
+                refreshLayoutParams()
                 viewTreeObserver.removeOnPreDrawListener(this)
                 return false
             }

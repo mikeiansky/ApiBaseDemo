@@ -13,6 +13,7 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.winson.apibasedemo.R
 import com.winson.apibasedemo.base.BaseActivity
+import kotlin.math.abs
 
 /**
  * @date 2019/11/25
@@ -66,10 +67,19 @@ class BannerActivity : BaseActivity() {
             override fun onPageScrollStateChanged(state: Int) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
                     if (lastPosition != viewPager.currentItem) {
-                        stairBannerView.notifyUpdate()
+                        val current = viewPager.currentItem
+                        val offset = current - lastPosition
+                        if (abs(offset) >= 2) {
+                            if (offset > 0) {
+                                stairBannerView.notifyUpdate(false)
+                            } else {
+                                stairBannerView.notifyUpdate(true)
+                            }
+                        } else {
+                            stairBannerView.notifyUpdate(current > lastPosition)
+                        }
                         lastPosition = viewPager.currentItem
                     }
-                    Log.d("TAG", "WinsonPage onPageScrollStateChanged -->")
                 }
             }
 
@@ -78,10 +88,6 @@ class BannerActivity : BaseActivity() {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-                Log.d(
-                    "TAG",
-                    "WinsonPage onPageScrolled --> position: $position , lastPosition:${lastPosition} , positionOffset:$positionOffset"
-                )
                 if (position <= lastPosition) {
                     stairBannerView.actionScroll(position < lastPosition, positionOffset)
                 }
@@ -89,9 +95,8 @@ class BannerActivity : BaseActivity() {
 
             override fun onPageSelected(position: Int) {
 //                stairBannerView.notifyUpdate()
-                Log.d("TAG", "WinsonPage onPageSelected --> $position")
+//                Log.d("TAG", "WinsonPage onPageSelected --> $position")
 //                stairBannerView.notifyUpdate()
-
             }
 
         })
