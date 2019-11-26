@@ -1,5 +1,6 @@
 package com.winson.apibasedemo.view
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.Color
@@ -22,14 +23,21 @@ import com.winson.apibasedemo.R
  */
 class StairBannerView : FrameLayout {
 
+    interface Item {
+        fun getCover(): String
+    }
+
+    @SuppressLint("NewApi")
     constructor(context: Context) : super(context) {
         init(context, null, 0, 0)
     }
 
+    @SuppressLint("NewApi")
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         init(context, attrs, 0, 0)
     }
 
+    @SuppressLint("NewApi")
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
@@ -48,7 +56,6 @@ class StairBannerView : FrameLayout {
         init(context, attrs, defStyleAttr, defStyleRes)
     }
 
-    //    private val imageUrl = "http://img3.imgtn.bdimg.com/it/u=2783525887,3246024378&fm=26&gp=0.jpg"
     private val imageUrl1 =
         "https://img.shixijob.net/college/20190921/E08197083058746ACB97795FAE3FEC9F.jpg"
     private val imageUrl2 =
@@ -61,7 +68,6 @@ class StairBannerView : FrameLayout {
         "https://img.shixijob.net/college/20190829/A4DE10855E024376B4AC0AE111E0A1F7.png"
     private val imageUrl6 =
         "https://img.shixijob.net/college/20190830/54B10C10D4DE1B4FE2315C184B5D9395.jpg"
-
     private val testImageUrl =
         arrayListOf(imageUrl1, imageUrl2, imageUrl3, imageUrl4, imageUrl5, imageUrl6)
 
@@ -81,6 +87,8 @@ class StairBannerView : FrameLayout {
     private var paddLR = 0
     private var offset = 0
     private var radius = 0f
+    private var datas: ArrayList<Item>? = null
+    private var firstShowPosition = 0
 
     private fun fromLayoutParams(): LayoutParams {
         val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
@@ -102,7 +110,7 @@ class StairBannerView : FrameLayout {
         return coverView
     }
 
-    fun notifyUpdate(toNext: Boolean) {
+    fun notifyUpdate(toNext: Boolean, firstShowPosition: Int) {
         if (toNext) {
             // top
             val topView = getChildAt(childCount - 1)
@@ -118,6 +126,7 @@ class StairBannerView : FrameLayout {
             // add bottom
             addView(bottomView)
         }
+        refreshShowPosition(firstShowPosition)
         refreshLayoutParams()
     }
 
@@ -275,6 +284,32 @@ class StairBannerView : FrameLayout {
 
         })
 
+    }
+
+    fun refreshData(datas: ArrayList<Item>?) {
+        this.datas = datas
+        refreshShowPosition(firstShowPosition)
+    }
+
+    private fun getPosition(position: Int): Int {
+        val size = datas!!.size
+        return (size + position) % size
+    }
+
+    private fun refreshShowPosition(firstShowPosition: Int) {
+        Log.d("TAG", "refreshShowPosition --> $firstShowPosition")
+        this.firstShowPosition = firstShowPosition
+        if (datas == null || datas!!.isEmpty()) {
+            for ((index) in (0 until childCount).withIndex()) {
+                (getChildAt(index) as SimpleDraweeView).setImageURI("")
+            }
+        } else {
+            (getChildAt(4) as SimpleDraweeView).setImageURI(datas!![getPosition(firstShowPosition - 1)].getCover())
+            (getChildAt(3) as SimpleDraweeView).setImageURI(datas!![firstShowPosition].getCover())
+            (getChildAt(2) as SimpleDraweeView).setImageURI(datas!![getPosition(firstShowPosition + 1)].getCover())
+            (getChildAt(1) as SimpleDraweeView).setImageURI(datas!![getPosition(firstShowPosition + 2)].getCover())
+            (getChildAt(0) as SimpleDraweeView).setImageURI(datas!![getPosition(firstShowPosition + 3)].getCover())
+        }
     }
 
 }
