@@ -60,9 +60,16 @@ class BannerActivity : BaseActivity() {
         val adapter = TestPageAdapter()
         viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            private var lastPosition = 1
+
             override fun onPageScrollStateChanged(state: Int) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    stairBannerView.notifyUpdate()
+                    if (lastPosition != viewPager.currentItem) {
+                        lastPosition = viewPager.currentItem
+                        stairBannerView.notifyUpdate()
+                    }
+                    Log.d("TAG", "WinsonPage onPageScrollStateChanged -->")
                 }
             }
 
@@ -71,17 +78,20 @@ class BannerActivity : BaseActivity() {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-//                Log.d(
-//                    "TAG",
-//                    "onPageScrolled --> position: $position , positionOffset:$positionOffset"
-//                )
-                if (position == 0) {
-                    stairBannerView.actionScroll(positionOffset)
-                }
+                Log.d(
+                    "TAG",
+                    "WinsonPage onPageScrolled --> position: $position , lastPosition:${lastPosition} , positionOffset:$positionOffset"
+                )
+//                if (position == 0) {
+                stairBannerView.actionScroll(position != lastPosition, positionOffset)
+//                }
             }
 
             override fun onPageSelected(position: Int) {
-                stairBannerView.notifyUpdate()
+//                stairBannerView.notifyUpdate()
+                Log.d("TAG", "WinsonPage onPageSelected --> $position")
+//                stairBannerView.notifyUpdate()
+
             }
 
         })

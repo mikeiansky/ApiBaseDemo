@@ -91,43 +91,67 @@ class StairBannerView : FrameLayout {
         return layoutParams
     }
 
-    fun notifyUpdate(){
-        refreshLayoutParams()
+    private fun createCoverView(): SimpleDraweeView {
+        val rp = RoundingParams.fromCornersRadius(radius)
+        val coverView = SimpleDraweeView(context)
+        coverView.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_CROP
+        coverView.hierarchy.roundingParams = rp
+        coverView.aspectRatio = aspectRatio
+        return coverView
     }
 
-    fun actionScroll(scrollOffset: Float) {
+    fun notifyUpdate() {
+        Log.d("TAG", "notifyUpdate------->")
+        refreshLayoutParams(true)
+    }
 
-        // second hierarchy view
-        val secondView = getChildAt(3)
-        secondView.translationX = -(secondView.width + paddTB + paddLR) * scrollOffset
+    fun actionScroll(prev: Boolean, scrollOffset: Float) {
+        Log.d("TAG", "actionScroll ---> prev:$prev, scrollOffset:$scrollOffset")
+        if (prev) {
+
+        } else {
+            // second hierarchy view
+            val secondView = getChildAt(3)
+            secondView.translationX = -(secondView.width + paddTB + paddLR) * scrollOffset
 //        secondView.translationX = -secondView.width * 2f
 
-        // third hierarchy view
-        val ts = threeScale + (1f - threeScale) * scrollOffset
-        val thirdView = getChildAt(2)
-        thirdView.translationX = threeTranslateX * (1 - scrollOffset)
-        thirdView.scaleX = ts
-        thirdView.scaleY = ts
+            // third hierarchy view
+            val ts = threeScale + (1f - threeScale) * scrollOffset
+            val thirdView = getChildAt(2)
+            thirdView.translationX = threeTranslateX * (1 - scrollOffset)
+            thirdView.scaleX = ts
+            thirdView.scaleY = ts
 //        thirdView.translationX = -secondView.width * 2f
 
-        // four hierarchy view
-        val fs = fourScale + (threeScale - fourScale) * scrollOffset
-        val fourView = getChildAt(1)
-        fourView.translationX = threeTranslateX + b34w * (1 - scrollOffset)
-        fourView.scaleX = fs
-        fourView.scaleY = fs
+            // four hierarchy view
+            val fs = fourScale + (threeScale - fourScale) * scrollOffset
+            val fourView = getChildAt(1)
+            fourView.translationX = threeTranslateX + b34w * (1 - scrollOffset)
+            fourView.scaleX = fs
+            fourView.scaleY = fs
 
-        // five hierarchy view
-        val fiveS = fiveScale + (fourScale - fiveScale) * scrollOffset
-        val fiveView = getChildAt(0)
-        fiveView.translationX = fourTranslateX + b45w * (1 - scrollOffset)
-        fiveView.alpha = scrollOffset
-        fiveView.scaleX = fiveS
-        fiveView.scaleY = fiveS
-
+            // five hierarchy view
+            val fiveS = fiveScale + (fourScale - fiveScale) * scrollOffset
+            val fiveView = getChildAt(0)
+            fiveView.translationX = fourTranslateX + b45w * (1 - scrollOffset)
+            fiveView.alpha = scrollOffset
+            fiveView.scaleX = fiveS
+            fiveView.scaleY = fiveS
+        }
     }
 
-    private fun refreshLayoutParams() {
+    private fun refreshLayoutParams(swap: Boolean) {
+        if (swap) {
+            // top
+            val topView = getChildAt(childCount - 1)
+            removeView(topView)
+
+            // add bottom
+//            val coverView = createCoverView()
+//            coverView.setImageURI(testImageUrl[5])
+            addView(topView, 0)
+        }
+
         for (i in 0 until childCount) {
             getChildAt(i).layoutParams = fromLayoutParams()
         }
@@ -150,21 +174,25 @@ class StairBannerView : FrameLayout {
         val fourImage = getChildAt(1)
         fourImage.scaleX = fourScale
         fourImage.scaleY = fourScale
+        fourImage.alpha = 1f
         fourImage.translationX = fourTranslateX
 
         // three
         val threeImage = getChildAt(2)
         threeImage.scaleX = threeScale
         threeImage.scaleY = threeScale
+        threeImage.alpha = 1f
         threeImage.translationX = threeTranslateX
 
         val twoImage = getChildAt(3)
         twoImage.scaleX = 1f
         twoImage.scaleY = 1f
+        twoImage.alpha = 1f
         twoImage.translationX = 0f
 
         // one
         val oneTx = topImage.width * -1f - offset * 5
+        topImage.alpha = 1f
         topImage.translationX = oneTx
 
     }
@@ -202,21 +230,17 @@ class StairBannerView : FrameLayout {
             context.resources.displayMetrics
         )
 
-        val rp = RoundingParams.fromCornersRadius(radius)
 
         for ((index) in (0..4).withIndex()) {
-            val fiveImage = SimpleDraweeView(context)
-            fiveImage.setImageURI(testImageUrl[index])
-            fiveImage.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_CROP
-            fiveImage.hierarchy.roundingParams = rp
-            fiveImage.aspectRatio = aspectRatio
-            addView(fiveImage)
+            val coverView = createCoverView()
+            coverView.setImageURI(testImageUrl[index])
+            addView(coverView)
         }
 
-        refreshLayoutParams()
+        refreshLayoutParams(false)
         viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
-                refreshLayoutParams()
+                refreshLayoutParams(false)
                 viewTreeObserver.removeOnPreDrawListener(this)
                 return false
             }
