@@ -230,7 +230,7 @@ class StairBannerView : FrameLayout {
         clipToPadding = false
         paddTB = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            50f,
+            20f,
             context.resources.displayMetrics
         ).toInt()
 

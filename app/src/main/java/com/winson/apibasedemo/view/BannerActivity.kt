@@ -152,11 +152,9 @@ class BannerActivity : BaseActivity() {
             }
 
         })
-
         stairBannerView.refreshData(coverDatas)
-        findViewById<View>(R.id.refresh).setOnClickListener {
-            stairBannerView.refreshData(coverDatas)
-        }
+
+
 
     }
 
