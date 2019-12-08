@@ -3,18 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <!--<item name="android:windowTranslucentStatus">true</item>-->
-
-    </style>
-
-    <style name="StartActivity" parent="AppTheme">
-        <item name="android:windowBackground">@mipmap/splash_bg</item>
-<!--        <item name="android:windowBackground">@mipmap/start_bg_light</item>-->
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimary">@color/md_pink_200_color_code</item>
+        <item name="colorPrimaryDark">@color/md_pink_200_color_code</item>
+        <item name="colorAccent">@color/md_red_300_color_code</item>
     </style>
 
 
