@@ -23,12 +23,12 @@
 
     <application
         android:name=".MyApplication"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MainActivity"></activity>
 
         <activity android:name=".AppStartActivity">
@@ -37,55 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".hybird.HybirdActivity" />
-        <activity android:name=".view.ViewActivity" />
-        <activity
-            android:name=".view.ShadowViewActivity"
-            android:launchMode="singleInstance"
-            android:taskAffinity="net.sourceforge.simcpux"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".tools.ToolsActivity" />
-        <activity
-            android:name=".view.TLActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".view.RoundActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".view.AnimatorActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".view.TextActivity" />
-
-        <activity
-            android:name=".tools.ToolsListActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".tools.DataCollectActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".view.BannerActivity"
-            android:screenOrientation="portrait" />
-
-        <service android:name=".service.DownloadService" />
-
-        <activity
-            android:name="com.alipay.sdk.app.H5PayActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
-
-        <service android:name=".bean.ParasiteService" />
-
-        <activity
-            android:name="com.ciwei.live.wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop" />
 
         <meta-data
             android:name="CIWEI_CHANNEL"

@@ -1,4 +1,4 @@
-package com.winson.apibasedemo.tools;
+package com.winson.apibasedemo.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
