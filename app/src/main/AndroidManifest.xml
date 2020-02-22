@@ -37,6 +37,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".text.TextsActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="CIWEI_CHANNEL"
