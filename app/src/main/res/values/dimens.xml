@@ -2,5 +2,6 @@
 <resources>
 
     <dimen name="item_height">60dp</dimen>
+    <dimen name="app_padding">20dp</dimen>
 
 </resources>
