@@ -11,10 +11,10 @@
         android:layout_height="200dp" />
 
     <Button
-        android:layout_marginTop="10dp"
         android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="play" />
 
     <Button
@@ -22,6 +22,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="pause" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/plus"
+            android:text="plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_marginLeft="20dp"
+            android:id="@+id/minus"
+            android:text="minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
 </LinearLayout>
