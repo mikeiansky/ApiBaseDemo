@@ -1,6 +1,7 @@
 package com.winson.apibasedemo.text
 
 import android.os.Bundle
+import android.text.Html
 import android.widget.TextView
 import com.winson.apibasedemo.R
 import com.winson.apibasedemo.base.BaseActivity
@@ -16,7 +17,8 @@ class TextsActivity :BaseActivity(){
         setContentView(R.layout.act_texts)
         val announceTextView = findViewById<TextView>(R.id.announce)
         val announceStr = "1.今天会有直播哦\n2.尽情期待\n3.完善八点开始哦\n4.来了就不要错过哦"
-        announceTextView.text = announceStr
+//        announceTextView.text = announceStr
+        announceTextView.text = Html.fromHtml("<html><body>Hello<br/>World!</body></html>")
     }
 
 }
