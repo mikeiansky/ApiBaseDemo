@@ -15,6 +15,10 @@ class MediaListActivity :ApiItemListActivity(){
         val mediaVoice = ApiItem("Media Voice")
         mediaVoice.activityClassName = MediaVoiceActivity::class.java
         items.add(mediaVoice)
+
+        val mediaAidl = ApiItem("Media Aidl")
+        mediaAidl.activityClassName = MediaAidlActivity::class.java
+        items.add(mediaAidl)
     }
 
 }

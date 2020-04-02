@@ -37,12 +37,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".text.TextsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".media.MediaListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".media.MediaVoiceActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".text.TextsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".media.MediaListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".media.MediaVoiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".media.MediaAidlActivity"
+            android:screenOrientation="portrait" />
+        <service android:name=".media.MediaService"
+            />
 
         <meta-data
             android:name="CIWEI_CHANNEL"
