@@ -3,6 +3,7 @@ package com.winson.apibasedemo
 import com.winson.apibasedemo.base.ApiItem
 import com.winson.apibasedemo.base.ApiItemListActivity
 import com.winson.apibasedemo.media.MediaListActivity
+import com.winson.apibasedemo.net.NetListActivity
 import com.winson.apibasedemo.text.TextsActivity
 
 class MainActivity : ApiItemListActivity() {
@@ -16,6 +17,10 @@ class MainActivity : ApiItemListActivity() {
         val mediaItem = ApiItem("Media")
         mediaItem.activityClassName = MediaListActivity::class.java
         items.add(mediaItem)
+
+        val netItem = ApiItem("Network")
+        netItem.activityClassName = NetListActivity::class.java
+        items.add(netItem)
 
     }
 

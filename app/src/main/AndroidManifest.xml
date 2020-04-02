@@ -49,8 +49,14 @@
         <activity
             android:name=".media.MediaAidlActivity"
             android:screenOrientation="portrait" />
-        <service android:name=".media.MediaService"
-            />
+        <activity
+            android:name=".net.NetListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".net.SocketActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".media.MediaService" />
 
         <meta-data
             android:name="CIWEI_CHANNEL"
