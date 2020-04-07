@@ -16,6 +16,10 @@ class NetListActivity : ApiItemListActivity() {
         socket.activityClassName = SocketActivity::class.java
         items.add(socket)
 
+        val netty = ApiItem("Netty")
+        netty.activityClassName = NettyActivity::class.java
+        items.add(netty)
+
     }
 
 }

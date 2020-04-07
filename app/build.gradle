@@ -14,6 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         flavorDimensions "default"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -68,6 +69,8 @@ dependencies {
 //    implementation "androidx.core:core-ktx:1.0.0"
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     implementation 'com.facebook.fresco:fresco:0.12.0'
+
+//    implementation 'io.netty:netty-all:4.1.48.Final'
 
 }
 

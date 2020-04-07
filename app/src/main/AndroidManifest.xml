@@ -55,6 +55,9 @@
         <activity
             android:name=".net.SocketActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".net.NettyActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".media.MediaService" />
 
