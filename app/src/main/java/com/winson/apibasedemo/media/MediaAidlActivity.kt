@@ -161,10 +161,10 @@ class MediaAidlActivity : BaseActivity() {
             mMediaRecorder = MediaRecorder()
         try {
 
-            mMediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC);// 设置麦克风
-            mMediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+            mMediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)// 设置麦克风
+            mMediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
 
-            mMediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+            mMediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
             var fileName ="${DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance(Locale.CHINA))}.m4a"
             var destDir = File(Environment.getExternalStorageDirectory().absolutePath + "/awinso-test/vioce")
             println(destDir.absolutePath)
@@ -191,15 +191,15 @@ class MediaAidlActivity : BaseActivity() {
 
     fun stopRecord() {
         try {
-            mMediaRecorder?.stop();
-            mMediaRecorder?.release();
-            mMediaRecorder = null;
+            mMediaRecorder?.stop()
+            mMediaRecorder?.release()
+            mMediaRecorder = null
             Log.i("success!", "stopRecord success")
         } catch (e: RuntimeException) {
             e.printStackTrace()
-            mMediaRecorder?.reset();
-            mMediaRecorder?.release();
-            mMediaRecorder = null;
+            mMediaRecorder?.reset()
+            mMediaRecorder?.release()
+            mMediaRecorder = null
             Log.i("failed!", "stopRecord "+e.message)
 
             var file = File(filePath)
