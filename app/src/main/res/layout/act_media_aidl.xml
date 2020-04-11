@@ -41,5 +41,14 @@
         android:layout_height="wrap_content"
         android:text="send" />
 
+    <TextView
+        android:id="@+id/record"
+        android:padding="100dp"
+        android:background="@color/md_amber_400_color_code"
+        android:text="record"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

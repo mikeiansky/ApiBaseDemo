@@ -1,5 +1,6 @@
 package com.winson.apibasedemo.media
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -8,16 +9,25 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.IBinder
+import android.text.format.DateFormat
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.RemoteViews
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.winson.apibasedemo.R
 import com.winson.apibasedemo.base.BaseActivity
+import java.io.File
+import java.io.IOException
+import java.util.*
 
 /**
  * @date 2020/3/28
@@ -26,6 +36,8 @@ import com.winson.apibasedemo.base.BaseActivity
 class MediaAidlActivity : BaseActivity() {
 
     var binder: MyMediaPlay? = null
+    var mMediaRecorder: MediaRecorder? = null
+
     var conn: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
             Log.d("TAG", "onServiceDisconnected -----> $name")
@@ -93,7 +105,7 @@ class MediaAidlActivity : BaseActivity() {
         }
 
         findViewById<View>(R.id.dismiss).setOnClickListener {
-//            var notifyManager =
+            //            var notifyManager =
 //                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 //            notifyManager.cancel(1)
 
@@ -115,6 +127,87 @@ class MediaAidlActivity : BaseActivity() {
             binder?.play("winson haha")
         }
 
+
+        findViewById<View>(R.id.record).setOnTouchListener { v, event ->
+
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    Toast.makeText(this, "touch down", Toast.LENGTH_SHORT).show()
+                    startRecord()
+                }
+                MotionEvent.ACTION_UP -> {
+                    Toast.makeText(this, "touch up", Toast.LENGTH_SHORT).show()
+                    stopRecord()
+                }
+            }
+            true
+        }
+
+        ActivityCompat.requestPermissions(this, PERMISSIONS, 0)
+
     }
+
+    var PERMISSIONS = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.RECORD_AUDIO,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+    var filePath: String? = null
+
+    fun startRecord() {
+
+        if (mMediaRecorder == null)
+            mMediaRecorder = MediaRecorder()
+        try {
+
+            mMediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC);// 设置麦克风
+            mMediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+
+            mMediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+            var fileName ="${DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance(Locale.CHINA))}.m4a"
+            var destDir = File(Environment.getExternalStorageDirectory().absolutePath + "/awinso-test/vioce")
+            println(destDir.absolutePath)
+            if (!destDir.exists()) {
+                println("exits ${destDir.exists()} , mkdirs")
+                destDir.mkdirs()
+            }
+            println("exits ${destDir.exists()}")
+            filePath = destDir.absolutePath + "/" + fileName
+            mMediaRecorder?.setOutputFile(filePath)
+            mMediaRecorder?.prepare()
+            mMediaRecorder?.start()
+
+            Log.i("success!", "startRecord success")
+        } catch (e: IllegalStateException) {
+            e.printStackTrace()
+            Log.i("failed!", "startRecord "+e.message)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Log.i("failed!", "startRecord "+e.message)
+        }
+
+    }
+
+    fun stopRecord() {
+        try {
+            mMediaRecorder?.stop();
+            mMediaRecorder?.release();
+            mMediaRecorder = null;
+            Log.i("success!", "stopRecord success")
+        } catch (e: RuntimeException) {
+            e.printStackTrace()
+            mMediaRecorder?.reset();
+            mMediaRecorder?.release();
+            mMediaRecorder = null;
+            Log.i("failed!", "stopRecord "+e.message)
+
+            var file = File(filePath)
+            if (file.exists()) {
+                file.delete()
+            }
+        }
+    }
+
 
 }

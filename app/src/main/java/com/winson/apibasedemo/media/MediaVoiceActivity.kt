@@ -4,11 +4,13 @@ import android.content.Context
 import android.media.AudioManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.VideoView
 import com.winson.apibasedemo.R
 import com.winson.apibasedemo.base.BaseActivity
+import java.io.File
 
 /**
  * @date 2020/2/22
@@ -19,7 +21,10 @@ class MediaVoiceActivity : BaseActivity() {
     //    val testUrl = "http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4"
 //    val testUrl = "http://vfx.mtime.cn/Video/2019/03/19/mp4/190319222227698228.mp4"
 //    val testUrl = "http://7xjmzj.com1.z0.glb.clouddn.com/20171026175005_JObCxCE2.mp4"
-    val testUrl = "http://wma.9ku.com/file2/78/77707.mp3"
+//    val testUrl = "http://wma.9ku.com/file2/78/77707.mp3"
+//    var voiceFile = File(Environment.getExternalStorageDirectory().absolutePath + "/awinso-test/vioce/wenxiang.m4a")
+    var voiceFile = File(Environment.getExternalStorageDirectory().absolutePath + "/awinso-test/vioce/wenxiang.m4a")
+    val testUrl = Environment.getExternalStorageDirectory().absolutePath + "/awinso-test/vioce/wenxiang.m4a"
 
     override fun onPause() {
         super.onPause()
