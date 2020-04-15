@@ -36,7 +36,6 @@ import java.util.*
 class MediaAidlActivity : BaseActivity() {
 
     var binder: MyMediaPlay? = null
-    var mMediaRecorder: MediaRecorder? = null
 
     var conn: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -154,6 +153,7 @@ class MediaAidlActivity : BaseActivity() {
         Manifest.permission.READ_EXTERNAL_STORAGE
         )
     var filePath: String? = null
+    var mMediaRecorder: MediaRecorder? = null
 
     fun startRecord() {
 
